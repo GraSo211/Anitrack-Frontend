@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function  AiringAnimeTable() {
+import { getAnimes } from '@/actions/getAnimes';
+export default async function  AiringAnimeTable() {
+  const  animes =await getAnimes();
+  console.log(animes)
   return (
     <table className='w-[90%] bg-gray-700 '>
         <caption>Animes En Emision</caption>
