@@ -1,4 +1,4 @@
-import AiringAnimeTable from '../components/AiringAnimeTable';
+import AiringAnimeTable from '../components/anime-table/AiringAnimeTable';
 export default function Home() {
     return (
         <main className="">

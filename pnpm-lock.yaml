@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/montserrat':
+        specifier: ^5.2.6
+        version: 5.2.6
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
@@ -101,6 +104,9 @@ packages:
   '@eslint/plugin-kit@0.3.5':
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource-variable/montserrat@5.2.6':
+    resolution: {integrity: sha512-1eHefcz9ZXSMjZPckKCWSYd8rLjUpmzQIsNO8DuyU0IdPvsqletPvSIJmztr0sCU6sX4EFKsSHxJWawjmROp2A==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1867,6 +1873,8 @@ snapshots:
     dependencies:
       '@eslint/core': 0.15.2
       levn: 0.4.1
+
+  '@fontsource-variable/montserrat@5.2.6': {}
 
   '@humanfs/core@0.19.1': {}
 
