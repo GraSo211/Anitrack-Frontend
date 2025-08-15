@@ -3,37 +3,40 @@ import "./Scrollbar.css";
 
 import { getAnimes } from "@/actions/getAnimes";
 import AnimeLi from "./AnimeLi";
+import { Anime } from "@/types/Anime";
+import { AnimesResponse } from "@/types/AnimesResponse";
 
-const convertTodayEmision = (animes) => {
+const convertTodayEmision = (animes: AnimesResponse | undefined) => {
     const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
     // Initialize an empty schedule for each anime
 
     // Populate the schedule based on airingAt
-    animes.data.Page.media.forEach((anime) => {
-        anime.airingSchedule.nodes.forEach((schedule) => {
-            const airingDate = new Date(schedule.airingAt * 1000); // Convert UNIX timestamp to Date
-            const airingDay = airingDate.getDay(); // Get the day of the week (0-6)
+    if (animes)
+        animes.data.Page.media.forEach((anime: Anime) => {
+            anime.airingSchedule.nodes.forEach((schedule) => {
+                const airingDate = new Date(schedule.airingAt * 1000); // Convert UNIX timestamp to Date
+                const airingDay = airingDate.getDay(); // Get the day of the week (0-6)
 
-            anime.schedule = daysOfWeek[airingDay] || "Desconocido";
+                anime.schedule = daysOfWeek[airingDay] || "Desconocido";
+            });
         });
-    });
 
     return animes;
 };
 
 export default async function AiringAnimeTable() {
-    let animes = await getAnimes();
+    let animes: AnimesResponse | undefined = await getAnimes();
     animes = convertTodayEmision(animes);
 
     const daysOfWeek = [
-        { key: "monday", label: "Monday", spanishLabel:"Lunes" },
-        { key: "tuesday", label: "Tuesday", spanishLabel:"Martes" },
-        { key: "wednesday", label: "Wednesday", spanishLabel:"Miércoles" },
-        { key: "thursday", label: "Thursday", spanishLabel:"Jueves" },
-        { key: "friday", label: "Friday", spanishLabel:"Viernes" },
-        { key: "saturday", label: "Saturday", spanishLabel:"Sábado" },
-        { key: "sunday", label: "Sunday", spanishLabel:"Domingo" },
+        { key: "monday", label: "Monday", spanishLabel: "Lunes" },
+        { key: "tuesday", label: "Tuesday", spanishLabel: "Martes" },
+        { key: "wednesday", label: "Wednesday", spanishLabel: "Miércoles" },
+        { key: "thursday", label: "Thursday", spanishLabel: "Jueves" },
+        { key: "friday", label: "Friday", spanishLabel: "Viernes" },
+        { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
+        { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
 
     return (
@@ -47,14 +50,10 @@ export default async function AiringAnimeTable() {
                     >
                         <h3 className="text-lg font-bold text-blue-400 mb-2 tracking-wide uppercase">{day.spanishLabel}</h3>
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
-                            {animes.data.Page.media
+                            {animes&&animes.data.Page.media
                                 .filter((anime) => anime.schedule === day.key)
                                 .map((anime) => (
-                                    <AnimeLi
-                                        key={anime.id}
-                                        coverImage={anime.coverImage.large}
-                                        title={anime.title.romaji}
-                                    />
+                                    <AnimeLi key={anime.id} coverImage={anime.coverImage.large} title={anime.title.romaji} />
                                 ))}
                         </ul>
                     </div>

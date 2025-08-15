@@ -1,4 +1,7 @@
 "use server";
+
+import { AnimesResponse } from "@/types/AnimesResponse";
+
 type Anime = {
     id: number;
     title: string;
@@ -29,11 +32,7 @@ export const getAnimes = async () => {
                           title {
                             romaji
                           }
-                          startDate {
-                            year
-                            month
-                            day
-                          }
+                          
                           description
                           coverImage {
                             large
@@ -50,9 +49,7 @@ export const getAnimes = async () => {
     `,
             }),
         });
-        const data = await response.json();
-        console.log(data);
-        console.log("gollaa");
+        const data: AnimesResponse = await response.json();
         return data;
     } catch (error) {
         console.error("Error fetching animes:", error);
