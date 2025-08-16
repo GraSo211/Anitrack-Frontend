@@ -8,6 +8,14 @@ type Anime = {
     description: string;
     imageUrl: string;
 };
+const getActualSeason=()=>{
+  const month = new Date().getMonth()+1;
+  if(month>=3&&month<=5)return "SPRING";
+  if(month>=6&&month<=8)return "SUMMER";
+  if(month>=9&&month<=11)return "FALL";
+  return "WINTER";
+}
+
 
 export const getAnimes = async () => {
     const url = "https://graphql.anilist.co";
@@ -25,8 +33,8 @@ export const getAnimes = async () => {
                           type: ANIME,
                           status: RELEASING,
                           
-                          season: SUMMER,   # Temporada actual (SUMMER, SPRING, FALL, WINTER)
-                          seasonYear: 2025  # Año actual
+                          season: ${getActualSeason()},   # Temporada actual (SUMMER, SPRING, FALL, WINTER)
+                          seasonYear: ${new Date().getFullYear()}  # Año actual
                         ) {
                           id
                           title {
