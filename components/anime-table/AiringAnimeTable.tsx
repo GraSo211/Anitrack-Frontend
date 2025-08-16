@@ -40,15 +40,15 @@ export default async function AiringAnimeTable() {
     ];
 
     return (
-        <div className="w-[90%]  rounded-lg shadow-lg p-6 bg-gray-700 flex flex-col items-center">
-            <h2 className="font-bold text-3xl mb-4  text-white">Animes En Emision</h2>
+        <div className="w-[90%]  rounded-lg shadow-lg p-6 bg-[#1b263b] flex flex-col items-center">
+            <h2 className="font-bold text-3xl mb-4  text-[#e0e1dd]">Animes En Emision</h2>
             <div className="grid grid-cols-7 gap-4 w-full">
                 {daysOfWeek.map((day) => (
                     <div
                         key={day.key}
-                        className="bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 rounded-xl p-1  flex flex-col items-center max-h-[400px] 2xl:max-h-[850px] overflow-hidden shadow-lg border border-gray-600 transition-transform hover:scale-105"
+                        className="bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#0d1b2a] rounded-xl p-1  flex flex-col items-center max-h-[400px] 2xl:max-h-[850px] overflow-hidden shadow-lg border border-gray-600 transition-transform hover:scale-105"
                     >
-                        <h3 className="text-lg font-bold text-blue-400 mb-2 tracking-wide uppercase">{day.spanishLabel}</h3>
+                        <h3 className="text-lg font-bold text-[#e0e1dd] mb-2 tracking-wide uppercase">{day.spanishLabel}</h3>
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
                             {animes&&animes.data.Page.media
                                 .filter((anime) => anime.schedule === day.key)
