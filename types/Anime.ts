@@ -5,13 +5,15 @@ export type Anime = {
     };
     description: string;
     coverImage: {
+        extraLarge?: string;
         large: string;
     };
-    airingSchedule: {
-        nodes: {
+    bannerImage: string;
+    airingSchedule?: {
+        nodes?: {
             episode: number;
             airingAt: number;
         }[];
     };
-    schedule: string;
+    schedule?: string;
 };

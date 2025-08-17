@@ -1,7 +1,7 @@
 import React from "react";
 import "./Scrollbar.css";
 
-import { getAnimes } from "@/actions/getAnimes";
+import { getAnimesActualSeason } from "@/actions/getAnimesActualSeason";
 import AnimeLi from "./AnimeLi";
 import { Anime } from "@/types/Anime";
 import { AnimesResponse } from "@/types/AnimesResponse";
@@ -9,9 +9,7 @@ import { AnimesResponse } from "@/types/AnimesResponse";
 const convertTodayEmision = (animes: AnimesResponse | undefined) => {
     const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
-    // Initialize an empty schedule for each anime
-
-    // Populate the schedule based on airingAt
+   
     if (animes)
         animes.data.Page.media.forEach((anime: Anime) => {
             anime.airingSchedule.nodes.forEach((schedule) => {
@@ -26,7 +24,7 @@ const convertTodayEmision = (animes: AnimesResponse | undefined) => {
 };
 
 export default async function AiringAnimeTable() {
-    let animes: AnimesResponse | undefined = await getAnimes();
+    let animes: AnimesResponse | undefined = await getAnimesActualSeason();
     animes = convertTodayEmision(animes);
 
     const daysOfWeek = [
