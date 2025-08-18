@@ -5,7 +5,6 @@ export type Anime = {
     };
     description: string;
     coverImage: {
-        extraLarge?: string;
         large: string;
     };
     bannerImage: string;
@@ -16,4 +15,22 @@ export type Anime = {
         }[];
     };
     schedule?: string;
+    episodes: number;
+    startDate: {
+        year: number;
+        month: number;
+        day: number;
+    };
+    duration: number;
+    isAdult: boolean;
+    genres: string[];
+    averageScore: number;
+    popularity: number;
+    source: string;
+    status: string;
+    nextAiringEpisode: {
+        airingAt: number;
+        id: number;
+        episode: number;
+    };
 };
