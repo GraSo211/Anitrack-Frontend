@@ -38,19 +38,35 @@ export default async function page({ params }: Props) {
             alt={animeRes.title.romaji}
             width={320}
             height={480}
-            className="rounded-lg shadow-lg border-4 border-gray-800"
+            className="rounded-lg shadow-lg border-4 object-cover border-gray-800"
             priority
           />
-          <div className="text-md text-gray-200 mb-6 flex flex-col">
-            <p>Total de Capitulos: {animeRes.episodes || "Desconocido"}</p>
-
-            <p>Inicio de Emision: {`${animeRes.startDate.day.toString().padStart(2, "0")}/${animeRes.startDate.month.toString().padStart(2, "0")}/${animeRes.startDate.year}`}</p>
-            {animeRes.isAdult && <p>Clasificación: Adulto</p>}
-            {animeRes.nextAiringEpisode && (
+          <div className="bg-gray-900 bg-opacity-80 rounded-lg p-2  flex flex-col shadow-md border border-gray-700">
+            <h3 className="text-xl font-bold text-white text-center mb-4 tracking-wide">Info Extra</h3>
+            <div className="space-y-2 text-gray-300">
               <p>
-                Próximo episodio: {animeRes.nextAiringEpisode.episode} - {new Date(animeRes.nextAiringEpisode.airingAt*1000).toLocaleString()}
+                <span className="font-semibold text-gray-200">Total de Capítulos:</span>{" "}
+                {animeRes.episodes || <span className="italic text-gray-400">Desconocido</span>}
               </p>
-            )}
+              <p>
+                <span className="font-semibold text-gray-200">Inicio de Emisión:</span>{" "}
+                {`${animeRes.startDate.day.toString().padStart(2, "0")}/${animeRes.startDate.month.toString().padStart(2, "0")}/${animeRes.startDate.year}`}
+              </p>
+              {animeRes.isAdult && (
+                <p>
+                  <span className="font-semibold text-red-400">Clasificación:</span> Adulto
+                </p>
+              )}
+              {animeRes.nextAiringEpisode && (
+                <p>
+                  <span className="font-semibold text-blue-400">Próximo episodio:</span>{"Capitulo "}
+                  {animeRes.nextAiringEpisode.episode} -{" "}
+                  <span className="text-gray-200">
+                    {new Date(animeRes.nextAiringEpisode.airingAt * 1000).toLocaleString()}
+                  </span>
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <div className="flex flex-col  w-full ">
