@@ -1,16 +1,17 @@
 import { AnimeResponse } from "@/types/AnimeResponse";
+import { getChaptersOfAnime } from "./getChaptersOfAnime";
 
 export const getAnimeById = async (id: number) => {
-  const response = await fetch("https://graphql.anilist.co", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query: `
+    const response = await fetch("https://graphql.anilist.co", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            query: `
         query {
           Media(id: ${id}) {
-            id
+            idMal
             title {
               romaji
             }
@@ -40,10 +41,15 @@ export const getAnimeById = async (id: number) => {
             }
           }
         }
-      `,
-    }),
-  });
+              `,
+        }),
+    });
 
-  const data: AnimeResponse = await response.json();
-  return data;
+    const data = await response.json();
+
+    const episodes = await getChaptersOfAnime(data.data.Media.idMal);
+    
+    data.data.Episodes = episodes;
+    console.log(data.data.Episodes)
+    return data.data;
 };

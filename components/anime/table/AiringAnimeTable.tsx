@@ -1,17 +1,17 @@
 import React from "react";
 import "./Scrollbar.css";
 
-import { getAnimesActualSeason } from "@/actions/getAnimesActualSeason";
+import { getReleasingAnimes } from "@/actions/getReleasingAnimes";
 import AnimeLi from "./AnimeLi";
 import { Anime } from "@/types/Anime";
 import { AnimesResponse } from "@/types/AnimesResponse";
 
-const convertTodayEmision = (animes: AnimesResponse | undefined) => {
+const convertTodayEmision = (animes: Anime[] | undefined) => {
     const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
-   
+
     if (animes)
-        animes.data.Page.media.forEach((anime: Anime) => {
+        animes.forEach((anime: Anime) => {
             anime.airingSchedule.nodes.forEach((schedule) => {
                 const airingDate = new Date(schedule.airingAt * 1000); // Convert UNIX timestamp to Date
                 const airingDay = airingDate.getDay(); // Get the day of the week (0-6)
@@ -24,9 +24,10 @@ const convertTodayEmision = (animes: AnimesResponse | undefined) => {
 };
 
 export default async function AiringAnimeTable() {
-    let animes: AnimesResponse | undefined = await getAnimesActualSeason();
+    let animes: Anime[] | undefined = await getReleasingAnimes();
+    
     animes = convertTodayEmision(animes);
-
+    
     const daysOfWeek = [
         { key: "monday", label: "Monday", spanishLabel: "Lunes" },
         { key: "tuesday", label: "Tuesday", spanishLabel: "Martes" },
@@ -48,10 +49,10 @@ export default async function AiringAnimeTable() {
                     >
                         <h3 className="text-lg font-bold text-[#e0e1dd] mb-2 tracking-wide uppercase">{day.spanishLabel}</h3>
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
-                            {animes&&animes.data.Page.media
+                            {animes&&animes
                                 .filter((anime) => anime.schedule === day.key)
                                 .map((anime) => (
-                                    <AnimeLi key={anime.id} coverImage={anime.coverImage.large} title={anime.title.romaji} />
+                                    <AnimeLi key={anime.id} id={anime.id} coverImage={anime.coverImage.large} title={anime.title.romaji} />
                                 ))}
                         </ul>
                     </div>

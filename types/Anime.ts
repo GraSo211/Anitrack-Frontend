@@ -1,5 +1,6 @@
 export type Anime = {
     id: number;
+    idMal: number;
     title: {
         romaji: string;
     };
@@ -8,8 +9,8 @@ export type Anime = {
         large: string;
     };
     bannerImage: string;
-    airingSchedule?: {
-        nodes?: {
+    airingSchedule: {
+        nodes: {
             episode: number;
             airingAt: number;
         }[];

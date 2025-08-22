@@ -1,6 +1,7 @@
 "use server";
 
 import { AnimesResponse } from "@/types/AnimesResponse";
+import { getActualSeason } from "@/utils/getActualSeason";
 
 
 export const getSeasonTrendAnimes = async (cantidad: number) => {
@@ -14,10 +15,10 @@ export const getSeasonTrendAnimes = async (cantidad: number) => {
                 query {
                     Page(perPage: ${cantidad}) {
                         media(
-                        season: SUMMER
-                        seasonYear: 2025
+                        season: ${getActualSeason()}
+                        seasonYear: ${new Date().getFullYear()}
                         type: ANIME
-                        sort: TRENDING_DESC
+                        sort: POPULARITY_DESC
                         ) {
                         id
                         title {
@@ -26,7 +27,7 @@ export const getSeasonTrendAnimes = async (cantidad: number) => {
                         coverImage {
                             large
                         }
-                        trending
+                        
                         }
                     }
                 }
@@ -36,5 +37,5 @@ export const getSeasonTrendAnimes = async (cantidad: number) => {
     });
     const data: AnimesResponse = await response.json();
     
-    return data;
+    return data.data.Page.media;
 };
