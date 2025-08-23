@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import AnimeStatus from "@/components/anime/info/AnimeStatus";
 import Genres from "@/components/anime/info/Genres";
-import formatDate from "@/utils/formatDate";
+
 import Episodes from "@/components/anime/info/Episodes";
 
 
@@ -19,7 +19,6 @@ interface Props {
 export default async function page({ params }: Props) {
     const { id } = await params;
     const anime: AnimeResponse = await getAnimeById(id);
-    const xd = true;
     return (
         <div className="min-h-screen flex flex-col items-center justify-center relative">
             <div className="absolute top-0 left-0 w-full lg:h-[400px] 2xl:h-[500px] z-10">
@@ -90,7 +89,7 @@ export default async function page({ params }: Props) {
                             <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
                             <ul className="space-y-2">
                                 {anime.Episodes.map((episode) => (
-                                    <Episodes key={episode.mal_id} episode={episode} xd={false} />
+                                    <Episodes key={episode.mal_id} episode={episode} xd={true} />
                                 ))}
                             </ul>
                         </section>

@@ -1,4 +1,5 @@
 import { Anime } from "./Anime";
+import { Episode } from "./Episode";
 
 export type AnimeResponse = {
     Media: Anime;
@@ -15,11 +16,5 @@ export type AnimeResponse = {
             };
         }>;
     };
-    Episodes: Array<{
-        mal_id: number;
-        title: string;
-        aired: string;
-        score: number;
-        duration: number;
-    }>;
+    Episodes: Array<Episode>;
 };

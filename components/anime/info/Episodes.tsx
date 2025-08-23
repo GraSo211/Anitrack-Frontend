@@ -1,13 +1,9 @@
+import { Episode } from "@/types/Episode";
 import formatDate from "@/utils/formatDate";
 import React from "react";
 
 interface Props {
-    episode: {
-        mal_id: number;
-        title: string | null;
-        aired: string | null;
-        score: number | null;
-    };
+    episode: Episode
     xd: boolean;
 }
 
