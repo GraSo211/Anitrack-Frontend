@@ -1,4 +1,4 @@
-import { AnimeResponse } from "@/types/AnimeResponse";
+
 import { getChaptersOfAnime } from "./getChaptersOfAnime";
 import { Episode } from "@/types/Episode";
 
