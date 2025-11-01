@@ -2,51 +2,13 @@ import { getChaptersOfAnime } from "./getChaptersOfAnime";
 import { Episode } from "@/types/Episode";
 
 export const getAnimeById = async (id: number) => {
-    const response = await fetch("https://graphql.anilist.co", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            query: `
-        query {
-          Media(id: ${id}) {
-            idMal
-            title {
-              romaji
-            }
-            coverImage {
-              extraLarge
-              large
-            }
-            description
-            bannerImage
-            episodes
-            startDate {
-              year
-              month
-              day
-            }
-            duration
-            isAdult
-            genres
-            averageScore
-            popularity
-            source
-            status
-            nextAiringEpisode {
-              airingAt
-              id
-              episode
-            }
-          }
-        }
-              `,
-        }),
+    const response = await fetch(`http://localhost:8080/api/v1/anime/${id}`, {
+        method: "GET",
     });
 
     const data = await response.json();
-    const episodes: Episode[] = await getChaptersOfAnime(data.data.Media.idMal);
+    console.log(data)
+/*     const episodes: Episode[] = await getChaptersOfAnime(data.data.Media.idMal);
     if (data.data.Media.status === "RELEASING") {
         const cantEpisodes = data.data.Media.nextAiringEpisode.episode - 1;
         console.log(data.data.Media.nextAiringEpisode.episode - 1, episodes.length);
@@ -61,6 +23,6 @@ export const getAnimeById = async (id: number) => {
         }
         
     }
-    data.data.Episodes = episodes;
-    return data.data;
+    data.data.Episodes = episodes;*/
+    return data; 
 };

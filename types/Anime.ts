@@ -2,40 +2,52 @@ export type Anime = {
     id: number;
     idMal: number;
     title: {
-        romaji: string;
+        romaji?: string;
         english?: string;
-        native?: string;
     };
-    description: string;
-    coverImage: {
-        large: string;
-        extraLarge: string;
+    status?: string;
+    description?: string;
+    startDate?: {
+        year?: number;
+        month?: number;
+        day?: number;
     };
-    bannerImage: string;
-    meanScore: number;
-    airingSchedule: {
-        nodes: {
-            episode: number;
-            airingAt: number;
-        }[];
+    endDate?: {
+        year?: number;
+        month?: number;
+        day?: number;
     };
-    schedule?: string;
-    episodes: number;
-    startDate: {
-        year: number;
-        month: number;
-        day: number;
+    season?: string;
+    seasonYear?: number;
+    episodes?: number;
+    duration?: number;
+    countryOfOrigin?: string;
+    source?: string;
+    trailer?:{
+        id?: string;
+        site?: string;
+        thumbnail?:string;
+    }
+    coverImage?: {
+        extraLarge?: string;
+        large?: string;
+        medium?: string;
+        color?: string;
     };
-    duration: number;
-    isAdult: boolean;
+    bannerImage?: string;
     genres: string[];
-    averageScore: number;
-    popularity: number;
-    source: string;
-    status: string;
-    nextAiringEpisode: {
-        airingAt: number;
-        id: number;
-        episode: number;
+    synonyms: string[];
+    averageScore?: number;
+    popularity?: number;
+    relations?: {
+        items?:Object,
+        empty?: boolean
+    }
+    nextAiringEpisode?: {
+        id?: number;
+        airingAt?: number;
+        timeUntilAiring?: number;
+        episode?: number;
+        mediaId?: number;
     };
 };
