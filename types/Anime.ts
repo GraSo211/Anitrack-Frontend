@@ -24,7 +24,7 @@ export type Anime = {
     countryOfOrigin?: string;
     source?: string;
     trailer?:{
-        id?: string;
+        id?: number;
         site?: string;
         thumbnail?:string;
     }
@@ -43,6 +43,8 @@ export type Anime = {
         items?:Object,
         empty?: boolean
     }
+    studio?: string;
+    isAdult?: boolean;
     nextAiringEpisode?: {
         id?: number;
         airingAt?: number;
