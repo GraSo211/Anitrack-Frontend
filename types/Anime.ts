@@ -23,11 +23,11 @@ export type Anime = {
     duration?: number;
     countryOfOrigin?: string;
     source?: string;
-    trailer?:{
+    trailer?: {
         id?: number;
         site?: string;
-        thumbnail?:string;
-    }
+        thumbnail?: string;
+    };
     coverImage?: {
         extraLarge?: string;
         large?: string;
@@ -40,9 +40,13 @@ export type Anime = {
     averageScore?: number;
     popularity?: number;
     relations?: {
-        items?:Object,
-        empty?: boolean
-    }
+        items: {
+            relatedMediaId: number;
+            relatedTitle: string;
+            relatedImage: string;
+        }[];
+        empty: boolean;
+    };
     studio?: string;
     isAdult?: boolean;
     nextAiringEpisode?: {

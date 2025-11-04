@@ -29,7 +29,7 @@ export default async function page({ params }: Props) {
     return (
         <div className="min-h-screen relative bg-black">
             {/* Hero */}
-            <Hero bannerImage={anime.bannerImage} title={anime.title.romaji} />
+            <Hero bannerImage={anime.bannerImage} title={anime.title.romaji || anime.title.english} />
 
             {/* Content */}
             <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,6 +58,7 @@ export default async function page({ params }: Props) {
                         isAdult={anime.isAdult}
                         nextAiringEpisode={anime.nextAiringEpisode}
                         duration={anime.duration}
+                        relations={anime.relations}
                     />
 
                     {/* Right */}
@@ -72,6 +73,7 @@ export default async function page({ params }: Props) {
                         description={anime.description}
                         trailer={anime.trailer}
                         episodes={anime.episodes}
+                        
                     />
                 </div>
             </main>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -35,6 +36,14 @@ interface Props {
           }
         | undefined;
     duration?: number | undefined;
+    relations?: {
+        items: {
+            relatedMediaId: number;
+            relatedTitle: string;
+            relatedImage: string;
+        }[];
+        empty: boolean;
+    };
 }
 
 const formatDate = (d?: { day?: number; month?: number; year?: number }) => {
@@ -50,7 +59,7 @@ const formatAiringDate = (unix?: number) => {
     });
 };
 
-export default function LeftSection({ coverImage, title, studio, source, episodes, startDate, endDate, season, seasonYear, countryOfOrigin, isAdult, nextAiringEpisode, duration }: Props) {
+export default function LeftSection({ coverImage, title, studio, source, episodes, startDate, endDate, season, seasonYear, countryOfOrigin, isAdult, nextAiringEpisode, duration,relations }: Props) {
     return (
         <div className="flex flex-col gap-4 col-span-1">
             {coverImage && <Image src={coverImage} alt={title || "Desconocido"} width={400} height={600} priority className="rounded-xl shadow-xl border border-gray-800" />}
@@ -112,6 +121,28 @@ export default function LeftSection({ coverImage, title, studio, source, episode
                     </div>
                 )}
             </div>
+                        {/* Related anime */}
+            {relations && !relations.empty && relations.items.length > 0 && (
+                <section className=" flex flex-col justify-center items-center ">
+                    <h2 className="text-xl font-bold text-white mb-4">Animes relacionados</h2>
+
+                    <div className="grid grid-cols-2 gap-4 place-content-center  w-full max-w-sm">
+
+                        {relations.items.map((anime) => (
+                            <Link key={anime.relatedMediaId} href={`/anime/${anime.relatedMediaId}`} className="group">
+                                <div className="flex flex-col  gap-2">
+                                    <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-gray-700 bg-gray-800">
+                                        <Image src={anime.relatedImage} alt={anime.relatedTitle} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition" />
+                                    </div>
+
+                                    <p className="text-sm text-center text-gray-300 leading-tight line-clamp-2 group-hover:text-white transition">{anime.relatedTitle}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            )}
         </div>
     );
 }
