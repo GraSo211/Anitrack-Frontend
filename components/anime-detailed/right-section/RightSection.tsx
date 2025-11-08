@@ -21,11 +21,18 @@ interface Props {
         thumbnail?: string;
     };
     episodes: number | undefined;
+    nextAiringEpisode?: {
+        id: number | undefined;
+        airingAt: number | undefined;
+        timeUntilAiring: number     | undefined;
+        episode: number | undefined;
+        mediaId: number | undefined;
+    };
 
     
 }
 
-export default function RightSection({ titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodes,  }: Props) {
+export default function RightSection({ titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodes, nextAiringEpisode }: Props) {
     return (
         <div className="flex flex-col  w-full relative">
             {/* Header */}

@@ -72,6 +72,7 @@ export default async function page({ params }: Props) {
                         description={anime.description}
                         trailer={anime.trailer}
                         episodes={anime.episodes}
+                        nextAiringEpisode={anime.nextAiringEpisode}
                         
                     />
                 </div>
