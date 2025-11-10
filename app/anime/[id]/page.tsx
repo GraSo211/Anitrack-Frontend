@@ -23,8 +23,7 @@ interface Props {
 
 export default async function page({ params }: Props) {
     const { id } = await params;
-    const anime: Anime = await getAnimeById(id);
-    anime.synonyms = ["gsfas", "sdafasdf", "sfdfsda sfsfsfasf sdf"];
+    const anime: Anime = await getAnimeById(id);  
     console.log(anime.relations);
     return (
         <div className="min-h-screen relative bg-black">
