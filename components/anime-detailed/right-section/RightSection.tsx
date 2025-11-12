@@ -5,6 +5,7 @@ import Link from "next/dist/client/link";
 import Image from "next/image";
 import React from "react";
 import DOMPurify from "isomorphic-dompurify";
+import Episodes from "@/components/anime/info/Episodes";
 
 interface Props {
     titleRomaji: string | undefined;
@@ -22,17 +23,16 @@ interface Props {
     };
     episodes: number | undefined;
     nextAiringEpisode?: {
-        id: number | undefined;
-        airingAt: number | undefined;
-        timeUntilAiring: number     | undefined;
-        episode: number | undefined;
-        mediaId: number | undefined;
+        id?: number | undefined;
+        airingAt?: number | undefined;
+        timeUntilAiring?: number | undefined;
+        episode?: number | undefined;
+        mediaId?: number | undefined;
     };
-
-    
 }
 
 export default function RightSection({ titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodes, nextAiringEpisode }: Props) {
+
     return (
         <div className="flex flex-col  w-full relative">
             {/* Header */}
@@ -80,12 +80,11 @@ export default function RightSection({ titleRomaji, titleEnglish, synonyms, aver
                 </section>
             )}
 
-
-            {/* Episodes placeholder */}
-            {episodes && (
-                <section>
+            {/* Episodes */}
+            {episodes && status === "FINISHED" && (
+                <section className="mt-6">
                     <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
-                    <ul className="space-y-2 text-gray-400 italic">Próximamente…</ul>
+                  
                 </section>
             )}
         </div>
