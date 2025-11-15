@@ -1,4 +1,4 @@
-import { getBannerImageFromAnimeOfSeason } from "@/actions/getAnimeOfSeason";
+import { getBannerImageFromAnimeOfSeason } from "@/actions/getBannerImageFromAnimeOfSeason";
 import Image from "next/image";
 import React from "react";
 
@@ -9,14 +9,14 @@ export default async function HeroSection() {
 
     return (
         <section className="relative w-full h-[650px] flex items-center px-6 md:px-16 lg:px-28">
-          /*   <Image
+            <Image
                 src={bannerImage}
                 alt="Hero Image"
                 fill
                 className="absolute inset-0 object-cover object-center -z-10
                 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_60%,rgba(0,0,0,0)_95%)]
                 saturate-[1.3] brightness-[0.85]"
-            /> */
+            />
 
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent -z-10" />
 
