@@ -1,5 +1,3 @@
-import { getChaptersOfAnime } from "./getChaptersOfAnime";
-import { Episode } from "@/types/Episode";
 
 export const getAnimeById = async (id: number) => {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/${id}`, {
