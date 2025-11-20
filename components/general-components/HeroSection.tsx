@@ -11,8 +11,8 @@ export default async function HeroSection() {
                 src={anime.bannerImage}
                 alt="Hero Image"
                 fill
-                className="absolute inset-0 object-cover object-center -z-10 
-                [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_95 %)]
+                className="absolute inset-0 object-cover object-center -z-10
+                [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_60%,rgba(0,0,0,0)_95%)]
                 saturate-[1.3] brightness-[0.85]"
             />
 

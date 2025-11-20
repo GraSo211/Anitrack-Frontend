@@ -1,6 +1,3 @@
-import { getSeasonTrendAnimes } from "@/actions/getSeasonTrendAnimes";
-import { AnimesResponse } from "@/types/AnimesResponse";
-import Image from "next/image";
 import React from "react";
 import AnimeCard from "./AnimeCard";
 import { Anime } from "@/types/Anime";

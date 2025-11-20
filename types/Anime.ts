@@ -3,6 +3,8 @@ export type Anime = {
     idMal: number;
     title: {
         romaji: string;
+        english?: string;
+        native?: string;
     };
     description: string;
     coverImage: {
