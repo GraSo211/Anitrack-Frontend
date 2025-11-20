@@ -23,6 +23,7 @@ export const getReleasingAnimes = async () => {
           }
           coverImage {
             large
+            extraLarge
           }
         
           airingSchedule(notYetAired: true, perPage: 1) {
@@ -30,6 +31,11 @@ export const getReleasingAnimes = async () => {
               episode
               airingAt
             }
+          }
+          nextAiringEpisode {
+            airingAt
+            id
+            episode
           }
         }
       }

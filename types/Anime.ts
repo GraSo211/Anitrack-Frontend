@@ -7,6 +7,7 @@ export type Anime = {
     description: string;
     coverImage: {
         large: string;
+        extraLarge: string;
     };
     bannerImage: string;
     airingSchedule: {

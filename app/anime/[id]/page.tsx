@@ -22,22 +22,22 @@ export default async function page({ params }: Props) {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center relative">
             <div className="absolute top-0 left-0 w-full lg:h-[400px] 2xl:h-[500px] z-10">
-                {anime.Media.bannerImage && <Image src={anime.Media.bannerImage} alt={anime.Media.title.romaji} fill className="object-cover w-full h-full opacity-60 " priority />}
+                {anime.Media.bannerImage && <Image src={anime.Media.bannerImage} alt={anime.Media.title.romaji} fill className="object-cover w-full h-full opacity-60  [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]" priority />}
             </div>
 
             <div className="relative z-10 w-full max-w-3/4 flex gap-8 p-8  rounded-xl shadow-lg mt-32 ">
-                {/** Anime Information - LEFT SIDE */}
+                
                 <div className="flex flex-col relative">
                     {anime.Media.coverImage && (
                         <div className="flex w-full">
                             <Image
-                                src={anime.Media.coverImage.large}
+                                src={anime.Media.coverImage.extraLarge}
                                 alt={anime.Media.title.romaji}
                                 width={400}
                                 height={600}
                                 quality={100}
                                 loading="eager"
-                                className="rounded-lg  shadow-lg border-4 border-gray-800"
+                                className="rounded-lg  shadow-lg border-4 border-gray-800  "
                                 priority
                             />
                         </div>
@@ -76,7 +76,7 @@ export default async function page({ params }: Props) {
                     </div>
                 </div>
 
-                {/* Anime Information - RIGHT SIDE */}
+        
                 <div className="flex flex-col  w-full  ">
                     <h1 className="text-4xl font-extrabold  text-white mb-8">{anime.Media.title.romaji}</h1>
                     <span className="font-bold absolute right-3 text-2xl">⭐{anime.Media.averageScore}</span>

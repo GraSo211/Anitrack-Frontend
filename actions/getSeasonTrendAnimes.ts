@@ -26,6 +26,7 @@ export const getSeasonTrendAnimes = async (cantidad: number) => {
                         }
                         coverImage {
                             large
+                            extraLarge
                         }
                         
                         }
