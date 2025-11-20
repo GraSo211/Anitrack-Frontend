@@ -14,7 +14,7 @@ export default function AnimeLi({ coverImage, title, id, episode }: Props) {
         <li className="text-center relative flex flex-col items-center gap-1  m-2 bg-[#0d1b2a] text-pretty  h-[170px] 2xl:h-[230] overflow-hidden rounded-lg ">
             <Link href={`/anime/${id}`} className="flex flex-col w-full h-full justify-end  items-start ">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent  via-black/30 to-black/90 z-20" />
-                <span className="text-xs 2xl:text-sm  z-20  flex  text-left ml-1 rounded-lg px-2 py-0.5 items-center bg-[#12161F] gap-1 ">
+                <span className="text-xs 2xl:text-xs  z-20  flex  text-left ml-1 rounded-sm px-2 py-0.5 items-center bg-[#12161F] gap-1 ">
                     <Clock width={15} height={15}></Clock>EP {episode}
                 </span>
                 <p className="text-xs 2xl:text-sm font-semibold z-20  text-left pl-2 w-full mb-1  ">{title}</p>

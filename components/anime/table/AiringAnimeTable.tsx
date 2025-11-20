@@ -40,7 +40,7 @@ export default async function AiringAnimeTable() {
     ];
 
     return (
-        <div className="w-[100%]  rounded-lg shadow-lg p-6  flex flex-col items-center">
+        <div className="w-[100%]  rounded-lg shadow-lg p-6  flex flex-col items-center ">
             <h2 className="font-bold text-3xl mb-2  text-[#e0e1dd]">Animes En Emisión</h2>
             <p className="mb-8 font-semibold">Sigue los estrenos semanales de tus series favoritas</p>
             <div className="grid grid-cols-7 gap-4 w-full">

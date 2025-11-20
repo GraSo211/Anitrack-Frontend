@@ -4,17 +4,43 @@ import React from "react";
 
 export default async function HeroSection() {
     const anime = await getAnimeOfSeason();
-    return (
-        <div className="w-full h-[600px] relative flex flex-col justify-center first:gap-3 p-40  ">
-            <h1 className="text-5xl font-bold">ANITRACK</h1>
-            <h2 className="text-3xl font-semibold">DESCUBRE TU PROXIMO ANIME FAVORITO</h2>
-            <p className="text-xl max-w-1/2">Sigue tus series, descubre nuevos animes y mantente al día con las últimas tendencias en el mundo del anime.</p>
-            <span className="flex gap-10">
-                <button className="border p-3 rounded-xl">Empezar a Ver</button>
-                <button  className="border p-3 rounded-xl">Explorar Catalogo</button>
-            </span>
 
-            <Image src={anime.bannerImage} className="absolute top-0 left-0 -z-10 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1),rgba(0,0,0,0))] saturate-200" alt="Hero Image" layout="fill" objectFit="cover" />
-        </div>
+    return (
+        <section className="relative w-full h-[650px] flex items-center px-6 md:px-16 lg:px-28">
+            <Image
+                src={anime.bannerImage}
+                alt="Hero Image"
+                fill
+                className="absolute inset-0 object-cover object-center -z-10 
+                [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_95 %)]
+                saturate-[1.3] brightness-[0.85]"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent -z-10" />
+
+            <div className="flex flex-col gap-4 max-w-2xl">
+                <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">ANITRACK</h1>
+
+                <h2 className="text-2xl md:text-3xl font-semibold">DESCUBRE TU PRÓXIMO ANIME FAVORITO</h2>
+
+                <p className="text-lg mt-2 font-light text-white/80 leading-relaxed">Sigue tus series, descubre nuevos animes y mantente al día con las últimas tendencias en el mundo del anime.</p>
+
+                <div className="flex gap-6 mt-6">
+                    <button
+                        className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
+                    hover:bg-white/20 transition-all shadow-lg shadow-black/30"
+                    >
+                        Empezar a Ver
+                    </button>
+
+                    <button
+                        className="px-6 py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 
+                    hover:bg-white/15 transition-all shadow"
+                    >
+                        Explorar Catalogo
+                    </button>
+                </div>
+            </div>
+        </section>
     );
 }

@@ -10,10 +10,10 @@ export default async function Home() {
 
     return (
         <main className="flex flex-col items-center gap-3 justify-center min-h-screen     ">
-            <section className="w-full flex justify-center">
+            <section className="w-full flex justify-center ">
                 <HeroSection></HeroSection>
             </section>
-            <section className="flex justify-center">
+            <section className="flex justify-center ">
                 <AiringAnimeTable />
             </section>
 
