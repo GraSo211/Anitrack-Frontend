@@ -2,6 +2,8 @@ import { getAnimeOfSeason } from "@/actions/getAnimeOfSeason";
 import Image from "next/image";
 import React from "react";
 
+
+
 export default async function HeroSection() {
     const anime = await getAnimeOfSeason();
 
@@ -22,9 +24,8 @@ export default async function HeroSection() {
                 <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">ANITRACK</h1>
 
                 <h2 className="text-2xl md:text-3xl font-semibold">MANTENTE AL DIA CON TUS SERIES FAVORITAS</h2>
-
                 <p className="text-lg mt-2 font-light text-white/80 leading-relaxed">Sigue tus series, descubre nuevos animes y mantente al día con las últimas tendencias en el mundo del anime.</p>
-
+                
                 <div className="flex gap-6 mt-6">
                     <button
                         className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
