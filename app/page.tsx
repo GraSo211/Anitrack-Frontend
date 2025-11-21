@@ -4,6 +4,7 @@ import AnimeList from "../components/anime/horizontal-list/AnimeList";
 import {  getSeasonTrendAnimes } from "@/actions/getSeasonTrendAnimes";
 import { Anime } from "@/types/Anime";
 import HeroSection from "@/components/general-components/HeroSection";
+import BestAnimeSeason from "@/components/anime/BestAnimeSeason";
 
 export default async function Home() {
     const seasonTrendAnimes: Anime[] = await getSeasonTrendAnimes(5);
@@ -17,7 +18,9 @@ export default async function Home() {
                 <AiringAnimeTable />
             </section>
 
-
+            <section className="w-full flex justify-center">
+                <BestAnimeSeason></BestAnimeSeason>
+            </section>
           
             <section className="flex w-3/5  justify-center">
                 <AnimeList seasonTrendAnimes={seasonTrendAnimes} title="Lo mejor de la Temporada" />

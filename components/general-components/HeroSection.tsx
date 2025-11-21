@@ -18,10 +18,10 @@ export default async function HeroSection() {
 
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent -z-10" />
 
-            <div className="flex flex-col gap-4 max-w-2xl">
+            <div className="flex flex-col gap-4 max-w-3xl">
                 <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">ANITRACK</h1>
 
-                <h2 className="text-2xl md:text-3xl font-semibold">DESCUBRE TU PRÓXIMO ANIME FAVORITO</h2>
+                <h2 className="text-2xl md:text-3xl font-semibold">MANTENTE AL DIA CON TUS SERIES FAVORITAS</h2>
 
                 <p className="text-lg mt-2 font-light text-white/80 leading-relaxed">Sigue tus series, descubre nuevos animes y mantente al día con las últimas tendencias en el mundo del anime.</p>
 

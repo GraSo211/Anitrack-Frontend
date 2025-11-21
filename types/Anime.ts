@@ -12,6 +12,7 @@ export type Anime = {
         extraLarge: string;
     };
     bannerImage: string;
+    meanScore: number;
     airingSchedule: {
         nodes: {
             episode: number;
