@@ -30,7 +30,7 @@ export default async function HeroSection() {
                         className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
                     hover:bg-white/20 transition-all shadow-lg shadow-black/30"
                     >
-                        Empezar a Ver
+                        Comenzar a Trackear
                     </button>
 
                     <button

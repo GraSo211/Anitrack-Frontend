@@ -84,7 +84,7 @@ export default async function page({ params }: Props) {
                     <Genres genres={anime.Media.genres} />
                     <p className="text-lg text-gray-200 mb-6" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(anime.Media.description) }} />
                     {
-                        anime.Episodes&&
+                        anime.Episodes && anime.Episodes.length > 0 &&
                         <section>
                             <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
                             <ul className="space-y-2">
