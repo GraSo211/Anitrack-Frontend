@@ -1,7 +1,6 @@
 "use server";
 
 import { Anime } from "@/types/Anime";
-import { AnimeResponse } from "@/types/AnimeResponse";
 
 export const getReleasingAnimes = async () => {
     const url = "https://graphql.anilist.co";
