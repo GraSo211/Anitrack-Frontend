@@ -60,6 +60,7 @@ const formatAiringDate = (unix?: number) => {
 };
 
 export default function LeftSection({ coverImage, title, studio, source, episodes, startDate, endDate, season, seasonYear, countryOfOrigin, isAdult, nextAiringEpisode, duration,relations }: Props) {
+    if(relations?.items !== undefined)relations.items = relations.items.slice(0,6);
     return (
         <div className="flex flex-col gap-4 col-span-1">
             {coverImage && <Image src={coverImage} alt={title || "Desconocido"} width={400} height={600} priority className="rounded-xl shadow-xl border border-gray-800" />}

@@ -62,6 +62,7 @@ export default async function page({ params }: Props) {
 
                     {/* Right */}
                     <RightSection
+                        malId={anime.malId}
                         titleRomaji={anime.title.romaji}
                         titleEnglish={anime.title.english}
                         synonyms={anime.synonyms}
@@ -71,8 +72,7 @@ export default async function page({ params }: Props) {
                         genres={anime.genres}
                         description={anime.description}
                         trailer={anime.trailer}
-                        episodes={anime.episodes}
-                        nextAiringEpisode={anime.nextAiringEpisode}
+                     
                         
                     />
                 </div>

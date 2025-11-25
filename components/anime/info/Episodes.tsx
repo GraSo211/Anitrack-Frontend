@@ -4,26 +4,20 @@ import React from "react";
 
 interface Props {
     episode: Episode
-    xd: boolean;
+    watched: boolean;
 }
 
-export default function Episodes({ episode, xd }: Props) {
+export default function Episodes({ episode, watched }: Props) {
     return (
-        <li key={episode.mal_id} className="border-b w-full flex p-1 gap-2 items-center border-gray-700 ">
+        <li key={episode.malId} className="border-b w-full flex p-1 gap-2 items-center justify-between border-gray-700 ">
             <div>
-                <h4 className="font-semibold text-md w-full text-gray-200">Capítulo {episode.mal_id}</h4>
+                <h4 className="font-semibold text-md w-full text-gray-200">Capítulo {episode.malId}</h4>
                 <p className="text-gray-400 text-xs w-full">{episode.title || "Desconocido"}</p>
             </div>
 
-            <span className="text-gray-400 px-0 ml-auto rounded">{episode.aired ? formatDate(episode.aired) : "Desconocido"}</span>
-            <span className="text-yellow-300 flex justify-center items-center gap-1 ">
-                {episode.score}
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffdf20" stroke="#ffdf20" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                </svg>
-            </span>
-            {xd ? (
+
+            {watched ? (
                 <button className="hover:scale-x-105 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />

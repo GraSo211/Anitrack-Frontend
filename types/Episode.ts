@@ -1,7 +1,6 @@
 export type Episode ={
-        mal_id: number;
+        malId: number;
         title: string;
-        aired: string;
-        score: number| "N.NN";
-        duration: number;
+        filler: boolean;
+        recap: boolean;
 }

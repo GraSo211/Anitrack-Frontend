@@ -1,6 +1,6 @@
 export type Anime = {
     id: number;
-    idMal: number;
+    malId: number;
     title: {
         romaji?: string;
         english?: string;
