@@ -23,9 +23,10 @@ export default function Header() {
                     Animes
                 </Link>
 
-                <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-all shadow-md shadow-blue-900/30 text-sm font-medium">
+                <Link href={"/login"} className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
+                    hover:bg-white/20 transition-all shadow-lg shadow-black/30">
                     Iniciar Sesion
-                </button>
+                </Link>
             </nav>
         </header>
     );

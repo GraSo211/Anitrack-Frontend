@@ -10,19 +10,6 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
   };
 
 
-  /* <button
-                    className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
-                    hover:bg-white/20 transition-all shadow-lg shadow-black/30"
-                >
-                    Todos los animes
-                </button>
-                <button
-                    className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
-                    hover:bg-white/20 transition-all shadow-lg shadow-black/30"
-                >
-                    Animes que sigo
-                </button> */
-
   return (
     <div className="relative flex w-fit p-1 bg-[#1a1d24] rounded-xl shadow-inner">
       <div
@@ -32,7 +19,7 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
         `}
       />
 
-      {/* Botón 1 */}
+  
       <button
         onClick={() => handleSelect("all")}
         className={`
@@ -43,7 +30,7 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
         Todos los animes
       </button>
 
-      {/* Botón 2 */}
+  
       <button
         onClick={() => handleSelect("following")}
         className={`
