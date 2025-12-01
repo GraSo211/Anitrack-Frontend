@@ -15,16 +15,19 @@ export default function LoginForm() {
         formState: { errors },
     } = useForm<Inputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
         console.log(data);
-        fetch("http://localhost:8080/api/v1/users/", {
+        const res = await fetch("http://localhost:8080/api/v1/users/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body:JSON.stringify({
-                email:data.email,
-                password:data.contrasena
-            })
+            body: JSON.stringify({
+                email: data.email,
+                password: data.contrasena,
+            }),
         });
+        data = await res.json();
+
+        console.log(data);
     };
 
     return (
