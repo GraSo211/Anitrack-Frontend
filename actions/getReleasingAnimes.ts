@@ -1,71 +1,27 @@
 "use server";
 
-import { Anime } from "@/types/Anime";
+
+import { AnimeReleasing } from "@/types/AnimeReleasing";
 
 export const getReleasingAnimes = async () => {
-    const url = "https://graphql.anilist.co";
-    let allAnime: Anime[] = [];
-    let page = 1;
-    let lastPage = 1;
-
-    const query = `
-    query ($page: Int, $perPage: Int) {
-      Page(page: $page, perPage: $perPage) {
-        pageInfo {
-          currentPage
-          lastPage
-        }
-        media(type: ANIME, status: RELEASING, isAdult: false) {
-          id
-          title {
-            romaji
-          }
-          coverImage {
-            large
-            extraLarge
-          }
-        
-          airingSchedule(notYetAired: true, perPage: 1) {
-            nodes {
-              episode
-              airingAt
-            }
-          }
-          nextAiringEpisode {
-            airingAt
-            id
-            episode
-          }
-        }
-      }
-    }
-  `;
+    const url = `${process.env.BACKEND_URL}/api/v1/anime/releasingAnimes`;
 
     try {
-        do {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    query,
-                    variables: { page, perPage: 50 },
-                }),
-                cache: "force-cache",
-                next: {
-                    revalidate: 86400, // 24 hours
-                }
-            });
+        const response = await fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "force-cache",
+            next: {
+                revalidate: 60, // 24 hours
+            },
+        });
 
-            const res = await response.json();
+        const data: AnimeReleasing[] = await response.json();
 
-            const data = res.data.Page;
-
-            allAnime = allAnime.concat(data.media);
-            lastPage = data.pageInfo.lastPage;
-            page++;
-        } while (page <= lastPage);
-
-        return allAnime;
+        console.log("esta es la data", data)
+        return data;
+        
+        
     } catch (error) {
         console.error("Error fetching animes:", error);
         return [];

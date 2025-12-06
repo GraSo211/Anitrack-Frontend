@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import AiringSwitch from "./AiringSwitch";
-import { Anime } from "@/types/Anime";
 import AnimeLi from "./AnimeLi";
+import { AnimeReleasing } from "@/types/AnimeReleasing";
 
-export default function AnimeWeek({ animes }: { animes: Anime[] | undefined }) {
+export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undefined }) {
 
     const daysOfWeek = [
         { key: "monday", label: "Monday", spanishLabel: "Lunes" },
@@ -15,7 +15,7 @@ export default function AnimeWeek({ animes }: { animes: Anime[] | undefined }) {
         { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
-
+    console.log("que dvolvers vos:??",animes)
 
     return (
         <div>
@@ -40,9 +40,9 @@ export default function AnimeWeek({ animes }: { animes: Anime[] | undefined }) {
                                         <AnimeLi
                                             key={anime.id}
                                             id={anime.id}
-                                            episode={anime.nextAiringEpisode?.episode}
-                                            coverImage={anime.coverImage.extraLarge || anime.coverImage.large}
-                                            title={anime.title.romaji}
+                                            episode={anime.nextAiringEpisode?.episode!}
+                                            coverImage={anime.coverImage.extraLarge || anime.coverImage.large || "/placeholder_cover.png"}
+                                            title={anime.title.romaji || anime.title.english || "Título Desconocido"}
                                         />
                                     ))}
                         </ul>

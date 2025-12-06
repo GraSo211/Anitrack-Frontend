@@ -4,29 +4,30 @@ import "./Scrollbar.css";
 
 import { getReleasingAnimes } from "@/actions/getReleasingAnimes";
 
-import { Anime } from "@/types/Anime";
+
 
 import AnimeWeek from "./AnimeWeek";
+import { AnimeReleasing } from "@/types/AnimeReleasing";
 
 
-const convertTodayEmision = (animes: Anime[] | undefined) => {
+const convertTodayEmision = (animes: AnimeReleasing[] ) => {
     const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
     if (animes)
-        animes.forEach((anime: Anime) => {
-            anime.airingSchedule.nodes.forEach((schedule) => {
-                const airingDate = new Date(schedule.airingAt * 1000); // Convert UNIX timestamp to Date
+        animes.forEach((anime: AnimeReleasing) => {
+            
+                const airingDate = new Date(anime.nextAiringEpisode?.airingAt! * 1000); // Convert UNIX timestamp to Date
                 const airingDay = airingDate.getDay(); // Get the day of the week (0-6)
 
                 anime.schedule = daysOfWeek[airingDay] || "Desconocido";
-            });
+            
         });
 
     return animes;
 };
 
 export default async function AiringAnimeTable() {
-    let animes: Anime[] | undefined = await getReleasingAnimes();
+    let animes: AnimeReleasing[]  = await getReleasingAnimes();
 
     animes = convertTodayEmision(animes);
 
