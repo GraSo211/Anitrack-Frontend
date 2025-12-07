@@ -5,10 +5,11 @@ import { getSeasonTrendAnimes } from '@/actions/categories/getSeasonTrendAnimes'
 import { getUpcomingAnimeReleases } from '@/actions/categories/getUpcomingAnimeReleases';
 import { getMostValoratedAnimes } from '@/actions/categories/getMostValoratedAnimes';
 import { getAnimesByGenre } from '@/actions/categories/getAnimesByGenre';
+import { AnimeCard } from '@/types/AnimeCard';
 
 export default async  function AnimeCategories() {
     const seasonTrendAnimes: Anime[] = await getSeasonTrendAnimes(5);
-    const upcomingAnimes: Anime[] = await getUpcomingAnimeReleases(5);
+    const upcomingAnimes: AnimeCard[] = await getUpcomingAnimeReleases();
     const mostValoratedAnimes: Anime[] = await getMostValoratedAnimes(5);
     const actionAnimes: Anime[] = await getAnimesByGenre(5, "Action");
     const romanceAnimes: Anime[] = await getAnimesByGenre(5, "Romance");
