@@ -17,20 +17,7 @@ export const getAnimeOfSeason = async () => {
                 seasonYear: ${new Date().getFullYear()}
                 sort: POPULARITY_DESC
                 ) {
-                title {
-                    romaji
-                    english
-                }
-                coverImage {
-                    extraLarge
-                    large
-                    medium
-                    color
-                }
                 bannerImage
-                popularity
-                averageScore
-                siteUrl
                 }
             }
             }
@@ -40,6 +27,7 @@ export const getAnimeOfSeason = async () => {
 
     const data = await response.json();
     const animes = data.data.Page.media;
+    console.log(animes);
     for(const anime of animes){
         if(anime.bannerImage !== null){
             return anime;

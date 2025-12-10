@@ -2,7 +2,7 @@ import { getChaptersOfAnime } from "./getChaptersOfAnime";
 import { Episode } from "@/types/Episode";
 
 export const getAnimeById = async (id: number) => {
-    const response = await fetch(`http://localhost:8080/api/v1/anime/${id}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/${id}`, {
         method: "GET",
     });
 

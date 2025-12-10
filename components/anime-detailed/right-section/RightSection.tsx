@@ -32,7 +32,7 @@ export default function RightSection({ titleRomaji, titleEnglish, synonyms, aver
             <header className="">
                 <h1 className="text-4xl font-extrabold text-white leading-tight">{titleRomaji || titleEnglish}</h1>
 
-                {synonyms.length > 0 && <p className="text-sm my-1 text-gray-400">{synonyms.join(", ")}</p>}
+                {synonyms.length > 0 && <p className="text-xs my-1 text-gray-400">{synonyms.join(", ")}</p>}
 
                 {/* Metrics */}
                 <div className="flex flex-wrap gap-3 items-center">
