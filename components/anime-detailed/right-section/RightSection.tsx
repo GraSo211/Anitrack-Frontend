@@ -24,10 +24,9 @@ interface Props {
         site?: string;
         thumbnail?: string;
     };
-    
 }
 
-export default async function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer,  }: Props) {
+export default async function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer }: Props) {
     const episodePage: EpisodePage = await getEpisodesOfAnime(malId);
     return (
         <div className="flex flex-col  w-full relative">
@@ -76,23 +75,14 @@ export default async function RightSection({ malId, titleRomaji, titleEnglish, s
                 </section>
             )}
 
-            {/* Episodes */}
-            {status === "FINISHED" && (
+            {
                 <section className="mt-6">
                     <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
-                  
-                </section>
-            )}
-
-            {status == "RELEASING" && (
-                <section className="mt-6">
-                    <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
-                    {episodePage.items.map((episode) => (
+                    {episodePage.items && episodePage.items.map((episode) => (
                         <Episodes key={episode.malId} episode={episode} watched={false} />
                     ))}
-                  
                 </section>
-            )   }
+            }
         </div>
     );
 }
