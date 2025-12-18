@@ -6,7 +6,7 @@ import { getUpcomingAnimeReleases } from '@/actions/categories/getUpcomingAnimeR
 import { getMostValoratedAnimes } from '@/actions/categories/getMostValoratedAnimes';
 import { getAnimesByGenre } from '@/actions/categories/getAnimesByGenre';
 
-export default async     function AnimeCategories() {
+export default async  function AnimeCategories() {
     const seasonTrendAnimes: Anime[] = await getSeasonTrendAnimes(5);
     const upcomingAnimes: Anime[] = await getUpcomingAnimeReleases(5);
     const mostValoratedAnimes: Anime[] = await getMostValoratedAnimes(5);
