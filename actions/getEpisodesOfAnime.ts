@@ -13,6 +13,5 @@ export const getEpisodesOfAnime = async (id: number) => {
     });
 
     const data: EpisodePage = await response.json();
-    console.log(data)
     return data
 };

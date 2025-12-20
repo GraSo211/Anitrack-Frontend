@@ -18,7 +18,6 @@ export const getReleasingAnimes = async () => {
 
         const data: AnimeReleasing[] = await response.json();
 
-        console.log("esta es la data", data)
         return data;
         
         

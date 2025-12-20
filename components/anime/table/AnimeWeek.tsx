@@ -15,7 +15,7 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
         { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
-    console.log("que dvolvers vos:??",animes)
+
 
     return (
         <div>
