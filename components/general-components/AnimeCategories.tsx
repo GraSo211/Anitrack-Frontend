@@ -8,7 +8,7 @@ import { getAnimesByGenre } from '@/actions/categories/getAnimesByGenre';
 import { AnimeCard } from '@/types/AnimeCard';
 
 export default async  function AnimeCategories() {
-    const seasonTrendAnimes: Anime[] = await getSeasonTrendAnimes(5);
+    const seasonTrendAnimes: AnimeCard[] = await getSeasonTrendAnimes(5);
     const upcomingAnimes: AnimeCard[] = await getUpcomingAnimeReleases();
     const mostValoratedAnimes: Anime[] = await getMostValoratedAnimes(5);
     const actionAnimes: Anime[] = await getAnimesByGenre(5, "Action");

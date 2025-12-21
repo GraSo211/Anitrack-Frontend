@@ -1,41 +1,16 @@
 "use server";
 
-import { AnimesResponse } from "@/types/AnimesResponse";
-import { getActualSeason } from "@/utils/getActualSeason";
+import { AnimeCard } from "@/types/AnimeCard";
 
 export const getSeasonTrendAnimes = async (cantidad: number) => {
-    const response = await fetch("https://graphql.anilist.co", {
-        method: "POST",
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/upcomingAnimeReleases`, {
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            query: `
-                query {
-                    Page(perPage: ${cantidad}) {
-                        media(
-                        season: ${getActualSeason()}
-                        seasonYear: ${new Date().getFullYear()}
-                        type: ANIME
-                        sort: POPULARITY_DESC
-                        ) {
-                        id
-                        title {
-                            romaji
-                        }
-                        coverImage {
-                            large
-                            extraLarge
-                        }
-                        
-                        }
-                    }
-                }
-
-            `,
-        }),
+        
     });
-    const data: AnimesResponse = await response.json();
+    const data: AnimeCard[] = await response.json();
 
-    return data.data.Page.media;
+    return data;
 };
