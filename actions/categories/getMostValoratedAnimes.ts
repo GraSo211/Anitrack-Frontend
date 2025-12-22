@@ -1,45 +1,17 @@
 "use server";
 
-import { AnimesResponse } from "@/types/AnimesResponse";
+import { AnimeCard } from "@/types/AnimeCard";
 
 
-export const getMostValoratedAnimes = async (cantidad: number) => {
-    const response = await fetch("https://graphql.anilist.co", {
-        method: "POST",
+export const getMostValoratedAnimes = async () => {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/mostValoratedAnimes`, {
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            query: `
-                query {
-                    Page(perPage: ${cantidad}) {
-                        media(
-                        type: ANIME
-                        sort: SCORE_DESC
-                        format_in: [TV, MOVIE]
-                        ) {
-                        id
-                        title {
-                            romaji
-                            english
-                        }
-                        meanScore
-                        popularity
-                        bannerImage
-                        coverImage {
-                            extraLarge
-                        }
-                        episodes
-                        status
-                        description
-                        }
-                    }
-                    }
-
-            `,
-        }),
+        
     });
-    const data: AnimesResponse = await response.json();
+    const data: AnimeCard[] = await response.json();
 
-    return data.data.Page.media;
+    return data;
 };
