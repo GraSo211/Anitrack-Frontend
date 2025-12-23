@@ -1,12 +1,12 @@
 "use client";
-import { Anime } from "@/types/Anime";
+
 import { AnimeCard as AnimeCardType } from "@/types/AnimeCard";
 import Link from "next/dist/client/link";
 import Image from "next/image";
 import React from "react";
 
 interface Props {
-    anime: Anime | AnimeCardType;
+    anime: AnimeCardType;
 }
 
 export default function AnimeCard({ anime }: Props) {

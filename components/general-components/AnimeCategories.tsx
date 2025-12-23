@@ -11,10 +11,10 @@ export default async  function AnimeCategories() {
     const seasonTrendAnimes: AnimeCard[] = await getSeasonTrendAnimes();
     const upcomingAnimes: AnimeCard[] = await getUpcomingAnimeReleases();
     const mostValoratedAnimes: AnimeCard[] = await getMostValoratedAnimes();
-    const actionAnimes: Anime[] = await getAnimesByGenre(5, "Action");
-    const romanceAnimes: Anime[] = await getAnimesByGenre(5, "Romance");
-    const comedyAnimes: Anime[] = await getAnimesByGenre(5, "Comedy");
-    const sliceOfLifeAnimes: Anime[] = await getAnimesByGenre(5, "Slice of Life");
+    const actionAnimes: AnimeCard[] = await getAnimesByGenre("Action");
+    const romanceAnimes: AnimeCard[] = await getAnimesByGenre("Romance");
+    const comedyAnimes: AnimeCard[] = await getAnimesByGenre("Comedy");
+    const sliceOfLifeAnimes: AnimeCard[] = await getAnimesByGenre("Slice of Life");
   return (
     <div>
          <AnimeList category={seasonTrendAnimes} title="Lo más popular de la Temporada" />
