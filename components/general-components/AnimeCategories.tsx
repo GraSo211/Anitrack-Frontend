@@ -1,6 +1,5 @@
 import React from 'react'
 import AnimeList from '../anime/horizontal-list/AnimeList'
-import { Anime } from '@/types/Anime';
 import { getSeasonTrendAnimes } from '@/actions/categories/getSeasonTrendAnimes';
 import { getUpcomingAnimeReleases } from '@/actions/categories/getUpcomingAnimeReleases';
 import { getMostValoratedAnimes } from '@/actions/categories/getMostValoratedAnimes';
