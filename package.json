@@ -11,7 +11,7 @@
   "dependencies": {
     "graphql": "^16.11.0",
     "isomorphic-dompurify": "^2.26.0",
-    "next": "15.4.6",
+    "next": "15.4.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.67.0"
