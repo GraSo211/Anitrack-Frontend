@@ -1,7 +1,6 @@
 import { getAnimeById } from "@/actions/getAnimeById";
 
 
-import React from "react";
 
 import { Anime } from "@/types/Anime";
 import Hero from "@/components/anime-detailed/Hero";
