@@ -25,7 +25,7 @@ export default async function page({ params }: Props) {
             <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
                     className="
-                mt-[12rem]
+                mt-48
                 rounded-2xl
                 shadow-2xl
                 p-6
