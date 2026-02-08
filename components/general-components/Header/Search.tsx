@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from "react";
 import Lupa from "../icons/Lupa";
 import { getAnimesByName } from "@/actions/getAnimesByName";
-import { Anime } from "@/types/Anime";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimesByName } from "@/types/AnimesByName";

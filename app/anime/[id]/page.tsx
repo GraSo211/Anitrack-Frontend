@@ -1,18 +1,9 @@
 import { getAnimeById } from "@/actions/getAnimeById";
 
-import { AnimeResponse } from "@/types/AnimeResponse";
+
 import React from "react";
 
-import DOMPurify from "isomorphic-dompurify";
-import Image from "next/image";
-
-import AnimeStatus from "@/components/anime/info/AnimeStatus";
-import Genres from "@/components/anime/info/Genres";
-
-import Episodes from "@/components/anime/info/Episodes";
 import { Anime } from "@/types/Anime";
-import Link from "next/link";
-import buildTrailerUrl from "@/utils/buildTrailerUrl";
 import Hero from "@/components/anime-detailed/Hero";
 import LeftSection from "../../../components/anime-detailed/left-section/LeftSection";
 import RightSection from "@/components/anime-detailed/right-section/RightSection";

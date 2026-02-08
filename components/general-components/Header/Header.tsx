@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import Lupa from "../icons/Lupa";
 import Search from "./Search";
 
 export default function Header() {

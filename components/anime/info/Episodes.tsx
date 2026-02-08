@@ -1,5 +1,4 @@
 import { Episode } from "@/types/Episode";
-import formatDate from "@/utils/formatDate";
 import React from "react";
 
 interface Props {

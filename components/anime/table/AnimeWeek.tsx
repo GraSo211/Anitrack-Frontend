@@ -40,7 +40,7 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
                                         <AnimeLi
                                             key={anime.id}
                                             id={anime.id}
-                                            episode={anime.nextAiringEpisode?.episode!}
+                                            episode={anime.nextAiringEpisode?.episode ?? 0}
                                             coverImage={anime.coverImage.extraLarge || anime.coverImage.large || "/placeholder_cover.png"}
                                             title={anime.title.romaji || anime.title.english || "Título Desconocido"}
                                         />

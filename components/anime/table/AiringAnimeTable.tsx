@@ -15,11 +15,14 @@ const convertTodayEmision = (animes: AnimeReleasing[] ) => {
 
     if (animes)
         animes.forEach((anime: AnimeReleasing) => {
-            
-                const airingDate = new Date(anime.nextAiringEpisode?.airingAt! * 1000); // Convert UNIX timestamp to Date
-                const airingDay = airingDate.getDay(); // Get the day of the week (0-6)
+                if(anime.nextAiringEpisode){
+                    const airingDate = new Date(anime.nextAiringEpisode.airingAt! * 1000); // Convert UNIX timestamp to Date
+                    const airingDay = airingDate.getDay(); // Get the day of the week (0-6)
+                    anime.schedule = daysOfWeek[airingDay] || "Desconocido";
+                }
+                
 
-                anime.schedule = daysOfWeek[airingDay] || "Desconocido";
+              
             
         });
 
