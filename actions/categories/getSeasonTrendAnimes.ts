@@ -8,6 +8,9 @@ export const getSeasonTrendAnimes = async () => {
         headers: {
             "Content-Type": "application/json",
         },
+        next: {
+            revalidate: 86400, // 1 day in seconds
+        },
         
     });
     const data: AnimeCard[] = await response.json();

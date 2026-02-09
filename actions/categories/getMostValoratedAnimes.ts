@@ -9,6 +9,9 @@ export const getMostValoratedAnimes = async () => {
         headers: {
             "Content-Type": "application/json",
         },
+        next: {
+            revalidate: 604800, // 1 week in seconds
+        },
         
     });
     const data: AnimeCard[] = await response.json();

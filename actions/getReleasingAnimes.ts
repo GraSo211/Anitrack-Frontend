@@ -12,7 +12,7 @@ export const getReleasingAnimes = async () => {
             headers: { "Content-Type": "application/json" },
             cache: "force-cache",
             next: {
-                revalidate: 60, // 24 hours
+                revalidate: 3600, // 1 hour 
             },
         });
 
