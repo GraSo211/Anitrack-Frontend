@@ -2,18 +2,35 @@
 
 import { AnimeCard } from "@/types/AnimeCard";
 
-export const getSeasonTrendAnimes = async () => {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/seasonTrendAnimes`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        next: {
-            revalidate: 86400, // 1 day in seconds
-        },
-        
-    });
-    const data: AnimeCard[] = await response.json();
+export const getSeasonTrendAnimes = async (): Promise<AnimeCard[] | null> => {
+    if (!process.env.BACKEND_URL) {
+        console.error("BACKEND_URL no está definida");
+        return null;
+    }
 
-    return data;
+    try {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/seasonTrendAnimes`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            next: {
+                revalidate: 86400, // 1 day in seconds
+            },
+        });
+
+        if (!response.ok) {
+            console.error(`Error al obtener los animes de tendencia de la temporada, status: ${response.status}`);
+            return null;
+        }
+
+
+
+        const data: AnimeCard[] = await response.json();
+
+        return data;
+    } catch (error) {
+        console.error("Fallo de fetch getSeasonTrendAnimes:", error);
+        return null;
+    }
 };

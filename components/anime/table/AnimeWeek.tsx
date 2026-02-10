@@ -5,6 +5,8 @@ import AnimeLi from "./AnimeLi";
 import { AnimeReleasing } from "@/types/AnimeReleasing";
 
 export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undefined }) {
+    const animesChecked: AnimeReleasing[] = Array.isArray(animes) ? animes : [];
+    const hasError = animes !== undefined && !Array.isArray(animes);
 
     const daysOfWeek = [
         { key: "monday", label: "Monday", spanishLabel: "Lunes" },
@@ -16,14 +18,14 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
 
-
     return (
         <div>
             <div className="absolute flex  ml-8 mt-10 top-0 left-0">
                 <AiringSwitch onChange={(value) => console.log(value)} />
-                
             </div>
             <div className="grid grid-cols-7 gap-4 w-full">
+                {hasError && <div className="col-span-7 text-center text-red-400 text-sm mt-4">Ocurrió un problema al cargar los animes. Intentá nuevamente más tarde.</div>}
+
                 {daysOfWeek.map((day) => (
                     <div
                         key={day.key}
@@ -33,8 +35,7 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
                             {day.spanishLabel}
                         </h3>
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
-                            {animes &&
-                                animes
+                            {animesChecked 
                                     .filter((anime) => anime.schedule === day.key)
                                     .map((anime) => (
                                         <AnimeLi
