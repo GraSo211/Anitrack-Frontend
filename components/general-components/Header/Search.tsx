@@ -56,7 +56,17 @@ export default function Search() {
                         {animes.map((anime) => (
                             <li key={anime.id + anime.title.romaji!} className="flex items-center gap-3 p-3 hover:bg-white/10 transition" onClick={closeDropdown}>
                                 <Link href={`/anime/${anime.id}`} className="flex items-center gap-3 w-full">
-                                    <Image src={anime.coverImage?.extraLarge || "/coverImagePlaceholder.png"} alt={anime.title.romaji || anime.title.english || "Anime"} width={60} height={90} className="rounded-md object-cover" />
+                                    <div className="relative w-14  aspect-2/3 shrink-0">
+                                        <Image
+                                            src={anime.coverImage?.extraLarge || "/coverImagePlaceholder.png"}
+                                            alt={anime.title.romaji || anime.title.english || "Anime"}
+                                            fill
+                                            
+                                            sizes="112px"
+                                            className="rounded-md object-cover"
+                                        />
+                                    </div>
+
                                     <div className="flex flex-col">
                                         <span className="font-semibold text-sm">{anime.title.romaji}</span>
                                         {anime.title.english && <span className="text-xs text-white/60">{anime.title.english}</span>}

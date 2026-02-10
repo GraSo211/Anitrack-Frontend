@@ -12,10 +12,10 @@ export default async function BestAnimeSeason() {
             <h3 className="font-semibold text-xl mb-6 opacity-90">Este es el anime mejor valorado de la temporada</h3>
 
             {anime && (
-                <div className="relative w-full h-[300px] rounded-xl overflow-hidden shadow-lg">
+                <div className="relative w-full h-75 rounded-xl overflow-hidden shadow-lg">
                     <Image src={anime.bannerImage!} alt={anime.title.romaji || anime.title.english|| ""} fill className="object-cover brightness-75" />
 
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
+                    <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70" />
 
                     <div className="absolute bottom-4 left-4">
                         <h3 className="text-2xl font-bold drop-shadow-lg">{anime.title.english || anime.title.romaji}</h3>

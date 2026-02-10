@@ -18,7 +18,7 @@ export default async function page({ params }: Props) {
     return (
         <div className="min-h-screen relative bg-black">
             {/* Hero */}
-            <Hero bannerImage={anime.bannerImage} title={anime.title.romaji || anime.title.english} />
+            <Hero bannerImage={anime.bannerImage} colorBg={anime.coverImage?.color} title={anime.title.romaji || anime.title.english} />
 
             {/* Content */}
             <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

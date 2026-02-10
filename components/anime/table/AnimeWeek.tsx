@@ -27,7 +27,7 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
                 {daysOfWeek.map((day) => (
                     <div
                         key={day.key}
-                        className="bg-gradient-to-br  rounded-xl p-1  flex flex-col items-center w-[150px] 2xl:w-[200px] max-h-[400px] 2xl:max-h-[600px] overflow-hidden shadow-lg transition-transform hover:scale-105"
+                        className="bg-linear-to-br  rounded-xl p-1  flex flex-col items-center w-37.5 2xl:w-50 max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105"
                     >
                         <h3 className="text-lg font-bold text-[#e0e1dd] mb-2 tracking-wide uppercase border-[0.2px] border-blue-400/20 w-full text-center rounded-sm bg-blue-500/10 ">
                             {day.spanishLabel}

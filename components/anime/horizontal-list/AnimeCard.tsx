@@ -13,8 +13,8 @@ export default function AnimeCard({ anime }: Props) {
     return (
         <li key={anime.id} className="  p-1 items-baseline rounded-md flex flex-col gap-2 ">
             <Link href={`/anime/${anime.id}`}>
-                <div className="relative w-full  ">
-                    <Image src={anime.coverImage?.extraLarge || anime.coverImage?.large|| anime.coverImage?.medium || "/coverImagePlaceholder.jpg"} alt={anime.title.romaji || "Default Anime Cover"} height={400} width={200} className="object-cover w-40 h-60 2xl:w-60 2xl:h-80 rounded-md" />
+                <div className="relative w-40 h-60 2xl:w-60 2xl:h-80   max-w-[400]   ">
+                    <Image src={anime.coverImage?.extraLarge || anime.coverImage?.large|| anime.coverImage?.medium || "/coverImagePlaceholder.jpg"} alt={anime.title.romaji || "Default Anime Cover"} fill sizes="(max-width: 768px) 100vw, 480px" className="object-cover rounded-md" />
                 </div>
             </Link>
             <Link href={`/anime/${anime.id}`} className="w-40 2xl:w-60 text-center">
