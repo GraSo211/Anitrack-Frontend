@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 
 export default async function BestAnimeSeason() {
-    const anime: AnimeTopSeason = await getTopSeasonAnime();
+    const anime: AnimeTopSeason | null = await getTopSeasonAnime();
 
     return (
         <div className="w-[80%] mx-auto text-[#e0e1dd]">
@@ -13,7 +13,7 @@ export default async function BestAnimeSeason() {
 
             {anime && (
                 <div className="relative w-full h-75 rounded-xl overflow-hidden shadow-lg">
-                    <Image src={anime.bannerImage!} alt={anime.title.romaji || anime.title.english|| ""} fill className="object-cover brightness-75" />
+                    {anime.bannerImage && <Image src={anime.bannerImage} alt={anime.title.romaji || anime.title.english || ""} fill className="object-cover brightness-75" />}
 
                     <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70" />
 
