@@ -9,7 +9,8 @@ export default async function HeroSection() {
 
     return (
         <section className="relative w-full h-162.5 flex items-center px-6 md:px-16 lg:px-28">
-            <Image
+            {bannerImage ?(
+                            <Image
                 src={bannerImage}
                 alt="Hero Image"
                 fill
@@ -18,6 +19,10 @@ export default async function HeroSection() {
                 mask-[linear-gradient(to_bottom,rgba(0,0,0,1)_60%,rgba(0,0,0,0)_95%)]
                 saturate-[1.3] brightness-[0.85]"
             />
+            ):(
+                <div className="absolute inset-0 bg-linear-to-b from-gray-800 to-gray-900 -z-10" />
+            )}
+
 
             <div className="absolute inset-0 bg-linear-to-r from-black/60 via-black/30 to-transparent -z-10" />
 

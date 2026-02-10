@@ -1,7 +1,5 @@
 import { getAnimeById } from "@/actions/getAnimeById";
 
-
-
 import { Anime } from "@/types/Anime";
 import Hero from "@/components/anime-detailed/Hero";
 import LeftSection from "../../../components/anime-detailed/left-section/LeftSection";
@@ -13,8 +11,12 @@ interface Props {
 
 export default async function page({ params }: Props) {
     const { id } = await params;
-    const anime: Anime = await getAnimeById(id);  
-    console.log(anime.relations);
+    const anime: Anime | null = await getAnimeById(id);
+
+    if (!anime) {
+        return <div className="min-h-screen flex items-center justify-center">Error al cargar el anime</div>;
+    }
+
     return (
         <div className="min-h-screen relative bg-black">
             {/* Hero */}
@@ -62,8 +64,6 @@ export default async function page({ params }: Props) {
                         genres={anime.genres}
                         description={anime.description}
                         trailer={anime.trailer}
-                     
-                        
                     />
                 </div>
             </main>
