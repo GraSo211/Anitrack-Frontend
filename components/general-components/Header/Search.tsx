@@ -23,7 +23,7 @@ export default function Search() {
                 setAnimes(null);
                 return;
             }
-            const result: AnimesByName[] = await getAnimesByName(value);
+            const result: AnimesByName[] | null = await getAnimesByName(value);
             setAnimes(result);
         }, 600);
     };
@@ -61,7 +61,6 @@ export default function Search() {
                                             src={anime.coverImage?.extraLarge || "/coverImagePlaceholder.png"}
                                             alt={anime.title.romaji || anime.title.english || "Anime"}
                                             fill
-                                            
                                             sizes="112px"
                                             className="rounded-md object-cover"
                                         />

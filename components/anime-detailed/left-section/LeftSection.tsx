@@ -132,7 +132,7 @@ export default function LeftSection({ coverImage, title, studio, source, episode
                         {relations.items.map((anime) => (
                             <Link key={anime.relatedMediaId} href={`/anime/${anime.relatedMediaId}`} className="group">
                                 <div className="flex flex-col  gap-2">
-                                    <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-gray-700 bg-gray-800">
+                                    <div className="relative aspect-2/3 overflow-hidden rounded-lg border border-gray-700 bg-gray-800">
                                         <Image src={anime.relatedImage} alt={anime.relatedTitle} fill sizes="60px 30px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
                                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition" />
                                     </div>
