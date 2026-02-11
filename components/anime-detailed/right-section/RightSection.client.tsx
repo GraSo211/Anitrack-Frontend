@@ -1,7 +1,7 @@
 // components/anime-detailed/right-section/RightSection.client.tsx
 "use client";
 
-import DOMPurify from "isomorphic-dompurify";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -50,10 +50,9 @@ export default function RightSectionClient({ titleRomaji, titleEnglish, synonyms
                 <section className="bg-gray-900/60 rounded-xl p-4 my-2">
                     <div
                         className="text-gray-200 leading-relaxed"
-                        dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(description),
-                        }}
-                    />
+                    
+                       dangerouslySetInnerHTML={{ __html: (description) }}></div> 
+                
                 </section>
             )}
 
