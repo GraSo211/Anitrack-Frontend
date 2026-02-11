@@ -21,8 +21,8 @@ interface Props {
 }
 
 export default async function RightSection(props: Props) {
-  const episodePage: EpisodePage = await getEpisodesOfAnime(props.malId);
-
+  const episodePage: EpisodePage | null = await getEpisodesOfAnime(props.malId);
+  
   return (
     <RightSectionClient
       {...props}

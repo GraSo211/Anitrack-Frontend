@@ -26,7 +26,7 @@ interface Props {
         site?: string;
         thumbnail?: string;
     };
-    episodePage: EpisodePage;
+    episodePage: EpisodePage| null;
 }
 
 export default function RightSectionClient({ titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
@@ -76,7 +76,7 @@ export default function RightSectionClient({ titleRomaji, titleEnglish, synonyms
             <section className="mt-6">
                 <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
 
-                {episodePage.items?.map((episode) => (
+                {episodePage !== null && episodePage.items?.map((episode) => (
                     <Episodes key={episode.malId} episode={episode} watched={false} />
                 ))}
             </section>
