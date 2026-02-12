@@ -18,7 +18,7 @@ export default function AnimeLi({ coverImage, title, id, episode }: Props) {
                     <Clock width={15} height={15}></Clock>EP {episode}
                 </span>
                 <p className="text-xs 2xl:text-sm font-semibold z-20  text-left pl-2 w-full mb-1  ">{title}</p>
-                <Image src={coverImage} alt={title} width={2560} height={1440} className="absolute top-0 left-0  z-10  rounded-lg object-fill" />
+                <Image src={coverImage} alt={title} width={2560} height={1440} loading="eager" className="absolute top-0 left-0  z-10  rounded-lg object-fill" />
             </Link>
         </li>
     );

@@ -14,6 +14,7 @@ export default async function HeroSection() {
                 src={bannerImage}
                 alt="Hero Image"
                 fill
+                priority
                 loading="eager"
                 className="absolute inset-0 object-cover object-center -z-10
                 mask-[linear-gradient(to_bottom,rgba(0,0,0,1)_60%,rgba(0,0,0,0)_95%)]
