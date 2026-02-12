@@ -4,6 +4,8 @@ import { Anime } from "@/types/Anime";
 import Hero from "@/components/anime-detailed/Hero";
 import LeftSection from "../../../components/anime-detailed/left-section/LeftSection";
 import RightSection from "@/components/anime-detailed/right-section/RightSection";
+import { EpisodePage } from "@/types/EpisodePage";
+import { getEpisodesOfAnime } from "@/actions/getEpisodesOfAnime";
 
 interface Props {
     params: Promise<{ id: number }>;
@@ -12,7 +14,7 @@ interface Props {
 export default async function page({ params }: Props) {
     const { id } = await params;
     const anime: Anime | null = await getAnimeById(id);
-
+    const episodePage: EpisodePage | null = await getEpisodesOfAnime(anime?.malId || 0);
     if (!anime) {
         return <div className="min-h-screen flex items-center justify-center">Error al cargar el anime</div>;
     }
@@ -64,6 +66,7 @@ export default async function page({ params }: Props) {
                         genres={anime.genres}
                         description={anime.description}
                         trailer={anime.trailer}
+                        episodePage={episodePage}
                     />
                 </div>
             </main>

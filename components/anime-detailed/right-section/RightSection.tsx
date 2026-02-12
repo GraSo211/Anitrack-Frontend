@@ -28,6 +28,7 @@ interface Props {
 }
 
 export default function RightSection({ titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
+  
     return (
         <div className="flex flex-col w-full relative">
             <header>
