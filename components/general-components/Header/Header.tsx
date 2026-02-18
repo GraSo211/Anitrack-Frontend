@@ -13,16 +13,16 @@ export default function Header() {
                 </h1>
             </div>
 
-            <div className="flex-1 flex justify-center">
+            <div className={"hidden bg-blue-200"+"flex-1 flex justify-center 2xl:visible"}>
                 <Search />
             </div>
 
-            <nav className="flex-1 flex justify-end items-center gap-6">
+            <nav className={"flex-1 flex justify-end items-center gap-6 hidden 2xl:visible " + ""}>
                 <Link href="/animes" className="text-sm hover:text-blue-400 transition-colors">
                     Animes
                 </Link>
 
-                <Link href={"/login"} className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 
+                <Link href={"/login"} className="px-3 py-1.5 rounded-xl  bg-white/10 backdrop-blur-md border border-white/20 
                     hover:bg-white/20 transition-all shadow-lg shadow-black/30">
                     Iniciar Sesion
                 </Link>

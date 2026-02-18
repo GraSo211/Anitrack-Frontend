@@ -12,15 +12,15 @@ export default async function Home() {
             <section className="w-full flex justify-center ">
                 <HeroSection></HeroSection>
             </section>
-            <section className="flex justify-center ">
+            <section className="flex justify-center hidden ">
                 <AiringAnimeTable />
             </section>
 
-            <section className="w-full flex justify-center">
+            <section className="w-full flex justify-center hidden">
                 <BestAnimeSeason></BestAnimeSeason>
             </section>
           
-            <section className="flex w-3/5  justify-center">
+            <section className="flex w-3/5  justify-center hidden">
                 <AnimeCategories></AnimeCategories>
             </section>
         </main>
