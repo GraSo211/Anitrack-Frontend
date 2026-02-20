@@ -13,11 +13,11 @@ export default function Header() {
                 </h1>
             </div>
 
-            <div className={"hidden bg-blue-200"+"flex-1 flex justify-center 2xl:visible"}>
+            <div className={"hidden bg-blue-200"+"flex-1 justify-center lg:flex"}>
                 <Search />
             </div>
 
-            <nav className={"flex-1 flex justify-end items-center gap-6 hidden 2xl:visible " + ""}>
+            <nav className={"flex-1  justify-end items-center gap-6 hidden lg:flex " + ""}>
                 <Link href="/animes" className="text-sm hover:text-blue-400 transition-colors">
                     Animes
                 </Link>

@@ -11,10 +11,10 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
 
 
   return (
-    <div className="relative flex w-fit p-1 bg-[#1a1d24] rounded-xl shadow-inner">
+    <div className="relative flex w-fit p-1 bg-[#021321] rounded-xl shadow-inner">
       <div
         className={`
-          absolute top-1 bottom-1 rounded-lg bg-[#0105ae]/40 transition-all duration-300 ease-out
+          absolute top-1 bottom-1 rounded-lg bg-[#021faa]/20 transition-all duration-300 ease-out
           ${selected === "all" ? "left-1 right-[50%]" : "left-[50%] right-1"}
         `}
       />
@@ -23,8 +23,7 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
       <button
         onClick={() => handleSelect("all")}
         className={`
-          relative z-10 px-4 py-2  rounded-lg transition-colors duration-300  
-          ${selected === "all" ? "text-white" : "text-gray-300"}
+          relative text-xs z-10 px-2 py-2  rounded-lg transition-colors duration-300  ${selected === "all" ? "text-white" : "text-gray-300"}
         `}
       >
         Todos los animes
@@ -34,7 +33,7 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
       <button
         onClick={() => handleSelect("following")}
         className={`
-          relative z-10 px-4 py-2  rounded-lg transition-colors duration-300
+          relative text-xs z-10 px-2 py-2  rounded-lg transition-colors duration-300
           ${selected === "following" ? "text-white" : "text-gray-300"}
         `}
       >

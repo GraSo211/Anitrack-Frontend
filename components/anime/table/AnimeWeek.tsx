@@ -20,7 +20,7 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
 
     return (
         <div>
-            <div className="absolute flex  ml-8 mt-10 top-0 left-0">
+            <div className=" flex mb-1 font-semibold ">
                 <AiringSwitch onChange={(value) => console.log(value)} />
             </div>
             <div className="grid grid-cols-7 gap-4 w-full">

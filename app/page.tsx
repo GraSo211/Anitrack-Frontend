@@ -12,7 +12,7 @@ export default async function Home() {
             <section className="w-full flex justify-center ">
                 <HeroSection></HeroSection>
             </section>
-            <section className="flex justify-center hidden ">
+            <section className="flex justify-center  ">
                 <AiringAnimeTable />
             </section>
 
