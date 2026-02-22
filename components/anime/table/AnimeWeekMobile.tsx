@@ -78,7 +78,7 @@ export default function AnimeWeekMobile({ animes }: Props) {
 
                                     ))
                             }
-                            <Link href="/animes" className="absolute bottom-0 right-0 text-xs text-white border border-white/20 py-1 px-2 rounded-md bg-[#09041b] hover:text-blue-300 cursor-pointer">Ver todos →</Link>
+                            <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="absolute bottom-0 right-0 text-xs text-white border border-white/20 py-1 px-2 rounded-md bg-[#09041b] hover:text-blue-300 cursor-pointer">Ver todos →</Link>
                         </div>
 
 
