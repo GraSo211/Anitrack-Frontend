@@ -14,10 +14,10 @@ export default function AnimeWeekMobile({ animes }: Props) {
     const daysOfWeek = [
         { key: "monday", label: "Monday", spanishLabel: "Lunes" },
         { key: "tuesday", label: "Tuesday", spanishLabel: "Martes" },
-        { key: "wednesday", label: "Wednesday", spanishLabel: "Miércoles" },
+        { key: "wednesday", label: "Wednesday", spanishLabel: "Miercoles" },
         { key: "thursday", label: "Thursday", spanishLabel: "Jueves" },
         { key: "friday", label: "Friday", spanishLabel: "Viernes" },
-        { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
+        { key: "saturday", label: "Saturday", spanishLabel: "Sabado" },
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
 

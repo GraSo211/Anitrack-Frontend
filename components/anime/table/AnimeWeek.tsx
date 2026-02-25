@@ -17,7 +17,7 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
         { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
-
+ 
     return (
         <div>
             <div className=" flex mb-1 font-semibold ">
