@@ -13,8 +13,7 @@ export const getAnimesByName = async (name: string) : Promise<AnimesByName[] | n
       {method: "GET"}
     )
     if(!response.ok){
-      console.error(`Error al obtener animes por nombre ${name}, status: ${response.status}`);
-      return null;
+      throw new Error(`Error status: ${response.status}`);
     }
     const data: AnimesByName[] = await response.json();
     return data;

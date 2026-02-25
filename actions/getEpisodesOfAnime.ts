@@ -19,8 +19,7 @@ export const getEpisodesOfAnime = async (id: number) : Promise<EpisodePage | nul
         });
 
         if (!response.ok) {
-            console.error(`Error al obtener los episodios del anime con id ${id}, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
 
         const data: EpisodePage = await response.json();

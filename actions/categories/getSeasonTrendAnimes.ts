@@ -20,8 +20,7 @@ export const getSeasonTrendAnimes = async (): Promise<AnimeCard[] | null> => {
         });
 
         if (!response.ok) {
-            console.error(`Error al obtener los animes de tendencia de la temporada, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
 
 

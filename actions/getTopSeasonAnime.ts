@@ -15,8 +15,7 @@ export const getTopSeasonAnime = async (): Promise<AnimeTopSeason | null> => {
         });
 
         if (!response.ok) {
-            console.error(`Error al obtener los animes principales de la temporada, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
 
         const data = await response.json();

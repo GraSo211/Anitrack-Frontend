@@ -20,8 +20,7 @@ export const getReleasingAnimes = async (): Promise<AnimeReleasing[] | null> => 
         });
 
         if (!response.ok) {
-            console.error(`Error al obtener los animes en emisión, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
         const data: AnimeReleasing[] = await response.json();
 

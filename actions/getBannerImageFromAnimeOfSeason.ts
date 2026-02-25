@@ -12,8 +12,7 @@ export const getBannerImageFromAnimeOfSeason = async (): Promise<string | null> 
             },
         });
         if (!response.ok) {
-            console.error(`Error al obtener la imagen de banner del anime de la temporada, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
         const data = await response.json();
         return data.link;

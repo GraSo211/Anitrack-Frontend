@@ -16,8 +16,7 @@ export const getAnimeById = async (id: number): Promise<Anime | null> => {
         });
 
         if (!response.ok) {
-            console.error(`Error al obtener anime ${id}, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
 
         const data = await response.json();

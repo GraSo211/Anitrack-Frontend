@@ -19,8 +19,7 @@ export const getAnimesByGenre = async (genre: string): Promise<AnimeCard[] | nul
         });
 
         if (!response.ok) {
-            console.error(`Error al obtener animes por género ${genre}, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
 
         const data: AnimeCard[] = await response.json();

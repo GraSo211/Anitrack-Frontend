@@ -19,8 +19,7 @@ export const getMostValoratedAnimes = async (): Promise<AnimeCard[] | null> => {
             },
         });
         if (!response.ok) {
-            console.error(`Error al obtener los animes más valorados, status: ${response.status}`);
-            return null;
+            throw new Error(`Error status: ${response.status}`);
         }
         const data: AnimeCard[] = await response.json();
 
