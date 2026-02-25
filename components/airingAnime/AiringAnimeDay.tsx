@@ -60,7 +60,7 @@ export default function AiringAnimeDay({ animes }: Props) {
     );
 
     return (
-        <div className=" flex flex-col   gap-4 px-3 py-4">
+        <div className=" flex flex-col    gap-4 px-3 py-4">
             <div className="w-full overflow-x-auto">
                 <div className="flex w-max   rounded-xl bg-[#0f1c33] border border-white/10">
                     {daysOfWeek.map((day) => {
