@@ -60,7 +60,7 @@ export default function AiringAnimeDay({ animes }: Props) {
     );
 
     return (
-        <div className=" flex flex-col    gap-4 px-3 py-4">
+        <div className=" flex flex-col    gap-2 px-3 py-4">
             <div className="w-full overflow-x-auto">
                 <div className="flex w-max   rounded-xl bg-[#0f1c33] border border-white/10">
                     {daysOfWeek.map((day) => {
@@ -85,68 +85,70 @@ export default function AiringAnimeDay({ animes }: Props) {
                     })}
                 </div>
             </div>
-
-
             <h2 className="text-xl  font-bold text-white">{daysOfWeek.find(d => d.key === dayEnglish)?.spanishLabel.toUpperCase()}</h2>
-            {animesOfDay.map((anime) => {
+            <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3 flex flex-col gap-3">
 
-                const title =
-                    anime.title.english ??
-                    anime.title.romaji ??
-                    "Título desconocido";
+                {animesOfDay.map((anime) => {
 
-                const cover =
-                    anime.coverImage.extraLarge ??
-                    anime.coverImage.large ??
-                    anime.coverImage.medium ??
-                    "/coverImagePlaceholder.png";
+                    const title =
+                        anime.title.english ??
+                        anime.title.romaji ??
+                        "Título desconocido";
 
-                return (
+                    const cover =
+                        anime.coverImage.extraLarge ??
+                        anime.coverImage.large ??
+                        anime.coverImage.medium ??
+                        "/coverImagePlaceholder.png";
 
-                    <Link
-                        key={anime.id}
-                        href={`/anime/${anime.id}`}
-                        className="flex  w-full gap-4 rounded-xl  transition hover:bg-white/5"
-                        style={{
-                            backgroundColor: anime.coverImage.color
-                                ? `${anime.coverImage.color}20`
-                                : undefined
-                        }}
-                    >
-                        <div className="relative w-24 aspect-2/3 shrink-0">
-                            <Image
-                                src={cover}
-                                alt={title}
-                                fill
-                                sizes="96px"
-                                className="rounded-lg object-cover"
-                            />
-                        </div>
+                    return (
 
-                        <div className="flex flex-col  justify-between py-2 w-full">
-                            <div>
-                                <h3 className="text-base  font-semibold text-white  line-clamp-2">
-                                    {title}
-                                </h3>
+                        <Link
+                            key={anime.id}
+                            href={`/anime/${anime.id}`}
+                            className="flex  w-full gap-4 rounded-xl  transition hover:bg-white/5"
+                            style={{
+                                backgroundColor: anime.coverImage.color
+                                    ? `${anime.coverImage.color}20`
+                                    : undefined
+                            }}
+                        >
+                            <div className="relative w-24 aspect-2/3 shrink-0">
+                                <Image
+                                    src={cover}
+                                    alt={title}
+                                    fill
+                                    sizes="96px"
+                                    className="rounded-lg object-cover"
+                                />
+                            </div>
+
+                            <div className="flex flex-col  justify-between py-2 w-full">
+                                <div>
+                                    <h3 className="text-base  font-semibold text-white  line-clamp-2">
+                                        {title}
+                                    </h3>
+
+                                    {anime.nextAiringEpisode && (
+                                        <p className="text-sm text-gray-400 mt-1">
+                                            Episodio {anime.nextAiringEpisode.episode}
+                                        </p>
+                                    )}
+                                </div>
 
                                 {anime.nextAiringEpisode && (
-                                    <p className="text-sm text-gray-400 mt-1">
-                                        Episodio {anime.nextAiringEpisode.episode}
+                                    <p className="text-xs text-blue-400  font-medium mt-2">
+                                        Se emite en {formatCountdown(anime.nextAiringEpisode.timeUntilAiring)}
                                     </p>
                                 )}
                             </div>
-
-                            {anime.nextAiringEpisode && (
-                                <p className="text-xs text-blue-400  font-medium mt-2">
-                                    Se emite en {formatCountdown(anime.nextAiringEpisode.timeUntilAiring)}
-                                </p>
-                            )}
-                        </div>
-                    </Link>
+                        </Link>
 
 
-                );
-            })}
+                    );
+                })}
+            </div>
+
 
             {animesOfDay.length === 0 && (
                 <div className="text-center text-gray-500 py-10">

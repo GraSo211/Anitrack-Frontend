@@ -3,6 +3,7 @@ import React from "react";
 import AiringSwitch from "./AiringSwitch";
 import AnimeLi from "./AnimeLi";
 import { AnimeReleasing } from "@/types/AnimeReleasing";
+import Link from "next/link";
 
 export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undefined }) {
     const animesChecked: AnimeReleasing[] = Array.isArray(animes) ? animes : [];
@@ -31,9 +32,12 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
                         key={day.key}
                         className="bg-linear-to-br  rounded-xl p-1  flex flex-col items-center w-37.5 2xl:w-50 max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105"
                     >
-                        <h3 className="text-lg font-bold text-[#e0e1dd] mb-2 tracking-wide uppercase border-[0.2px] border-blue-400/20 w-full text-center rounded-sm bg-blue-500/10 ">
+                        <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="w-full">
+                            <h3 className="text-lg font-bold text-[#e0e1dd] mb-2 tracking-wide uppercase border-[0.2px] border-blue-400/20 w-full text-center rounded-sm bg-blue-500/10 hover:bg-blue-500/20 transition-colors hover:animate-pulse hover:cursor-pointer">
                             {day.spanishLabel}
                         </h3>
+                        </Link>
+                        
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
                             {animesChecked 
                                     .filter((anime) => anime.schedule === day.key)

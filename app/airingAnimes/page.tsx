@@ -16,7 +16,7 @@ export default async function page() {
    
 
     return (
-        <div className='w-full overflow-hidden'>
+        <div className='w-full lg:flex justify-center items-center  overflow-hidden'>
             <AiringAnimeDay animes={animes}></AiringAnimeDay>
           
         </div>
