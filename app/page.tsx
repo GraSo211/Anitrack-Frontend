@@ -16,11 +16,11 @@ export default async function Home() {
                 <AiringAnimeTable />
             </section>
 
-            <section className="w-full flex justify-center hidden">
+            <section className="w-full flex justify-center ">
                 <BestAnimeSeason></BestAnimeSeason>
             </section>
           
-            <section className="flex w-3/5  justify-center hidden">
+            <section className="flex lg:w-3/5   p-2 ">
                 <AnimeCategories></AnimeCategories>
             </section>
         </main>

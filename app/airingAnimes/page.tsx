@@ -13,7 +13,7 @@ export default async function page() {
     //const hasError = animes !== undefined && !Array.isArray(animes);
 
 
-    console.log(animes)
+   
 
     return (
         <div className='w-full overflow-hidden'>
