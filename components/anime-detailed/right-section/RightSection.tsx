@@ -8,6 +8,8 @@ import Genres from "@/components/anime/info/Genres";
 import Episodes from "@/components/anime/info/Episodes";
 import buildTrailerUrl from "@/utils/buildTrailerUrl";
 import { EpisodePage } from "@/types/EpisodePage";
+import { FaFireAlt } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 interface Props {
     malId: number;
@@ -37,8 +39,8 @@ export default function RightSection({ titleRomaji, titleEnglish, synonyms, aver
                 {synonyms.length > 0 && <p className="text-xs my-1 text-gray-400">{synonyms.join(", ")}</p>}
 
                 <div className="flex flex-wrap gap-3 items-center">
-                    {averageScore && <span>⭐ {averageScore}</span>}
-                    {popularity && <span>🔥 {popularity}</span>}
+                    {averageScore && <span className='flex gap-1 justify-center items-center'><FaStar /> {averageScore}</span>}
+                    {popularity && <span className='flex gap-1 justify-center items-center'><FaFireAlt></FaFireAlt> {popularity}</span>}
                     {status && <AnimeStatus status={status} />}
                 </div>
             </div>
