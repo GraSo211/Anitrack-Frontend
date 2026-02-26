@@ -15,15 +15,15 @@ export default function Header() {
             </div>
 
 
-            <div className=" lg:hidden absolute top-2.5 right-1"><IoMenu size={40}></IoMenu></div>
+           
 
 
 
-            <div className={"hidden bg-blue-200"+"flex-1 justify-center lg:flex"}>
+            <div className={"hidden bg-blue-200" + "flex-1 justify-center lg:flex"}>
                 <Search />
             </div>
 
-            <nav className={clsx("absolute bg-black lg:static flex-1  justify-end items-center gap-6  lg:flex ", true ? "flex":"hidden")}>
+            <nav className={"hidden lg:static flex-1  justify-end items-center gap-6  lg:flex "}>
                 <Link href="/animes" className="text-sm hover:text-blue-400 transition-colors">
                     Animes
                 </Link>
@@ -33,6 +33,9 @@ export default function Header() {
                     Iniciar Sesion
                 </Link>
             </nav>
+
+
+
         </header>
     );
 }

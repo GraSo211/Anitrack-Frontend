@@ -2,6 +2,8 @@ import { getTopSeasonAnime } from "@/actions/getTopSeasonAnime";
 import { AnimeTopSeason } from "@/types/AnimeTopSeason";
 import Image from "next/image";
 import React from "react";
+import { FaFireAlt } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 export default async function BestAnimeSeason() {
     const anime: AnimeTopSeason | null = await getTopSeasonAnime();
@@ -21,8 +23,8 @@ export default async function BestAnimeSeason() {
                         <h3 className="text-xl  lg:text-2xl font-bold drop-shadow-lg">{anime.title.english || anime.title.romaji}</h3>
 
                         <div className="flex gap-3 mt-2">
-                            <span className="px-3 py-1 text-sm bg-[#415a77] rounded-full">⭐ {anime.averageScore}</span>
-                            <span className="px-3 py-1 text-sm bg-[#1b263b] rounded-full">🔥 {anime.popularity.toLocaleString()}</span>
+                            <span className="px-3 py-1 text-sm bg-[#415a77] rounded-full flex items-center gap-1"><FaStar /> {anime.averageScore}</span>
+                            <span className="px-3 py-1 text-sm bg-[#1b263b] rounded-full flex items-center gap-1"><FaFireAlt  /> {anime.popularity.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>

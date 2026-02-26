@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/general-components/Header/Header";
 import Footer from '../components/general-components/Footer';
 import { Montserrat } from "next/font/google";
+import SideBar from "@/components/general-components/Sidebar";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} z-50 antialiased grid grid-rows-[auto_1fr_auto] min-h-dvh`}>
         <Header />
+        <SideBar></SideBar>
         {children}
         <Footer></Footer>
       </body>
