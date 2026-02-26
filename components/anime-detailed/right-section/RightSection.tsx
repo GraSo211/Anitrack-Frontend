@@ -31,7 +31,7 @@ export default function RightSection({ titleRomaji, titleEnglish, synonyms, aver
   
     return (
         <div className="flex flex-col w-full relative">
-            <header>
+            <div>
                 <h1 className="text-4xl font-extrabold text-white">{titleRomaji ?? titleEnglish ?? "Título desconocido"}</h1>
 
                 {synonyms.length > 0 && <p className="text-xs my-1 text-gray-400">{synonyms.join(", ")}</p>}
@@ -41,7 +41,7 @@ export default function RightSection({ titleRomaji, titleEnglish, synonyms, aver
                     {popularity && <span>🔥 {popularity}</span>}
                     {status && <AnimeStatus status={status} />}
                 </div>
-            </header>
+            </div>
 
             <Genres genres={genres} />
 

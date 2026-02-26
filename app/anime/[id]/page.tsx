@@ -6,6 +6,7 @@ import LeftSection from "../../../components/anime-detailed/left-section/LeftSec
 import RightSection from "@/components/anime-detailed/right-section/RightSection";
 import { EpisodePage } from "@/types/EpisodePage";
 import { getEpisodesOfAnime } from "@/actions/getEpisodesOfAnime";
+import MobileSection from "@/components/anime-detailed/MobileSection";
 
 interface Props {
     params: Promise<{ id: number }>;
@@ -25,14 +26,15 @@ export default async function page({ params }: Props) {
             <Hero bannerImage={anime.bannerImage} colorBg={anime.coverImage?.color} title={anime.title.romaji || anime.title.english} />
 
             {/* Content */}
-            <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className=" relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
                     className="
                 mt-48
                 rounded-2xl
                 shadow-2xl
                 p-6
-                flex flex-col lg:flex-row
+                hidden 
+                lg:flex flex-col lg:flex-row
                 gap-8
             "
                 >
@@ -68,6 +70,10 @@ export default async function page({ params }: Props) {
                         trailer={anime.trailer}
                         episodePage={episodePage}
                     />
+                </div>
+
+                <div className="lg:hidden">
+                    <MobileSection anime={anime} episodePage={episodePage} />
                 </div>
             </main>
         </div>
