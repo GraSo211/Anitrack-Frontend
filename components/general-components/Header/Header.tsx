@@ -1,9 +1,12 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Search from "./Search";
 import { IoMenu } from "react-icons/io5";
 import clsx from "clsx";
+import { useSidebarStore } from "@/stores/sidebar";
 export default function Header() {
+    const toggle = useSidebarStore((state) => state.toggle);
     return (
         <header className="z-50 h-16 w-full sticky top-0 backdrop-blur-xl bg-black/30 flex items-center px-6 border-b border-white/10">
             <div className="flex-1 flex items-center justify-center">
@@ -15,7 +18,7 @@ export default function Header() {
             </div>
 
 
-           
+           <div className=" lg:hidden absolute top-4 z-100 right-1" onClick={toggle}><IoMenu size={40}></IoMenu></div>
 
 
 

@@ -10,7 +10,7 @@ export default function Sidebar() {
     const toggle = useSidebarStore((state) => state.toggle);
     return (
         <div>
-            <div className=" lg:hidden absolute top-4 z-100 right-1" onClick={toggle}><IoMenu size={40}></IoMenu></div>
+            
 
             <nav className={"flex flex-col backdrop-blur-md fixed inset-0 z-100 gap-3 justify-center  items-center   bg-black/50  top-0 left-0 w-screen h-screen " + (isOpen ? "block" : "hidden")}>
                 <div className={"absolute top-0  flex  mt-3   justify-center "}>
