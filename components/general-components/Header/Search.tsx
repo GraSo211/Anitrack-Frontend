@@ -44,7 +44,7 @@ export default function Search() {
     }, []);
 
     return (
-        <div ref={wrapperRef} className="relative w-full max-w-md">
+        <div ref={wrapperRef} className="relative w-full ">
             <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 h-10 backdrop-blur-md transition-all focus-within:ring-2 focus-within:ring-blue-500">
                 <input type="text" value={query} className="w-full bg-transparent text-sm focus:outline-none placeholder-white/50" placeholder="Buscar..." onChange={searchAnime} />
                 <CiSearch width={22} height={22} stroke="#ffffff" />

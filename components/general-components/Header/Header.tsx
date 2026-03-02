@@ -22,7 +22,7 @@ export default function Header() {
 
 
 
-            <div className={"hidden bg-blue-200" + "flex-1 justify-center lg:flex"}>
+            <div className={"hidden w-1/3  justify-center lg:flex"}>
                 <Search />
             </div>
 
@@ -31,8 +31,12 @@ export default function Header() {
                     Animes
                 </Link>
 
-                <Link href={"/login"} className="px-3 py-1.5 rounded-xl  bg-white/10 backdrop-blur-md border border-white/20 
-                    hover:bg-white/20 transition-all shadow-lg shadow-black/30">
+                <Link href="/usuarios" className="text-sm hover:text-blue-400 transition-colors">
+                    Usuarios
+                </Link>
+
+
+                <Link href={"/login"} className="text-sm hover:text-blue-400 transition-colors">
                     Iniciar Sesion
                 </Link>
             </nav>
