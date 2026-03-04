@@ -1,7 +1,9 @@
 import { getRandomUsers } from '@/actions/getRandomUsers'
-import { UserRandom } from '@/types/UserRandom';
+import { UserJikan } from '@/types/UserJikan';
 import Link from 'next/link';
 import React from 'react'
+import UserSearch from '@/components/user/UserSearch';
+import { UserRandom } from '@/types/UserRandom';
 
 export default async function page() {
   const users: UserRandom[] | null = await getRandomUsers();
@@ -18,13 +20,8 @@ export default async function page() {
         <div className="flex flex-col items-center gap-3 mb-10">
           <p className="text-gray-200 text-lg">Buscar usuarios</p>
 
-          <input
-            type="text"
-            placeholder="Buscar usuarios..."
-            className="w-full max-w-md px-4 py-3 rounded-lg border border-gray-300 
-                       focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                       focus:border-indigo-500 transition"
-          />
+          <UserSearch />
+
         </div>
 
         {/* Usuarios Random */}
@@ -33,7 +30,7 @@ export default async function page() {
             <div key={user.username} className='relative hover:-translate-y-1'>
               <Link
 
-                href={user.profileUrl}
+                href={`/usuarios/${user.username}`}
                 className="bg-gray-800/50 rounded-xl mt-2 shadow-sm relative hover:shadow-md 
                          transition p-6 flex flex-col items-center 
                          border border-gray-600 "

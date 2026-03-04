@@ -44,15 +44,15 @@ export default async function Page({ params }: Props) {
           </p>
 
           {user.gender && (
-            <p className="text-sm">Genero: {user.gender}</p>
+            <p className="text-sm opacity-80">Genero: {user.gender}</p>
           )}
 
           {user.location && (
-            <p className="text-sm">Ubicacion: {user.location}</p>
+            <p className="text-sm opacity-80">Ubicacion: {user.location}</p>
           )}
 
           {user.birthday && (
-            <p className="text-sm">
+            <p className="text-sm opacity-80">
               Cumpleaños: {new Date(user.birthday).toLocaleDateString()}
             </p>
           )}
