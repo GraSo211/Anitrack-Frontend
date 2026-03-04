@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="es" >
       <body
-        className={`${montserrat.className} z-50 antialiased grid grid-rows-[auto_1fr_auto] min-h-dvh`}>
+        className={`${montserrat.className}   z-50 antialiased grid grid-rows-[auto_1fr_auto] min-h-dvh`}>
         <Header />
         <SideBar></SideBar>
         {children}

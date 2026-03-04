@@ -1,9 +1,24 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
-    remotePatterns: [new URL('https://s4.anilist.co/**'),new URL('https://cdn.myanimelist.net/**'), new URL("https://i.ytimg.com/**")],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "s4.anilist.co",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.myanimelist.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

@@ -8,7 +8,7 @@ import { useSidebarStore } from "@/stores/sidebar";
 export default function Header() {
     const toggle = useSidebarStore((state) => state.toggle);
     return (
-        <header className="z-50 h-16 w-full sticky top-0 backdrop-blur-xl bg-black/30 flex items-center px-6 border-b border-white/10">
+        <header className="z-50 h-16 w-full  sticky top-0 backdrop-blur-xl bg-black/30 flex  items-center px-6 border-b border-white/10">
             <div className="flex-1 flex items-center justify-center">
                 <h1 className="text-2xl font-extrabold tracking-tight">
                     <Link href="/" className="hover:text-blue-400 transition-colors">
