@@ -45,7 +45,7 @@ export default function AnimesPage({ genres, tags }: Props) {
         <Filters genres={genres} tags={tags} genreSelected={genreSelected} tagSelected={tagSelected} yearSelected={yearSelected} seasonSelected={seasonSelected} statusSelected={statusSelected} setGenres={setGenre} setTags={setTag} setYear={setYear} setSeason={setSeason} setStatus={setStatus}  ></Filters>
 
         {/* Anime Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-4">
           {filteredAnimes.map((anime) => (
             <AnimeCard key={anime.id} anime={anime} />
           ))}
