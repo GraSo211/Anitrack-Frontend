@@ -137,7 +137,7 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
           </select>
         </div>
       </div>
-      <div className='flex gap-2 items-center  w-fit group'>
+      <div className='flex gap-2 items-center  w-fit flex-wrap group'>
         <FaTags /> 
         {genreSelected.filter((v): v is string => !!v).map((f, index) => (
           <span key={index} className="bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => removeFromArray(f, genreSelected, setGenres )}>
