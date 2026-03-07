@@ -13,10 +13,11 @@ export default function Sidebar() {
 
 
         <nav className={"flex flex-col backdrop-blur-md fixed inset-0 z-100 gap-3 justify-center  items-center   bg-black/50  top-0 left-0 w-screen h-screen "}>
-            <div className={"absolute top-0  flex  mt-3   justify-center "}>
+            <div className={"absolute top-0  flex  mt-3 items-center gap-2 px-2    justify-center "}>
                 <Search />
+                <RxCross1 size={45} className=' rounded-full p-1' onClick={toggle}></RxCross1>
             </div>
-            <RxCross1 size={40} className='absolute bottom-2 rounded-full border p-1' onClick={toggle}></RxCross1>
+            
 
 
 
