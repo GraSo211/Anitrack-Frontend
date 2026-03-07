@@ -1,51 +1,53 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { getReleasingAnimes } from '@/actions/getReleasingAnimes';
-import { AnimeReleasing } from '@/types/AnimeReleasing';
+
 import AnimeCard from '@/components/anime/horizontal-list/AnimeCard';
 import { AnimeCard as AnimeCardType } from '@/types/AnimeCard';
 import Filters from '@/components/animes/Filters';
+import { Genre } from '@/types/Genre';
+import { Tag } from '@/types/Tag';
+import { getFilteredAnimes } from '@/actions/getFilteredAnimes';
 
-export default function AnimesPage() {
-  const [animes, setAnimes] = useState<AnimeReleasing[]>([]);
-  const [filteredAnimes, setFilteredAnimes] = useState<AnimeReleasing[]>([]);
+interface Props {
+  genres: Genre[] | null;
+  tags: Tag[] | null;
+}
+
+export default function AnimesPage({ genres, tags }: Props) {
+
+
+  const [genreSelected, setGenre] = useState<string[]>([]);
+  const [tagSelected, setTag] = useState<string[]>([]);
+  const [yearSelected, setYear] = useState<string>("");
+  const [seasonSelected, setSeason] = useState<string>('');
+  const [statusSelected, setStatus] = useState<string>(''); 
+  const [filteredAnimes, setFilteredAnimes] = useState<AnimeCardType[]>([]);
 
   useEffect(() => {
     const fetchAnimes = async () => {
-      const data = await getReleasingAnimes();
+      const data = await getFilteredAnimes({ genre: genreSelected, tag: tagSelected, season: seasonSelected, year: yearSelected });
       if (data) {
-        setAnimes(data);
         setFilteredAnimes(data);
       }
     };
     fetchAnimes();
-  }, []);
+  }, [genreSelected, tagSelected, seasonSelected, yearSelected]);
 
-  // For now, filters are UI only, not applied
-  // TODO: Implement filtering logic
 
-  const convertToAnimeCard = (anime: AnimeReleasing): AnimeCardType => ({
-    id: anime.id,
-    title: {
-      romaji: anime.title.romaji || '',
-      english: anime.title.english || null,
-    },
-    coverImage: anime.coverImage,
-  });
 
   return (
     <div className="min-h-screen px-6 py-12">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-gray-200 mb-8">
+        <h1 className="text-4xl font-bold text-center text-gray-200 mb-2">
           Animes
         </h1>
 
-       <Filters></Filters>
+        <Filters genres={genres} tags={tags} genreSelected={genreSelected} tagSelected={tagSelected} yearSelected={yearSelected} seasonSelected={seasonSelected} statusSelected={statusSelected} setGenres={setGenre} setTags={setTag} setYear={setYear} setSeason={setSeason} setStatus={setStatus}  ></Filters>
 
         {/* Anime Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {filteredAnimes.map((anime) => (
-            <AnimeCard key={anime.id} anime={convertToAnimeCard(anime)} />
+            <AnimeCard key={anime.id} anime={anime} />
           ))}
         </div>
 
