@@ -4,7 +4,10 @@ import { Tag } from '@/types/Tag';
 import React, { useState, useRef, useEffect } from "react";
 import { FaTags } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-import { FaCircleCheck } from "react-icons/fa6"; interface Props {
+import { TbRating18Plus } from "react-icons/tb";
+import { FaCircleCheck } from "react-icons/fa6"; 
+
+interface Props {
   genres: Genre[] | null;
   tags: Tag[] | null;
   genreSelected: string[];
@@ -31,7 +34,6 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
   const tagsChecked = tags ? tags : [];
 
   const [openFilter, setOpenFilter] = useState<string | null>(null)
-
 
   const clearAllFilters = () => {
     setGenres([]);
@@ -106,9 +108,32 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
               {tagsChecked.map(t => (
                 <div
                   key={t.name}
-                  className='flex cursor-pointer items-center justify-between gap-2 px-4 hover:bg-blue-700/40 rounded-xs p-1'
+                  className="group flex cursor-pointer relative items-center justify-between gap-2 px-4 hover:bg-blue-700/40 rounded-xs p-1"
+                  onClick={() => setTags([...tagSelected, t.name])}
                 >
                   {t.name}
+
+                  <span
+                    className="
+                      pointer-events-none
+                      absolute top-full mt-1 left-0
+                      w-full
+                      
+                      rounded-md
+                      bg-black/90
+                      backdrop-blur-md
+                      text-sm text-gray-200
+                      px-3 py-2
+                      opacity-0
+                      group-hover:opacity-100
+                      transition
+                      z-50
+                    "
+                  >
+                    {t.description}
+                    
+                    {t.isAdult && <TbRating18Plus className='absolute bottom-1 right-1' size={25} color='red'></TbRating18Plus>}
+                  </span>
                 </div>
               ))}
             </div>
@@ -175,14 +200,14 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
 
           {openFilter === 'season' && (
             <div className='absolute top-full mt-1 w-full z-50 bg-[#1f1f1f] flex flex-col gap-1 rounded-md px-1 py-2'>
-              {["WINTER", "SPRING", "SUMMER", "FALL"].map(s => (
+              {[{ label: "Invierno", value: "WINTER" }, { label: "Primavera", value: "SPRING" }, { label: "Verano", value: "SUMMER" }, { label: "Otoño", value: "FALL" }].map(s => (
                 <div
-                  key={s}
+                  key={s.value}
                   className='flex cursor-pointer items-center justify-between px-4 hover:bg-blue-700/40 rounded-xs p-1'
-                  onClick={() => setSeason(s)}
+                  onClick={() => setSeason(s.value)}
                 >
-                  {s}
-                  {seasonSelected === s &&
+                  {s.label}
+                  {seasonSelected === s.value &&
                     <FaCircleCheck color='#6fc8ff' />}
                 </div>
               ))}
