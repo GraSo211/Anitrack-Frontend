@@ -143,7 +143,7 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
                 <div
                   key={y}
                   className='flex cursor-pointer items-center justify-between px-4 hover:bg-blue-700/40 rounded-xs p-1'
-                  onClick={() => setYear(y)}
+                  onClick={() => setYear(y.toString())}
                 >
                   {y}
                   {yearSelected === y.toString() &&
