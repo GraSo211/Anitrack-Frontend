@@ -1,5 +1,6 @@
 import { getBannerImageFromAnimeOfSeason } from "@/actions/getBannerImageFromAnimeOfSeason";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 
@@ -47,24 +48,26 @@ export default async function HeroSection() {
                     flex gap-3 mt-6
                     2xl:gap-6
                     `}>
-                    <button
+                    <Link href="/animes"
                         className={`
+                            cursor-pointer
                          text-sm px-4 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 transition-all shadow-lg shadow-black/30
                          2xl:px-6 2xl:text-base
                         hover:bg-white/20 
                     `}
                     >
                         Comenzar a Trackear
-                    </button>
+                    </Link>
 
-                    <button
+                    <Link href="/login"
                         className={`
+                            cursor-pointer
                         text-sm px-4 py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 transition-all shadow 
                         2xl:px-6 2xl:text-base
                         hover:bg-white/15 ` }
                     >
-                        Explorar Catalogo
-                    </button>
+                        Iniciar Sesión
+                    </Link>
                 </div>
             </div>
         </section>
