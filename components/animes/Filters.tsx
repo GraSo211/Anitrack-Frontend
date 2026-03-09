@@ -239,8 +239,9 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
 
               {[
                 { label: "Finalizado", value: "FINISHED" },
-                { label: "En emisión", value: "AIRING" },
-                { label: "Aun no lanzado", value: "NOT_YET_AIRED" },
+                { label: "En emisión", value: "RELEASING" },
+                { label: "En pausa", value: "HIATUS" },
+                { label: "Aun no lanzado", value: "NOT_YET_RELEASED" },
                 { label: "Cancelado", value: "CANCELLED" }
               ].map(s => (
                 <div

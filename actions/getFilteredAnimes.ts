@@ -7,6 +7,7 @@ interface FilterParams {
     tag?: string[];
     season?: string;
     year?: string;
+    status?: string;
 }
 
 export const getFilteredAnimes = async (filters: FilterParams): Promise<AnimeCard[] | null> => {
@@ -20,6 +21,7 @@ export const getFilteredAnimes = async (filters: FilterParams): Promise<AnimeCar
         filters.tag?.forEach((t) => params.append("tag", t));
         if (filters.season) params.append("season", filters.season);
         if (filters.year) params.append("year", filters.year.toString());
+        if (filters.status) params.append("status", filters.status);
 
         const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/filtered?${params.toString()}`, {
             method: "GET",

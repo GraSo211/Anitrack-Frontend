@@ -25,13 +25,13 @@ export default function AnimesPage({ genres, tags }: Props) {
 
   useEffect(() => {
     const fetchAnimes = async () => {
-      const data = await getFilteredAnimes({ genre: genreSelected, tag: tagSelected, season: seasonSelected, year: yearSelected });
+      const data = await getFilteredAnimes({ genre: genreSelected, tag: tagSelected, season: seasonSelected, year: yearSelected, status: statusSelected });
       if (data) {
         setFilteredAnimes(data);
       }
     };
     fetchAnimes();
-  }, [genreSelected, tagSelected, seasonSelected, yearSelected]);
+  }, [genreSelected, tagSelected, seasonSelected, yearSelected, statusSelected]);
 
 
 
