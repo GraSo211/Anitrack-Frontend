@@ -3,6 +3,7 @@
 import { AnimeCard } from "@/types/AnimeCard";
 
 interface FilterParams {
+    cant:number
     genre?: string[];
     tag?: string[];
     season?: string;
@@ -17,6 +18,7 @@ export const getFilteredAnimes = async (filters: FilterParams): Promise<AnimeCar
     }
     try {
         const params = new URLSearchParams();
+        params.append("cant",filters.cant.toString()); 
         filters.genre?.forEach((g) => params.append("genre", g));
         filters.tag?.forEach((t) => params.append("tag", t));
         if (filters.season) params.append("season", filters.season);

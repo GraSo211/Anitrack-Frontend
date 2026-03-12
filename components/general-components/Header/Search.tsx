@@ -23,7 +23,7 @@ export default function Search() {
                 setAnimes(null);
                 return;
             }
-            const result: AnimesByName[] | null = await getAnimesByName(value);
+            const result: AnimesByName[] | null = await getAnimesByName(5,value);
             setAnimes(result);
         }, 600);
     };

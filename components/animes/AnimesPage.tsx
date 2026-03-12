@@ -25,7 +25,7 @@ export default function AnimesPage({ genres, tags }: Props) {
 
   useEffect(() => {
     const fetchAnimes = async () => {
-      const data = await getFilteredAnimes({ genre: genreSelected, tag: tagSelected, season: seasonSelected, year: yearSelected, status: statusSelected });
+      const data = await getFilteredAnimes({cant:25, genre: genreSelected, tag: tagSelected, season: seasonSelected, year: yearSelected, status: statusSelected });
       if (data) {
         setFilteredAnimes(data);
       }

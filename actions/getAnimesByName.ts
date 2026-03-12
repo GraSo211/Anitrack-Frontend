@@ -2,14 +2,14 @@
 
 import { AnimesByName } from "@/types/AnimesByName";
 
-export const getAnimesByName = async (name: string) : Promise<AnimesByName[] | null> => {
+export const getAnimesByName = async (cant:number, name: string) : Promise<AnimesByName[] | null> => {
   if (!process.env.BACKEND_URL) {
     console.error("BACKEND_URL no está definida");
     return null;
   }
 
   try{
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/search?name=${name}`,
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/filtered?cant=${cant}&name=${name}`,
       {method: "GET"}
     )
     if(!response.ok){
