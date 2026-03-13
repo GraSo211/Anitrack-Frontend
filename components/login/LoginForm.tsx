@@ -4,6 +4,7 @@ import { loginWithMAL } from "@/actions/auth/mal/login";
 import { MALLogin } from "@/types/MALLogin";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { env } from "process";
 import React, { use, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -13,6 +14,7 @@ type Inputs = {
 };
 
 export default function LoginForm() {
+    
     const router = useRouter();
     const {
         register,
@@ -35,7 +37,7 @@ export default function LoginForm() {
         console.log(data);
     };
 
-    const handleMALLogin = async () => {
+/*     const handleMALLogin = async () => {
 
         const response: MALLogin | null = await loginWithMAL();
         if (response && response.url) {
@@ -43,7 +45,16 @@ export default function LoginForm() {
         }else{
             // hacer un mensaje de que fallo
         }
-    }
+    } */
+    const handleMALLogin = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/mal/url`, {
+    credentials: "include"
+  });
+
+  const data = await response.json();
+
+  window.location.href = data.url;
+};
 
     return (
         <div className="flex flex-col items-center gap-6">

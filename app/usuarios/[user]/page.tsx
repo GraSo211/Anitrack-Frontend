@@ -1,23 +1,24 @@
 import { getUserByUsername } from '@/actions/getUserByUsername';
 import Stat from '@/components/user/Stat';
+import { UserJikan } from '@/types/UserJikan';
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
 
 interface Props {
-    params: Promise<{ user: string }>;
+  params: Promise<{ user: string }>;
 }
 
 export default async function Page({ params }: Props) {
-    
-  const user = await getUserByUsername((await params).user);
-    if (!user) {
-        return (
-            <div className="max-w-5xl mx-auto p-6 text-white">
-                <h1 className="text-2xl font-bold">Usuario no encontrado.</h1>
-            </div>
-        );
-    }
+
+  const user: UserJikan | null = await getUserByUsername((await params).user);
+  if (!user) {
+    return (
+      <div className="max-w-5xl mx-auto p-6 text-white">
+        <h1 className="text-2xl font-bold">Usuario no encontrado.</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto p-6 text-white">
@@ -25,7 +26,7 @@ export default async function Page({ params }: Props) {
       <div className="flex flex-col md:flex-row gap-6 items-start">
 
         <Image
-          src={user.imageUrl}
+          src={user.imageUrl || "/coverImagePlaceholder.png"}
           alt={user.username}
           width={160}
           height={160}
@@ -86,26 +87,28 @@ export default async function Page({ params }: Props) {
         </div>
 
       </div>
-
+{ user.external &&
       <div className="mt-8">
 
         <h2 className="text-2xl font-semibold mb-4">Redes Externas</h2>
+        
+          <ul className="flex flex-col gap-2">
+            {user.external.map((ext) => (
+              <li key={ext.url}>
+                <Link
+                  href={ext.url}
+                  target="_blank"
+                  className="text-blue-400 hover:underline"
+                >
+                  {ext.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-        <ul className="flex flex-col gap-2">
-          {user.external.map((ext) => (
-            <li key={ext.url}>
-              <Link
-                href={ext.url}
-                target="_blank"
-                className="text-blue-400 hover:underline"
-              >
-                {ext.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-      </div>
+        
+0
+      </div>}
 
     </div>
   )

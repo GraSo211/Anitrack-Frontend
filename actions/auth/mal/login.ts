@@ -1,4 +1,4 @@
-"use server";
+"use client";
 import { MALLogin } from "@/types/MALLogin";
 
 export const loginWithMAL = async () => {
@@ -7,8 +7,9 @@ export const loginWithMAL = async () => {
         return null;
     }
     try {
-        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/mal/login`, {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/mal/url`, {
             method: "GET",
+            credentials: "include"
         });
         const data: MALLogin = await response.json();
         return data;
