@@ -37,15 +37,7 @@ export default function LoginForm() {
         console.log(data);
     };
 
-/*     const handleMALLogin = async () => {
 
-        const response: MALLogin | null = await loginWithMAL();
-        if (response && response.url) {
-            router.push(response.url)
-        }else{
-            // hacer un mensaje de que fallo
-        }
-    } */
     const handleMALLogin = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/mal/url`, {
     credentials: "include"
