@@ -14,8 +14,7 @@ type Inputs = {
 };
 
 export default function LoginForm() {
-    
-    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -39,14 +38,14 @@ export default function LoginForm() {
 
 
     const handleMALLogin = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/mal/url`, {
-    credentials: "include"
-  });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/mal/url`, {
+            credentials: "include"
+        });
 
-  const data = await response.json();
+        const data = await response.json();
 
-  window.location.href = data.url;
-};
+        window.location.href = data.url;
+    };
 
     return (
         <div className="flex flex-col items-center gap-6">

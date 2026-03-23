@@ -4,6 +4,7 @@ import Header from "@/components/general-components/Header/Header";
 import Footer from '../components/general-components/Footer';
 import { Montserrat } from "next/font/google";
 import SideBar from "@/components/general-components/Sidebar";
+import { cookies } from "next/headers";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -15,16 +16,27 @@ export const metadata: Metadata = {
   description: "Anitrack description c:",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>
+)
+
+
+{
+    const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+
+  const isAuthenticated = !!token;
+
+
+
   return (
     <html lang="es" >
       <body
         className={`${montserrat.className}   z-50 antialiased grid grid-rows-[auto_1fr_auto] min-h-dvh`}>
-        <Header />
+        <Header isAuthenticated={isAuthenticated} />
         <SideBar></SideBar>
         {children}
         <Footer></Footer>
