@@ -85,7 +85,7 @@ export default function Page() {
 
       {/* STATS PRINCIPALES */}
       <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Lista de Anime</h2>
+        <h2 className="text-xl font-semibold mb-4">Listas de Animes</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 

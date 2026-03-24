@@ -6,6 +6,9 @@ interface Props{
 }
 
 export default function AnimeList({animeList}:Props) {
+    if(animeList.animeList.length == 0 ){
+        return <div>No hay ningun anime en esta lista.</div>
+    }
   return (
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {animeList.animeList.map((anime) => (

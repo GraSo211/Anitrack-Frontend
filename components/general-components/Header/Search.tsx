@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { getAnimesByName } from "@/actions/getAnimesByName";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimesByName } from "@/types/AnimesByName";
 import { CiSearch } from "react-icons/ci";
@@ -57,10 +56,10 @@ export default function Search() {
                             <li key={anime.id + anime.title.romaji!} className="flex items-center gap-3 p-3 hover:bg-white/10 transition" onClick={closeDropdown}>
                                 <Link href={`/anime/${anime.id}`} className="flex items-center gap-3 w-full">
                                     <div className="relative w-14  aspect-2/3 shrink-0">
-                                        <Image
+                                        <img
                                             src={anime.coverImage?.extraLarge || "/coverImagePlaceholder.png"}
                                             alt={anime.title.romaji || anime.title.english || "Anime"}
-                                            fill
+                                            
                                             sizes="112px"
                                             className="rounded-md object-cover"
                                         />
