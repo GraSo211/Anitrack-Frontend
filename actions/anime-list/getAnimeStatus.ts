@@ -3,12 +3,13 @@
 
 import { AnimeStatus } from "@/types/AnimeStatus";
 
-export const getAnimeStatus = async (token:string, id:number) => {
+export const getAnimeStatus = async (token:string| undefined, id:number) => {
     if (!process.env.BACKEND_URL) {
         console.error("BACKEND_URL no está definida");
         return null;
     }
     try {
+        if(!token)return;
         const response = await fetch(`${process.env.BACKEND_URL}/api/v1/animeList/${id}/status `, {
             method: "GET",
             headers: {

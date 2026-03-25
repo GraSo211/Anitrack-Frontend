@@ -1,16 +1,23 @@
+"use client";
 import { getAnimeStatus } from '@/actions/anime-list/getAnimeStatus'
 import { AnimeStatus } from '@/types/AnimeStatus';
 import React from 'react'
 
 
 interface Props {
-    token: string
-    id: number
+    animeStatus: AnimeStatus | null 
 }
 
-export default async function AnimeUserStatus({ token, id }: Props) {
-    const animeStatus: AnimeStatus | null = await getAnimeStatus(token, id);
-    if (!animeStatus || animeStatus.status == "none") return
+export default function AnimeUserStatus({ animeStatus }: Props) {
+  
+    if (!animeStatus || animeStatus.status == "none")
+        return (
+            <div className="flex items-center gap-3 bg-blue-900/10 border border-zinc-800 rounded-xl px-4 py-2 w-fit">
+                <div className="flex items-center gap-2 bg-blue-900/20 px-3 py-1 rounded-lg">
+                    <button onClick={()=>{}} className="text-sm font-medium text-white cursor-pointer">Agregar a la lista</button>
+                </div>
+            </div>
+        )
 
     return (
         <div className="flex items-center gap-3 bg-blue-900/10 border border-zinc-800 rounded-xl px-4 py-2 w-fit">
