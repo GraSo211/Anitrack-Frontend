@@ -1,10 +1,7 @@
 "use client";
 
-import { loginWithMAL } from "@/actions/auth/mal/login";
-import { MALLogin } from "@/types/MALLogin";
+
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { env } from "process";
 import React, { use, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 

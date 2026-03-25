@@ -16,6 +16,9 @@ export default async function page({ params }: Props) {
     const { id } = await params;
     const anime: Anime | null = await getAnimeById(id);
     const episodePage: EpisodePage | null = await getEpisodesOfAnime(anime?.malId || 0);
+
+
+
     if (!anime) {
         return <div className="min-h-screen flex items-center justify-center">Error al cargar el anime</div>;
     }

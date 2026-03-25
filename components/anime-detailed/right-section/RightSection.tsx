@@ -10,6 +10,8 @@ import buildTrailerUrl from "@/utils/buildTrailerUrl";
 import { EpisodePage } from "@/types/EpisodePage";
 import { FaFireAlt } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { cookies } from "next/headers";
+import AnimeUserStatus from "./AnimeUserStatus";
 
 interface Props {
     malId: number;
@@ -29,7 +31,10 @@ interface Props {
     episodePage: EpisodePage | null;
 }
 
-export default function RightSection({ titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
+export default async function RightSection({malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
+const cookieStore = await cookies();
+    const token = cookieStore.get("access_token")?.value;
+
   
     return (
         <div className="flex flex-col w-full relative">
@@ -46,6 +51,9 @@ export default function RightSection({ titleRomaji, titleEnglish, synonyms, aver
             </div>
 
             <Genres genres={genres} />
+
+
+            {token&&<AnimeUserStatus token={token} id={malId} ></AnimeUserStatus>}
 
             {description && (
                 <section className="bg-gray-900/60 rounded-xl p-4 my-2">
