@@ -32,10 +32,14 @@ export default async function AnimeUserStatus({ token, id }: Props) {
 
 
             {/* Episodes */}
-            <div className="flex items-center gap-2 bg-blue-900/20 px-3 py-1 rounded-lg">
-                <span className="text-sm text-zinc-400">Episodios Vistos</span>
-                <span className="text-sm font-medium text-white">{animeStatus.numEpisodes}</span>
-            </div>
+            {
+                animeStatus.numEpisodes != 0 &&
+                <div className="flex items-center gap-2 bg-blue-900/20 px-3 py-1 rounded-lg">
+                    <span className="text-sm text-zinc-400">Episodios Vistos</span>
+                    <span className="text-sm font-medium text-white">{animeStatus.numEpisodes}</span>
+                </div>
+            }
+
         </div>
     )
 }
