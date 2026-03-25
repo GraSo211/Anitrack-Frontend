@@ -28,14 +28,14 @@ interface Props {
         site?: string;
         thumbnail?: string;
     };
-    episodePage: EpisodePage | null;
+    episodePage?: EpisodePage | null;
 }
 
-export default async function RightSection({malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
-const cookieStore = await cookies();
+export default async function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
+    const cookieStore = await cookies();
     const token = cookieStore.get("access_token")?.value;
 
-  
+
     return (
         <div className="flex flex-col w-full relative">
             <div>
@@ -53,7 +53,7 @@ const cookieStore = await cookies();
             <Genres genres={genres} />
 
 
-            {token&&<AnimeUserStatus token={token} id={malId} ></AnimeUserStatus>}
+            {token && <AnimeUserStatus token={token} id={malId} ></AnimeUserStatus>}
 
             {description && (
                 <section className="bg-gray-900/60 rounded-xl p-4 my-2">
@@ -77,11 +77,16 @@ const cookieStore = await cookies();
                 </section>
             )}
 
-            <section className="mt-6">
-                <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
+            {
+                episodePage?.items.length != 0 &&
+                <section className="mt-6">
+                    <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
 
-                {episodePage !== null && episodePage.items?.map((episode) => <Episodes key={episode.malId} episode={episode} watched={false} />)}
-            </section>
+                    {episodePage && episodePage.items?.map((episode) => <Episodes key={episode.malId} episode={episode} watched={false} />)}
+                </section>
+            }
+
+
         </div>
     );
 }

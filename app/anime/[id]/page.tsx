@@ -15,6 +15,7 @@ interface Props {
 export default async function page({ params }: Props) {
     const { id } = await params;
     const anime: Anime | null = await getAnimeById(id);
+    
     const episodePage: EpisodePage | null = await getEpisodesOfAnime(anime?.malId || 0);
 
 
