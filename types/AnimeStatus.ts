@@ -3,11 +3,10 @@ export type AnimeStatusType =
   | "completed"
   | "on_hold"
   | "dropped"
-  | "plan_to_watch"
-  | "none";
+  | "plan_to_watch";
 
 export type AnimeStatus = {
-  status: AnimeStatusType;
+  status: AnimeStatusType|null;
   score: number;
   numEpisodes: number;
   rewatching: boolean;

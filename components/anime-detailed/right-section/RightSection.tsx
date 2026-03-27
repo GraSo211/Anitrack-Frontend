@@ -31,9 +31,10 @@ interface Props {
         thumbnail?: string;
     };
     episodePage?: EpisodePage | null;
+    episodes: number| undefined
 }
 
-export default async function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage }: Props) {
+export default async function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodePage, episodes }: Props) {
     const cookieStore = await cookies();
     const token = cookieStore.get("access_token")?.value;
     
@@ -57,7 +58,7 @@ export default async function RightSection({ malId, titleRomaji, titleEnglish, s
             <Genres genres={genres} />
 
 
-            {token && <AnimeUserStatus animeStatus={animeStatus} ></AnimeUserStatus>}
+            {token && <AnimeUserStatus animeStatus={animeStatus} token={token} id={malId} episodes={episodes}></AnimeUserStatus>}
 
             {description && (
                 <section className="bg-gray-900/60 rounded-xl p-4 my-2">

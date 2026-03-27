@@ -73,6 +73,7 @@ export default async function page({ params }: Props) {
                         description={anime.description}
                         trailer={anime.trailer}
                         episodePage={episodePage}
+                        episodes={anime.episodes}
                     />
                 </div>
 

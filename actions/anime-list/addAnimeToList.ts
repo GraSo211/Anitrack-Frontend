@@ -1,17 +1,15 @@
 "use server";
 
-
 import { AnimeStatus } from "@/types/AnimeStatus";
 
-export const getAnimeStatus = async (token:string| undefined, id:number) => {
+export const addAnimeToList = async (token:string, id: number) => {
     if (!process.env.BACKEND_URL) {
         console.error("BACKEND_URL no está definida");
         return null;
     }
     try {
-        if(!token)return null;
-        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/animeList/${id}/status `, {
-            method: "GET",
+        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/animeList/${id}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Cookie":`access_token=${token}`
@@ -26,7 +24,7 @@ export const getAnimeStatus = async (token:string| undefined, id:number) => {
 
         return data;
     } catch (error) {
-        console.error("Fallo de fetch getAnimeStatus:", error);
+        console.error("Fallo de fetch addToAnimeList:", error);
         return null;
     }
 };
