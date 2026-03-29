@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeCard } from "@/types/AnimeCard";
+import { AnimeCard } from "@/types/anime/Anime";
 
 interface FilterParams {
     cant:number

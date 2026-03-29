@@ -1,6 +1,6 @@
 "use server";
 
-import {UserJikan} from "@/types/UserJikan";
+import {UserJikan} from "@/types/user/User";
 
 
 

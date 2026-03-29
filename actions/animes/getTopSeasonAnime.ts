@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeTopSeason } from "@/types/anime/AnimeTopSeason";
+import { AnimeTopSeason } from "@/types/anime/Anime";
 
 export const getTopSeasonAnime = async (): Promise<AnimeTopSeason | null> => {
     if (!process.env.BACKEND_URL) {

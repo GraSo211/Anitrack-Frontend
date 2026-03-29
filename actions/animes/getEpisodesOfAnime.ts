@@ -1,7 +1,7 @@
 'use server';
 
 
-import { EpisodePage } from '@/types/EpisodePage';
+import { EpisodePage } from '@/types/anime/Episode';
 
 
 

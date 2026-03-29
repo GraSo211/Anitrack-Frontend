@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeCard } from "@/types/AnimeCard";
+import { AnimeCard } from "@/types/anime/Anime";
 
 export const getAnimesByGenre = async (cant:number, genre: string): Promise<AnimeCard[] | null> => {
     if (!process.env.BACKEND_URL) {

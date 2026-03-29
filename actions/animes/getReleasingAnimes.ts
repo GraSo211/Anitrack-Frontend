@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeReleasing } from "@/types/AnimeReleasing";
+import { AnimeReleasing } from "@/types/anime/Anime";
 
 export const getReleasingAnimes = async (): Promise<AnimeReleasing[] | null> => {
     if (!process.env.BACKEND_URL) {

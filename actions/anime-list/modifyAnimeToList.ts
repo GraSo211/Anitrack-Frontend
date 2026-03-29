@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeStatus } from "@/types/AnimeStatus";
+import { AnimeStatus } from "@/types/anime/Anime";
 import { SiCoolermaster } from "react-icons/si";
 
 export const modifyAnimeToList = async (token:string, id: number, status:string|null,score:number, numEpisodes:number) => {

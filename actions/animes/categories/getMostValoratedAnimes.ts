@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeCard } from "@/types/AnimeCard";
+import { AnimeCard } from "@/types/anime/Anime";
 
 export const getMostValoratedAnimes = async (): Promise<AnimeCard[] | null> => {
     if (!process.env.BACKEND_URL) {

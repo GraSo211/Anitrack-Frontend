@@ -1,6 +1,6 @@
 "use server";
 
-import { UserRandom } from "@/types/UserRandom";
+import { UserRandom } from "@/types/user/User";
 
 
 

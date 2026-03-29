@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimesByName } from "@/types/AnimesByName";
+import { AnimesByName } from "@/types/anime/Anime";
 
 export const getAnimesByName = async (cant:number, name: string) : Promise<AnimesByName[] | null> => {
   if (!process.env.BACKEND_URL) {

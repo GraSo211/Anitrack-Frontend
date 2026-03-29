@@ -1,6 +1,6 @@
 "use server";
 
-import { AnimeStatus } from "@/types/AnimeStatus";
+import { AnimeStatus } from "@/types/anime/Anime";
 
 export const addAnimeToList = async (token:string, id: number) => {
     if (!process.env.BACKEND_URL) {

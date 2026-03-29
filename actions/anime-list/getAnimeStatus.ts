@@ -1,7 +1,7 @@
 "use server";
 
 
-import { AnimeStatus } from "@/types/AnimeStatus";
+import { AnimeStatus } from "@/types/anime/Anime";
 
 export const getAnimeStatus = async (token:string| undefined, id:number) => {
     if (!process.env.BACKEND_URL) {
