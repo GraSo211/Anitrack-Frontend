@@ -54,7 +54,7 @@ export default function Search() {
                     <ul className="divide-y divide-white/10">
                         {animes.map((anime) => (
                             <li key={anime.id + anime.title.romaji!} className="flex items-center gap-3 p-3 hover:bg-white/10 transition" onClick={closeDropdown}>
-                                <Link href={`/anime/${anime.id}`} className="flex items-center gap-3 w-full">
+                                <Link href={`/anime/a-${anime.id}`} className="flex items-center gap-3 w-full">
                                     <div className="relative w-14  aspect-2/3 shrink-0">
                                         <img
                                             src={anime.coverImage?.extraLarge || "/coverImagePlaceholder.png"}
