@@ -3,7 +3,8 @@ import { addAnimeToList } from '@/actions/anime-list/addAnimeToList';
 import { modifyAnimeToList } from '@/actions/anime-list/modifyAnimeToList';
 import { AnimeStatus, Status } from '@/types/anime/Anime';
 import React, { useEffect, useState } from 'react'
-
+import { FaStar } from "react-icons/fa";
+import { FaS } from 'react-icons/fa6';
 
 interface Props {
     animeStatus: AnimeStatus | null
@@ -20,7 +21,6 @@ export default function AnimeUserStatus({ animeStatus, token, id, episodes }: Pr
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log(animeStatus?.status)
         if (animeStatus) {
             setStatus(animeStatus.status);
             setScore(animeStatus.score);
@@ -105,7 +105,8 @@ export default function AnimeUserStatus({ animeStatus, token, id, episodes }: Pr
             {
 
                 <div className="flex items-center gap-2 bg-blue-900/20 px-3 py-1 rounded-lg">
-                    <span className="text-yellow-400">⭐</span>
+                    <FaStar />
+                    
 
                     <select
                         value={score}

@@ -32,7 +32,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
     ? statusDicc[status as keyof typeof statusDicc]
     : "Todos";
   return (
-    <div className="p-6 text-white">
+    <div className="p-6 text-white flex justify-center items-center flex-col">
       <h1 className="text-2xl font-bold mb-6">Animes en estado: {label}</h1>
 
       <AnimeList animeList={animeList} ></AnimeList>
