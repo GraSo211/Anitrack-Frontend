@@ -1,5 +1,5 @@
 "use client";
-import { MALLogin } from "@/types/MALLogin";
+import { MALLogin } from "@/types/user/malLogin";
 
 export const loginWithMAL = async () => {
        if (!process.env.BACKEND_URL) {

@@ -2,7 +2,6 @@
 import React from 'react'
 import Search from './Header/Search'
 import Link from 'next/link'
-import { IoMenu } from 'react-icons/io5'
 import { RxCross1 } from "react-icons/rx";
 import { useSidebarStore } from "@/stores/sidebar";
 export default function Sidebar() {

@@ -1,9 +1,9 @@
-import { getRandomUsers } from '@/actions/getRandomUsers'
-import { UserJikan } from '@/types/UserJikan';
+import { getRandomUsers } from '@/actions/user/getRandomUsers'
+import { UserJikan } from '@/types/user/User';
 import Link from 'next/link';
 import React from 'react'
 import UserSearch from '@/components/user/UserSearch';
-import { UserRandom } from '@/types/UserRandom';
+import { UserRandom } from '@/types/user/User';
 
 export default async function page() {
   const users: UserRandom[] | null = await getRandomUsers();

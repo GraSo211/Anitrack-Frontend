@@ -1,8 +1,7 @@
 "use client";
 
 
-import Image from "next/image";
-import React, { use, useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Inputs = {
@@ -61,7 +60,7 @@ export default function LoginForm() {
                     onClick={handleMALLogin}
                 >
 
-                    <Image
+                    <img
                         src="https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
                         height={256}
                         width={256}

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 import { getAnimeList } from "@/actions/anime-list/getAnimeList"
 import { redirect } from "next/navigation";
-import AnimeList from "@/components/animeList/AnimeList";
+import AnimeList from "@/components/anime-general/animeList/AnimeList";
 
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ status?: string }> }) {

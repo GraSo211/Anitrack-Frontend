@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { getAnimesByName } from "@/actions/getAnimesByName";
+import { getAnimesByName } from "@/actions/animes/getAnimesByName";
 import Link from "next/link";
-import { AnimesByName } from "@/types/AnimesByName";
+import { AnimesByName } from "@/types/anime/Anime";
 import { CiSearch } from "react-icons/ci";
 
 export default function Search() {

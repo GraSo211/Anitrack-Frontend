@@ -1,6 +1,6 @@
 "use client";
-import { Genre } from '@/types/Genre';
-import { Tag } from '@/types/Tag';
+import { Genre } from '@/types/anime/Genre';
+import { Tag } from '@/types/anime/Tag';
 import React, { useState, useRef, useEffect } from "react";
 import { FaTags } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";

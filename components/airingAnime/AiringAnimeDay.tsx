@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AnimeReleasing } from "@/types/AnimeReleasing";
+import { AnimeReleasing } from "@/types/anime/Anime";
 import { useSearchParams } from "next/navigation";
 
 interface Props {
@@ -105,7 +105,7 @@ export default function AiringAnimeDay({ animes }: Props) {
 
                         <Link
                             key={anime.id}
-                            href={`/anime/${anime.id}`}
+                            href={`/anime/a-${anime.id}`}
                             className="flex  w-full gap-4 rounded-xl  transition hover:bg-white/5"
                             style={{
                                 backgroundColor: anime.coverImage.color

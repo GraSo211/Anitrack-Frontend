@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 
-import AnimeCard from '@/components/anime/horizontal-list/AnimeCard';
-import { AnimeCard as AnimeCardType } from '@/types/AnimeCard';
+
+import { AnimeCard as AnimeCardType } from '@/types/anime/Anime';
 import Filters from '@/components/animes/Filters';
-import { Genre } from '@/types/Genre';
-import { Tag } from '@/types/Tag';
-import { getFilteredAnimes } from '@/actions/getFilteredAnimes';
+import { Genre } from '@/types/anime/Genre';
+import { Tag } from '@/types/anime/Tag';
+import { getFilteredAnimes } from '@/actions/animes/getFilteredAnimes';
+import AnimeCard from '../anime-general/horizontal-list/AnimeCard';
 
 interface Props {
   genres: Genre[] | null;

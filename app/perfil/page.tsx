@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Stat from "@/components/user/Stat";
-import { User } from "@/types/User";
+import { User } from "@/types/user/User";
 import { useUserStore } from "@/stores/user";
 import Link from "next/link";
 

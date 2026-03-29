@@ -1,7 +1,7 @@
 "use server";
 
 import { AnimeCard } from "@/types/AnimeCard";
-import { AnimeList } from "@/types/AnimeList";
+import { AnimeList } from "@/types/anime/AnimeList";
 
 export const getAnimeList = async (token:string, status?: string): Promise<AnimeList | null> => {
     if (!process.env.BACKEND_URL) {

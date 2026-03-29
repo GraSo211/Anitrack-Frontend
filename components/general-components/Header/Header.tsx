@@ -1,11 +1,10 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import Search from "./Search";
 import { IoMenu } from "react-icons/io5";
 import clsx from "clsx";
 import { useSidebarStore } from "@/stores/sidebar";
-import { useUserStore } from "@/stores/user";
 
 interface Props{
     isAuthenticated: boolean

@@ -1,4 +1,4 @@
-import { getBannerImageFromAnimeOfSeason } from "@/actions/getBannerImageFromAnimeOfSeason";
+import { getBannerImageFromAnimeOfSeason } from "@/actions/animes/getBannerImageFromAnimeOfSeason";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

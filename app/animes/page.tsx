@@ -1,5 +1,5 @@
-import { getAllGenres } from '@/actions/getAllGenres';
-import { getAllTags } from '@/actions/getAllTags';
+import { getAllGenres } from '@/actions/animes/getAllGenres';
+import { getAllTags } from '@/actions/animes/getAllTags';
 import AnimesPage from '@/components/animes/AnimesPage'
 import React from 'react'
 

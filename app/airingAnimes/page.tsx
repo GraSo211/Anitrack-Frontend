@@ -1,7 +1,7 @@
 
-import { getReleasingAnimes } from '@/actions/getReleasingAnimes';
+import { getReleasingAnimes } from '@/actions/animes/getReleasingAnimes';
 import AiringAnimeDay from '@/components/airingAnime/AiringAnimeDay';
-import { AnimeReleasing } from '@/types/AnimeReleasing';
+import { AnimeReleasing } from '@/types/anime/Anime';
 import { connection } from 'next/server'
 import React from 'react'
 

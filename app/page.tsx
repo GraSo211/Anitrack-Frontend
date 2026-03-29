@@ -1,8 +1,9 @@
-import AiringAnimeTable from "../components/anime/table/AiringAnimeTable";
-
-import HeroSection from "@/components/general-components/HeroSection";
-import BestAnimeSeason from "@/components/anime/BestAnimeSeason";
+import BestAnimeSeason from "@/components/anime-general/BestAnimeSeason";
+import AiringAnimeTable from "@/components/anime-general/table/AiringAnimeTable";
 import AnimeCategories from "@/components/general-components/AnimeCategories";
+import HeroSection from "@/components/general-components/HeroSection";
+
+
 
 export default async function Home() {
     

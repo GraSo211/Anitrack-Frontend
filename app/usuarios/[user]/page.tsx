@@ -1,6 +1,6 @@
-import { getUserByUsername } from '@/actions/getUserByUsername';
+import { getUserByUsername } from '@/actions/user/getUserByUsername';
 import Stat from '@/components/user/Stat';
-import { UserJikan } from '@/types/UserJikan';
+import { UserJikan } from '@/types/user/User';
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
@@ -25,7 +25,7 @@ export default async function Page({ params }: Props) {
 
       <div className="flex flex-col md:flex-row gap-6 items-start">
 
-        <Image
+        <img
           src={user.imageUrl || "/coverImagePlaceholder.png"}
           alt={user.username}
           width={160}
@@ -87,11 +87,11 @@ export default async function Page({ params }: Props) {
         </div>
 
       </div>
-{ user.external &&
-      <div className="mt-8">
+      {user.external &&
+        <div className="mt-8">
 
-        <h2 className="text-2xl font-semibold mb-4">Redes Externas</h2>
-        
+          <h2 className="text-2xl font-semibold mb-4">Redes Externas</h2>
+
           <ul className="flex flex-col gap-2">
             {user.external.map((ext) => (
               <li key={ext.url}>
@@ -106,9 +106,10 @@ export default async function Page({ params }: Props) {
             ))}
           </ul>
 
-        
-0
-      </div>}
+
+
+        </div>
+      }
 
     </div>
   )

@@ -1,22 +1,23 @@
-import { getAnimeById } from "@/actions/getAnimeById";
 
-import { Anime } from "@/types/Anime";
-import Hero from "@/components/anime-detailed/Hero";
-import LeftSection from "../../../components/anime-detailed/left-section/LeftSection";
-import RightSection from "@/components/anime-detailed/right-section/RightSection";
-import { EpisodePage } from "@/types/EpisodePage";
-import { getEpisodesOfAnime } from "@/actions/getEpisodesOfAnime";
-import MobileSection from "@/components/anime-detailed/MobileSection";
+import { Anime } from "@/types/anime/Anime";
+import { EpisodePage } from "@/types/anime/Episode";
+import { getEpisodesOfAnime } from "@/actions/animes/getEpisodesOfAnime";
+import { getAnimeByAnyId } from "@/actions/anime/getAnimeByAnyId";
+import LeftSection from "@/components/anime/left-section/LeftSection";
+import RightSection from "@/components/anime/right-section/RightSection";
+import MobileSection from "@/components/anime/MobileSection";
+import Hero from "@/components/anime/Hero";
 
 interface Props {
-    params: Promise<{ id: number }>;
+    params: Promise<{ id: string }>;
 }
 
 export default async function page({ params }: Props) {
     const { id } = await params;
-    const anime: Anime | null = await getAnimeById(id);
+    const anime: Anime | null = await getAnimeByAnyId(id);
+
     
-    const episodePage: EpisodePage | null = await getEpisodesOfAnime(anime?.malId || 0);
+    const episodePage: EpisodePage | null = await getEpisodesOfAnime(anime!.malId);
 
 
 

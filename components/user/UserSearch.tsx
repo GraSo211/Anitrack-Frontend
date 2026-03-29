@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
-import { getUserByUsername } from "@/actions/getUserByUsername";
-import { UserJikan } from "@/types/UserJikan";
+import { getUserByUsername } from "@/actions/user/getUserByUsername";
+import { UserJikan } from "@/types/user/User";
 
 export default function UserSearch() {
     const [users, setUsers] = React.useState<UserJikan | null>(null);
