@@ -69,18 +69,18 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
         <div className='flex flex-col gap-1 relative'>
           Género
           <div
-            className='cursor-pointer w-full bg-gray-600/50 py-1.5 rounded-md items-center text-gray-200 select-none flex gap-1'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1'
             onClick={() => setOpenFilter(openFilter === 'genres' ? null : 'genres')}
           >
             {!genreSelected[0] && !tagSelected[0] &&
-              <span className='text-gray-400 text-sm font-semibold pl-2'>Cualquiera</span>
+              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
             }
 
-            <span className='rounded-md bg-gray-600 text-sm font-semibold ml-2 px-1'>
+            <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
               {genreSelected[0] ?? tagSelected[0]}
             </span>
 
-            <span className='rounded-md bg-gray-600 text-sm font-semibold px-1'>
+            <span className='rounded-md bg-bg-quaternary text-sm font-semibold px-1'>
               {genreSelected.length > 1 || tagSelected.length > 1
                 ? ` +${genreSelected.length + tagSelected.length - 1}`
                 : ""}
@@ -88,27 +88,27 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
           </div>
 
           {openFilter === 'genres' && (
-            <div className='absolute top-full mt-1 w-full z-50 bg-[#1f1f1f] flex flex-col gap-2 overflow-scroll max-h-50 rounded-md px-1 py-2'>
+            <div className='absolute top-full mt-1 w-full z-50 bg-bg-secondary border border-border-default flex flex-col gap-2 overflow-scroll max-h-50 rounded-md px-1 py-2'>
               <span className='font-bold px-1'>Géneros</span>
 
               {genresChecked.map(g => (
                 <div
                   key={g.name}
-                  className='flex cursor-pointer items-center justify-between gap-2 px-4 hover:bg-blue-700/40 rounded-xs p-1'
+                  className='flex cursor-pointer items-center justify-between gap-2 px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1'
                   onClick={() => setGenres([...genreSelected, g.name])}
                 >
                   {g.name}
                   {genreSelected.includes(g.name) &&
-                    <FaCircleCheck color='#6fc8ff' />}
+                    <FaCircleCheck className="text-accent-primary" />}
                 </div>
               ))}
 
-              <span className='font-bold px-1'>Tags</span>
+              <span className='font-bold px-1 text-text-primary'>Tags</span>
 
               {tagsChecked.map(t => (
                 <div
                   key={t.name}
-                  className="group flex cursor-pointer relative items-center justify-between gap-2 px-4 hover:bg-blue-700/40 rounded-xs p-1"
+                  className="group flex cursor-pointer relative items-center justify-between gap-2 px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1"
                   onClick={() => setTags([...tagSelected, t.name])}
                 >
                   {t.name}
@@ -118,11 +118,10 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
                       pointer-events-none
                       absolute top-full mt-1 left-0
                       w-full
-                      
                       rounded-md
-                      bg-black/90
+                      bg-bg-primary/95
                       backdrop-blur-md
-                      text-sm text-gray-200
+                      text-sm text-text-primary
                       px-3 py-2
                       opacity-0
                       group-hover:opacity-100
@@ -145,34 +144,34 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
         <div className='flex flex-col gap-1 relative'>
           Año
           <div
-            className='cursor-pointer w-full bg-gray-600/50 py-1.5 rounded-md items-center text-gray-200 select-none flex gap-1'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1'
             onClick={() => setOpenFilter(openFilter === 'year' ? null : 'year')}
           >
             {!yearSelected &&
-              <span className='text-gray-400 text-sm font-semibold pl-2'>Cualquiera</span>
+              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
             }
 
             {yearSelected &&
-              <span className='rounded-md bg-gray-600 text-sm font-semibold ml-2 px-1'>
+              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
                 {yearSelected}
               </span>
             }
           </div>
 
           {openFilter === 'year' && (
-            <div className='absolute top-full mt-1 w-full z-50 bg-[#1f1f1f] flex flex-col gap-1 overflow-scroll max-h-50 rounded-md px-1 py-2'>
+            <div className='absolute top-full mt-1 w-full z-50 bg-bg-secondary border border-border-default flex flex-col gap-1 overflow-scroll max-h-50 rounded-md px-1 py-2'>
               {Array.from(
                 { length: (new Date().getFullYear() + 1) - 1940 },
                 (_, i) => (new Date().getFullYear() + 1) - i
               ).map(y => (
                 <div
                   key={y}
-                  className='flex cursor-pointer items-center justify-between px-4 hover:bg-blue-700/40 rounded-xs p-1'
+                  className='flex cursor-pointer items-center justify-between px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1'
                   onClick={() => setYear(y.toString())}
                 >
                   {y}
                   {yearSelected === y.toString() &&
-                    <FaCircleCheck color='#6fc8ff' />}
+                    <FaCircleCheck className="text-accent-primary" />}
                 </div>
               ))}
             </div>
@@ -184,31 +183,31 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
         <div className='flex flex-col gap-1 relative'>
           Temporada
           <div
-            className='cursor-pointer w-full bg-gray-600/50 py-1.5 rounded-md items-center text-gray-200 select-none flex gap-1'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1'
             onClick={() => setOpenFilter(openFilter === 'season' ? null : 'season')}
           >
             {!seasonSelected &&
-              <span className='text-gray-400 text-sm font-semibold pl-2'>Cualquiera</span>
+              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
             }
 
             {seasonSelected &&
-              <span className='rounded-md bg-gray-600 text-sm font-semibold ml-2 px-1'>
+              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
                 {seasonSelected}
               </span>
             }
           </div>
 
           {openFilter === 'season' && (
-            <div className='absolute top-full mt-1 w-full z-50 bg-[#1f1f1f] flex flex-col gap-1 rounded-md px-1 py-2'>
+            <div className='absolute top-full mt-1 w-full z-50 bg-bg-secondary border border-border-default flex flex-col gap-1 rounded-md px-1 py-2'>
               {[{ label: "Invierno", value: "WINTER" }, { label: "Primavera", value: "SPRING" }, { label: "Verano", value: "SUMMER" }, { label: "Otoño", value: "FALL" }].map(s => (
                 <div
                   key={s.value}
-                  className='flex cursor-pointer items-center justify-between px-4 hover:bg-blue-700/40 rounded-xs p-1'
+                  className='flex cursor-pointer items-center justify-between px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1'
                   onClick={() => setSeason(s.value)}
                 >
                   {s.label}
                   {seasonSelected === s.value &&
-                    <FaCircleCheck color='#6fc8ff' />}
+                    <FaCircleCheck className="text-accent-primary" />}
                 </div>
               ))}
             </div>
@@ -220,22 +219,22 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
         <div className='flex flex-col gap-1 relative'>
           Estado
           <div
-            className='cursor-pointer w-full bg-gray-600/50 py-1.5 rounded-md items-center text-gray-200 select-none flex gap-1'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1'
             onClick={() => setOpenFilter(openFilter === 'status' ? null : 'status')}
           >
             {!statusSelected &&
-              <span className='text-gray-400 text-sm font-semibold pl-2'>Cualquiera</span>
+              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
             }
 
             {statusSelected &&
-              <span className='rounded-md bg-gray-600 text-sm font-semibold ml-2 px-1'>
+              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
                 {statusSelected}
               </span>
             }
           </div>
 
           {openFilter === 'status' && (
-            <div className='absolute top-full mt-1 w-full z-50 bg-[#1f1f1f] flex flex-col gap-1 rounded-md px-1 py-2'>
+            <div className='absolute top-full mt-1 w-full z-50 bg-bg-secondary border border-border-default flex flex-col gap-1 rounded-md px-1 py-2'>
 
               {[
                 { label: "Finalizado", value: "FINISHED" },
@@ -246,12 +245,12 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
               ].map(s => (
                 <div
                   key={s.value}
-                  className='flex cursor-pointer items-center justify-between px-4 hover:bg-blue-700/40 rounded-xs p-1'
+                  className='flex cursor-pointer items-center justify-between px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1'
                   onClick={() => setStatus(s.value)}
                 >
                   {s.label}
                   {statusSelected === s.value &&
-                    <FaCircleCheck color='#6fc8ff' />}
+                    <FaCircleCheck className="text-accent-primary" />}
                 </div>
               ))}
 
@@ -264,41 +263,41 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
 
       {/* Selected Filters */}
 
-      <div className='flex gap-2 items-center  w-fit flex-wrap group'>
-        <FaTags />
+      <div className='flex gap-2 items-center w-fit flex-wrap group'>
+        <FaTags className="text-text-secondary" />
         {genreSelected.filter((v): v is string => !!v).map((f, index) => (
-          <span key={index} className="cursor-pointer bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => removeFromArray(f, genreSelected, setGenres)}>
+          <span key={index} className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => removeFromArray(f, genreSelected, setGenres)}>
             {f}
           </span>
         ))}
 
         {tagSelected.filter((v): v is string => !!v).map((f, index) => (
-          <span key={index} className="cursor-pointer bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => removeFromArray(f, tagSelected, setTags)}>
+          <span key={index} className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => removeFromArray(f, tagSelected, setTags)}>
             {f}
           </span>
         ))}
 
         {yearSelected && (
-          <span className="cursor-pointer bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => setYear("")}>
+          <span className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => setYear("")}>
             {yearSelected}
           </span>
         )}
 
         {seasonSelected && (
-          <span className="cursor-pointer bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => setSeason("")}>
+          <span className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => setSeason("")}>
             {seasonSelected}
           </span>
         )}
 
         {statusSelected && (
-          <span className="cursor-pointer bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => setStatus("")}>
+          <span className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => setStatus("")}>
             {statusSelected}
           </span>
         )}
 
         {
           (tagSelected.length !== 0 || genreSelected.length !== 0 || yearSelected || seasonSelected || statusSelected) && (
-            <span className="cursor-pointer flex opacity-0 group-hover:opacity-100 duration-300 transition-opacity justify-center items-center gap-2 bg-gray-800/60 text-gray-200 px-2 py-1 rounded-md text-sm" onClick={() => clearAllFilters()}>
+            <span className="cursor-pointer flex opacity-0 group-hover:opacity-100 duration-300 transition-opacity justify-center items-center gap-2 bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm" onClick={() => clearAllFilters()}>
               Borrar Todo <RxCross2 />
             </span>
           )

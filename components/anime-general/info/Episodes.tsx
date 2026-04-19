@@ -8,10 +8,10 @@ interface Props {
 
 export default function Episodes({ episode, watched }: Props) {
     return (
-        <li key={episode.malId} className="border-b w-full flex p-1 gap-2 items-center justify-between border-gray-700 ">
+        <li key={episode.malId} className="border-b w-full flex p-1 gap-2 items-center justify-between border-border-default">
             <div>
-                <h4 className="font-semibold text-md w-full text-gray-200">Capítulo {episode.malId}</h4>
-                <p className="text-gray-400 text-xs w-full">{episode.title || "Desconocido"}</p>
+                <h4 className="font-semibold text-md w-full text-text-primary">Capítulo {episode.malId}</h4>
+                <p className="text-text-tertiary text-xs w-full">{episode.title || "Desconocido"}</p>
             </div>
 
 

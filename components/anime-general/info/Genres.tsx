@@ -8,7 +8,7 @@ export default function Genres({ genres }: Props) {
   return (
     <div className='flex gap-1 my-2 flex-wrap'>
         {genres.map((genre, index) => 
-            <span key={index} className="bg-gray-800/50 px-2 border rounded-2xl font-semibold text-gray-300">{genre}</span>
+            <span key={index} className="bg-bg-tertiary px-2 border border-border-default rounded-2xl font-semibold text-text-secondary">{genre}</span>
         )}
     
     </div>

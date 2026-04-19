@@ -26,7 +26,7 @@ export default function AnimeWeekMobile({ animes }: Props) {
             {
                 daysOfWeek.map((day) => (
                     <div key={day.key} className='w-full flex flex-col '>
-                        <h3 className="text-lg font-bold px-2 text-[#e0e1dd] mb-2 tracking-wide uppercase  w-full  rounded-sm bg-[#080414] ">
+                        <h3 className="text-lg font-bold px-2 text-text-primary mb-2 tracking-wide uppercase w-full rounded-sm bg-bg-tertiary border border-border-default">
                             {day.spanishLabel}
                         </h3>
                         <div className=" relative space-y-2 w-full ">
@@ -65,11 +65,11 @@ export default function AnimeWeekMobile({ animes }: Props) {
 
 
                                             <div className="flex flex-col justify-center  ">
-                                                <span className="text-xs font-semibold text-[#e0e1dd] ">
+                                                <span className="text-xs font-semibold text-text-primary">
                                                     {anime.title.romaji || anime.title.english}
                                                 </span>
 
-                                                <span className="text-xs text-white/50">
+                                                <span className="text-xs text-text-tertiary">
                                                     EP {anime.nextAiringEpisode?.episode || "?"}
                                                 </span>
                                             </div>
@@ -78,7 +78,7 @@ export default function AnimeWeekMobile({ animes }: Props) {
 
                                     ))
                             }
-                            <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="absolute bottom-0 right-0 text-xs text-white border border-white/20 py-1 px-2 rounded-md bg-[#09041b] hover:text-blue-300 cursor-pointer">Ver todos →</Link>
+                            <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="absolute bottom-0 right-0 text-xs text-text-primary border border-border-default py-1 px-2 rounded-md bg-bg-tertiary hover:text-accent-primary cursor-pointer">Ver todos →</Link>
                         </div>
 
 

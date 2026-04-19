@@ -50,12 +50,12 @@ export default function LoginForm() {
             {/* Login MAL */}
             <div className="flex flex-col items-center gap-2 w-full max-w-sm">
 
-                <p className="text-sm text-gray-300 text-center">
+                <p className="text-sm text-text-secondary text-center">
                     Inicia sesión con tu cuenta de MyAnimeList
                 </p>
 
                 <button
-                    className="w-full flex items-center justify-center gap-3 py-2 px-4 rounded-md 
+                    className="w-full flex items-center justify-center gap-3 py-2 px-4 rounded-md
       bg-[#2e51a2] hover:bg-[#1f3f8a] text-white font-semibold transition shadow-md"
                     onClick={handleMALLogin}
                 >
@@ -74,22 +74,22 @@ export default function LoginForm() {
             </div>
 
             {/* Separador */}
-            <div className="flex items-center w-full max-w-sm gap-3 text-gray-400 text-sm">
-                <div className="flex-1 h-px bg-white/10" />
+            <div className="flex items-center w-full max-w-sm gap-3 text-text-tertiary text-sm">
+                <div className="flex-1 h-px bg-border-default" />
                 o
-                <div className="flex-1 h-px bg-white/10" />
+                <div className="flex-1 h-px bg-border-default" />
             </div>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-4 bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-md w-full max-w-sm shadow-md"
+                className="flex flex-col gap-4 bg-bg-secondary backdrop-blur-md border border-border-default p-6 rounded-md w-full max-w-sm shadow-md"
             >
-                <legend className="text-3xl font-bold text-white text-center mb-2">
+                <legend className="text-3xl font-bold text-text-primary text-center mb-2">
                     Iniciar Sesión
                 </legend>
 
                 {/* Email */}
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="email" className="text-sm text-gray-300">
+                    <label htmlFor="email" className="text-sm text-text-secondary">
                         Email
                     </label>
 
@@ -105,12 +105,12 @@ export default function LoginForm() {
                                 message: "Formato de email inválido.",
                             },
                         })}
-                        className={`p-2 rounded-md bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition
-        ${errors.email ? "border-red-400" : "border-white/20"}`}
+                        className={`p-2 rounded-md bg-bg-primary border text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-primary transition
+        ${errors.email ? "border-status-error" : "border-border-default"}`}
                     />
 
                     {errors.email && (
-                        <span role="alert" className="text-red-400 text-sm">
+                        <span role="alert" className="text-status-error text-sm">
                             {errors.email.message}
                         </span>
                     )}
@@ -118,7 +118,7 @@ export default function LoginForm() {
 
                 {/* Contraseña */}
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="contrasena" className="text-sm text-gray-300">
+                    <label htmlFor="contrasena" className="text-sm text-text-secondary">
                         Contraseña
                     </label>
 
@@ -130,12 +130,12 @@ export default function LoginForm() {
                         {...register("contrasena", {
                             required: "Contraseña es requerida.",
                         })}
-                        className={`p-2 rounded-md bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition
-        ${errors.contrasena ? "border-red-400" : "border-white/20"}`}
+                        className={`p-2 rounded-md bg-bg-primary border text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-primary transition
+        ${errors.contrasena ? "border-status-error" : "border-border-default"}`}
                     />
 
                     {errors.contrasena && (
-                        <span role="alert" className="text-red-400 text-sm">
+                        <span role="alert" className="text-status-error text-sm">
                             {errors.contrasena.message}
                         </span>
                     )}
@@ -143,7 +143,7 @@ export default function LoginForm() {
 
                 <button
                     type="submit"
-                    className="w-full py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-semibold transition"
+                    className="w-full py-2 rounded-md bg-accent-primary hover:bg-accent-primary-hover text-white font-semibold transition"
                 >
                     Entrar
                 </button>

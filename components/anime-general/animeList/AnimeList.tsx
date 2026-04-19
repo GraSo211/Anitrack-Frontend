@@ -17,7 +17,7 @@ export default function AnimeList({animeList}:Props) {
           <Link
             href={`/anime/m-${anime.id}`}
             key={anime.id}
-            className="bg-[#1e1e2e]  rounded-lg overflow-hidden shadow hover:scale-105 transition"
+            className="bg-bg-secondary border border-border-default rounded-lg overflow-hidden shadow hover:scale-105 transition"
           >
             <img
               src={anime.mainPicture.large}
@@ -30,11 +30,11 @@ export default function AnimeList({animeList}:Props) {
                 {anime.title}
               </h2>
 
-              <div className="text-xs flex items-center gap-1 text-gray-400 mt-1">
+              <div className="text-xs flex items-center gap-1 text-text-tertiary mt-1">
                 <FaStar size={20} /> {anime.score}
               </div>
 
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-text-muted">
                 {anime.status}
               </div>
             </div>

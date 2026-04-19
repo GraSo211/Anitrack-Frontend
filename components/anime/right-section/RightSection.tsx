@@ -45,14 +45,14 @@ export default async function RightSection({ malId, titleRomaji, titleEnglish, s
     return (
         <div className="flex flex-col w-full relative">
             <div>
-                <h1 className="text-4xl font-extrabold text-white">{titleRomaji ?? titleEnglish ?? "Título desconocido"}</h1>
+                <h1 className="text-4xl font-extrabold text-text-primary">{titleRomaji ?? titleEnglish ?? "Título desconocido"}</h1>
 
-                {synonyms.length > 0 && <p className="text-xs my-1 text-gray-400">{synonyms.join(", ")}</p>}
+                {synonyms.length > 0 && <p className="text-xs my-1 text-text-tertiary">{synonyms.join(", ")}</p>}
 
-                <div className="flex flex-wrap gap-3 items-center">
+                <div className="flex flex-wrap gap-3 items-center text-text-secondary">
                     {averageScore && <span className='flex gap-1 justify-center items-center'><FaStar /> {averageScore}</span>}
                     {popularity && <span className='flex gap-1 justify-center items-center'><FaFireAlt></FaFireAlt> {popularity}</span>}
-                    {status && <AnimeStatus  status={status} />}
+                    {status && <AnimeStatus status={status} />}
                 </div>
             </div>
 
@@ -62,8 +62,8 @@ export default async function RightSection({ malId, titleRomaji, titleEnglish, s
             {token && <AnimeUserStatus animeStatus={animeStatus} token={token} id={malId} episodes={episodes}></AnimeUserStatus>}
 
             {description && (
-                <section className="bg-gray-900/60 rounded-xl p-4 my-2">
-                    <div className="text-gray-200 leading-relaxed" dangerouslySetInnerHTML={{ __html: description }}></div>
+                <section className="bg-bg-secondary border border-border-default rounded-xl p-4 my-2">
+                    <div className="text-text-primary leading-relaxed" dangerouslySetInnerHTML={{ __html: description }}></div>
                 </section>
             )}
 
@@ -74,7 +74,7 @@ export default async function RightSection({ malId, titleRomaji, titleEnglish, s
                             <img
                                 alt={titleRomaji ?? "Trailer"}
                                 src={trailer.thumbnail}
-                                
+
                                 sizes="(max-width: 768px) 100vw, 480px"
                                 className="rounded-lg object-cover hover:brightness-90 transition"
                             />
@@ -86,7 +86,7 @@ export default async function RightSection({ malId, titleRomaji, titleEnglish, s
             {
                 episodePage?.items.length != 0 &&
                 <section className="mt-6">
-                    <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
+                    <h2 className="text-2xl font-bold text-text-primary mb-4">Episodios</h2>
 
                     {episodePage && episodePage.items?.map((episode) => <Episodes key={episode.malId} episode={episode} watched={false} />)}
                 </section>

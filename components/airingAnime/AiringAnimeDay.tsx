@@ -62,7 +62,7 @@ export default function AiringAnimeDay({ animes }: Props) {
     return (
         <div className=" flex flex-col    gap-2 px-3 py-4">
             <div className="w-full overflow-x-auto">
-                <div className="flex w-max   rounded-xl bg-[#0f1c33] border border-white/10">
+                <div className="flex w-max rounded-xl bg-bg-secondary border border-border-default">
                     {daysOfWeek.map((day) => {
                         const isActive = day.key === dayEnglish;
 
@@ -74,8 +74,8 @@ export default function AiringAnimeDay({ animes }: Props) {
             px-2 py-2 text-xs font-semibold rounded-lg whitespace-nowrap
             transition-all duration-200 shrink-0
             ${isActive
-                                        ? "bg-blue-600 text-white shadow-md"
-                                        : "text-white/70 hover:text-white hover:bg-white/5"
+                                        ? "bg-accent-primary text-text-inverse shadow-md"
+                                        : "text-text-secondary hover:text-text-primary hover:bg-bg-tertiary"
                                     }
           `}
                             >
@@ -85,7 +85,7 @@ export default function AiringAnimeDay({ animes }: Props) {
                     })}
                 </div>
             </div>
-            <h2 className="text-xl  font-bold text-white">{daysOfWeek.find(d => d.key === dayEnglish)?.spanishLabel.toUpperCase()}</h2>
+            <h2 className="text-xl font-bold text-text-primary">{daysOfWeek.find(d => d.key === dayEnglish)?.spanishLabel.toUpperCase()}</h2>
             <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3 flex flex-col gap-3">
 
                 {animesOfDay.map((anime) => {
@@ -106,7 +106,7 @@ export default function AiringAnimeDay({ animes }: Props) {
                         <Link
                             key={anime.id}
                             href={`/anime/a-${anime.id}`}
-                            className="flex  w-full gap-4 rounded-xl  transition hover:bg-white/5"
+                            className="flex w-full gap-4 rounded-xl transition hover:bg-bg-tertiary border border-border-default p-2"
                             style={{
                                 backgroundColor: anime.coverImage.color
                                     ? `${anime.coverImage.color}20`
@@ -123,21 +123,21 @@ export default function AiringAnimeDay({ animes }: Props) {
                                 />
                             </div>
 
-                            <div className="flex flex-col  justify-between py-2 w-full">
+                            <div className="flex flex-col justify-between py-2 w-full">
                                 <div>
-                                    <h3 className="text-base  font-semibold text-white  line-clamp-2">
+                                    <h3 className="text-base font-semibold text-text-primary line-clamp-2">
                                         {title}
                                     </h3>
 
                                     {anime.nextAiringEpisode && (
-                                        <p className="text-sm text-gray-400 mt-1">
+                                        <p className="text-sm text-text-tertiary mt-1">
                                             Episodio {anime.nextAiringEpisode.episode}
                                         </p>
                                     )}
                                 </div>
 
                                 {anime.nextAiringEpisode && (
-                                    <p className="text-xs text-blue-400  font-medium mt-2">
+                                    <p className="text-xs text-accent-primary font-medium mt-2">
                                         Se emite en {formatCountdown(anime.nextAiringEpisode.timeUntilAiring)}
                                     </p>
                                 )}
@@ -151,7 +151,7 @@ export default function AiringAnimeDay({ animes }: Props) {
 
 
             {animesOfDay.length === 0 && (
-                <div className="text-center text-gray-500 py-10">
+                <div className="text-center text-text-muted py-10">
                     No hay animes programados para este día
                 </div>
             )}

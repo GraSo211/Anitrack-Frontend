@@ -39,7 +39,7 @@ export default function AnimesPage({ genres, tags }: Props) {
   return (
     <div className="min-h-screen px-6 py-12">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-gray-200 mb-2">
+        <h1 className="text-4xl font-bold text-center text-text-primary mb-2">
           Animes
         </h1>
 
@@ -53,7 +53,7 @@ export default function AnimesPage({ genres, tags }: Props) {
         </div>
 
         {filteredAnimes.length === 0 && (
-          <div className="text-center text-gray-400 mt-8">
+          <div className="text-center text-text-tertiary mt-8">
             No se encontraron animes con los filtros seleccionados.
           </div>
         )}

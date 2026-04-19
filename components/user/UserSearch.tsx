@@ -45,22 +45,22 @@ export default function UserSearch() {
 
     return (
         <div ref={wrapperRef} className="relative w-full max-w-md">
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 h-10 backdrop-blur-md transition-all focus-within:ring-2 focus-within:ring-blue-500">
+            <div className="flex items-center bg-bg-secondary border border-border-default rounded-xl px-3 h-10 backdrop-blur-md transition-all focus-within:ring-2 focus-within:ring-accent-primary">
                 <input
                     type="text"
                     value={query}
-                    className="w-full bg-transparent text-sm focus:outline-none placeholder-white/50"
+                    className="w-full bg-transparent text-sm focus:outline-none placeholder-text-muted text-text-primary"
                     placeholder="Buscar usuarios..."
                     onChange={searchUser}
                 />
-                <CiSearch width={22} height={22} stroke="#ffffff" />
+                <CiSearch width={22} height={22} className="text-text-secondary" />
             </div>
 
             {users && (
-                <div className="absolute top-full mt-2 w-full bg-gray-800 border border-gray-600 rounded-xl shadow-lg z-50">
+                <div className="absolute top-full mt-2 w-full bg-bg-secondary border border-border-default rounded-xl shadow-lg z-50">
                     <Link
                         href={`/usuarios/${users.username}`}
-                        className="flex items-center gap-3 p-3 hover:bg-gray-700 rounded-xl transition"
+                        className="flex items-center gap-3 p-3 hover:bg-bg-tertiary rounded-xl transition"
                         onClick={closeDropdown}
                     >
                         <Image
@@ -70,7 +70,7 @@ export default function UserSearch() {
                             height={32}
                             className="rounded-full object-cover"
                         />
-                        <span className="text-gray-200 text-sm">{users.username}</span>
+                        <span className="text-text-primary text-sm">{users.username}</span>
                     </Link>
                 </div>
             )}

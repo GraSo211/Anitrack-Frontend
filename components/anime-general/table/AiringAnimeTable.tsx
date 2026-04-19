@@ -28,7 +28,7 @@ export default async function AiringAnimeTable() {
     if (!animes) {
         return (
             <div className="w-full rounded-lg shadow-lg p-6 text-center">
-                <h2 className="font-bold text-3xl mb-4 text-[#e0e1dd]">Animes En Emisión</h2>
+                <h2 className="font-bold text-3xl mb-4 text-text-primary">Animes En Emisión</h2>
                 <p className="text-red-400">No se pudieron cargar los animes en emisión.</p>
                 <p className="text-sm text-white/60 mt-2">Intentá nuevamente más tarde.</p>
             </div>
@@ -39,7 +39,7 @@ export default async function AiringAnimeTable() {
 
     return (
         <div className="w-full relative  rounded-lg shadow-lg p-6  flex flex-col items-center ">
-            <h2 className="font-bold text-3xl mb-2  text-[#e0e1dd]">Animes En Emisión</h2>
+            <h2 className="font-bold text-3xl mb-2 text-text-primary">Animes En Emisión</h2>
             <p className="mb-2 font-semibold">Sigue los estrenos semanales de tus series favoritas</p>
             <div className="hidden lg:flex">
                 <AnimeWeek animes={animes}></AnimeWeek>

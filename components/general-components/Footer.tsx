@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Footer() {
     return (
-        <footer className="mt-3 lg:mt-6 border-t border-gray-800 bg-black/60 backdrop-blur">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between text-sm text-gray-400">
+        <footer className="mt-3 lg:mt-6 border-t border-border-default bg-bg-secondary/60 backdrop-blur">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between text-sm text-text-tertiary">
                 {/* Left */}
                 <span>
                     © {new Date().getFullYear()} AniTrack

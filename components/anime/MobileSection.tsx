@@ -35,15 +35,15 @@ const formatAiringDate = (unix?: number) => {
 export default function MobileSection({ anime, episodePage }: Props) {
     return (
         <div className="mt-4 flex flex-col  justify-center items-center col-span-1">
-            {anime.coverImage && anime.coverImage.extraLarge && <img src={anime.coverImage.extraLarge} alt={anime.title.romaji || "Desconocido"} width={300} height={500}  className="rounded-xl shadow-xl border border-gray-800" />}
+            {anime.coverImage && anime.coverImage.extraLarge && <img src={anime.coverImage.extraLarge} alt={anime.title.romaji || "Desconocido"} width={300} height={500} className="rounded-xl shadow-xl border border-border-default" />}
 
 
             <div>
-                <h1 className="mt-2 text-xl font-extrabold text-center text-white">{anime.title?.romaji ?? anime.title?.english ?? "Título desconocido"}</h1>
+                <h1 className="mt-2 text-xl font-extrabold text-center text-text-primary">{anime.title?.romaji ?? anime.title?.english ?? "Título desconocido"}</h1>
 
-                {anime.synonyms && anime.synonyms.length > 0 && <p className="text-xs my-1 text-gray-400">{anime.synonyms.join(", ")}</p>}
+                {anime.synonyms && anime.synonyms.length > 0 && <p className="text-xs my-1 text-text-tertiary">{anime.synonyms.join(", ")}</p>}
 
-                <div className="flex flex-wrap gap-3 items-center">
+                <div className="flex flex-wrap gap-3 items-center text-text-secondary">
                     {anime.averageScore && <span className='flex gap-1 justify-center items-center'><FaStar /> {anime.averageScore}</span>}
                     {anime.popularity && <span className='flex gap-1 justify-center items-center'><FaFireAlt></FaFireAlt> {anime.popularity}</span>}
                     {anime.status && <AnimeStatus status={anime.status} />}
@@ -51,50 +51,50 @@ export default function MobileSection({ anime, episodePage }: Props) {
             </div>
 
             <Genres genres={anime.genres} />
-            
-            <div className="bg-gray-900/80 rounded-xl p-4 shadow-md border border-gray-700 space-y-4">
+
+            <div className="bg-bg-secondary rounded-xl p-4 shadow-md border border-border-default space-y-4">
                 {/* Badges */}
                 <div className="flex flex-wrap gap-2 text-xs">
                     {anime.season && anime.seasonYear && (
-                        <span className="px-2 py-1 rounded bg-indigo-500/20 text-indigo-300">
+                        <span className="px-2 py-1 rounded bg-accent-primary-subtle text-accent-primary">
                             {anime.season} {anime.seasonYear}
                         </span>
                     )}
-                    {anime.countryOfOrigin && <span className="px-2 py-1 rounded bg-gray-700 text-gray-300">{anime.countryOfOrigin}</span>}
-                    {anime.isAdult && <span className="px-2 py-1 rounded bg-red-500/20 text-red-400 font-semibold">+18 Adulto</span>}
+                    {anime.countryOfOrigin && <span className="px-2 py-1 rounded bg-bg-quaternary text-text-secondary">{anime.countryOfOrigin}</span>}
+                    {anime.isAdult && <span className="px-2 py-1 rounded bg-status-error-subtle text-status-error font-semibold">+18 Adulto</span>}
                 </div>
 
 
                 {/* Metadata */}
-                <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-300">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-text-secondary">
                     <div>
-                        <span className="font-semibold text-gray-200">Estudio</span>
+                        <span className="font-semibold text-text-primary">Estudio</span>
                         <p>{anime.studio?.toUpperCase() || "Desconocido"}</p>
                     </div>
 
                     <div>
-                        <span className="font-semibold text-gray-200">Fuente</span>
+                        <span className="font-semibold text-text-primary">Fuente</span>
                         <p>{anime.source || "Desconocida"}</p>
                     </div>
 
                     <div>
-                        <span className="font-semibold text-gray-200">Episodios</span>
+                        <span className="font-semibold text-text-primary">Episodios</span>
                         <p>{anime.episodes ?? "—"}</p>
                     </div>
 
                     <div>
-                        <span className="font-semibold text-gray-200">Duración</span>
+                        <span className="font-semibold text-text-primary">Duración</span>
                         <p>{anime.duration ? `${anime.duration} min` : "—"}</p>
                     </div>
 
                     <div>
-                        <span className="font-semibold text-gray-200">Inicio</span>
+                        <span className="font-semibold text-text-primary">Inicio</span>
                         <p>{formatDate(anime.startDate)}</p>
                     </div>
 
                     {anime.endDate && (
                         <div>
-                            <span className="font-semibold text-gray-200">Fin</span>
+                            <span className="font-semibold text-text-primary">Fin</span>
                             <p>{formatDate(anime.endDate)}</p>
                         </div>
                     )}
@@ -102,9 +102,9 @@ export default function MobileSection({ anime, episodePage }: Props) {
 
                 {/* Next episode */}
                 {anime.nextAiringEpisode?.airingAt && (
-                    <div className="rounded-lg bg-blue-500/10 border border-blue-500/30 p-3 text-sm">
-                        <span className="font-semibold text-blue-400">Próximo episodio</span>
-                        <p className="text-gray-200">
+                    <div className="rounded-lg bg-accent-primary-subtle border border-accent-primary/30 p-3 text-sm">
+                        <span className="font-semibold text-accent-primary">Próximo episodio</span>
+                        <p className="text-text-primary">
                             <span className="font-semibold">Episodio {anime.nextAiringEpisode.episode} </span>· {formatAiringDate(anime.nextAiringEpisode.airingAt)}
                         </p>
                     </div>
@@ -114,31 +114,31 @@ export default function MobileSection({ anime, episodePage }: Props) {
             {anime.trailer?.thumbnail && (
                 <section>
                     <Link href={buildTrailerUrl(anime.trailer)!} target="_blank">
-                        <div className="relative w-full  max-w-120 aspect-video">
+                        <div className="relative w-full max-w-120 aspect-video">
                             <img
                                 alt={anime.title?.romaji ?? "Trailer"}
                                 src={anime.trailer.thumbnail}
                                 height={400}
                                 width={600}
-                                
+
                                 className="rounded-lg object-cover hover:brightness-90 transition"
                             />
-                            
+
                         </div>
                     </Link>
                 </section>
             )}
 
             {anime.description && (
-                <section className="bg-gray-900/60 rounded-xl p-4 my-2">
-                    <div className="text-gray-200 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: anime.description }}></div>
+                <section className="bg-bg-secondary border border-border-default rounded-xl p-4 my-2">
+                    <div className="text-text-primary text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: anime.description }}></div>
                 </section>
             )}
 
 
 
             <section className="mt-2">
-                <h2 className="text-2xl font-bold text-white mb-4">Episodios</h2>
+                <h2 className="text-2xl font-bold text-text-primary mb-4">Episodios</h2>
 
                 {episodePage !== null && episodePage.items?.map((episode) => <Episodes key={episode.malId} episode={episode} watched={false} />)}
             </section>
@@ -147,20 +147,20 @@ export default function MobileSection({ anime, episodePage }: Props) {
 
             {/* Related anime */}
             {anime.relations && !anime.relations.empty && anime.relations.items.length > 0 && (
-                <section className=" mt-2 flex flex-col justify-center items-center ">
-                    <h2 className="text-xl font-bold text-white mb-4">Animes relacionados</h2>
+                <section className="mt-2 flex flex-col justify-center items-center">
+                    <h2 className="text-xl font-bold text-text-primary mb-4">Animes relacionados</h2>
 
-                    <div className="grid grid-cols-2 gap-4 place-content-center  w-full max-w-sm">
+                    <div className="grid grid-cols-2 gap-4 place-content-center w-full max-w-sm">
 
                         {anime.relations.items.map((anime) => (
                             <Link key={anime.relatedMediaId} href={`/anime/${anime.relatedMediaId}`} className="group">
-                                <div className="flex flex-col  gap-2">
-                                    <div className="relative aspect-2/3 overflow-hidden rounded-lg border border-gray-700 bg-gray-800">
-                                        <img src={anime.relatedImage} alt={anime.relatedTitle}  sizes="60px 30px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition" />
+                                <div className="flex flex-col gap-2">
+                                    <div className="relative aspect-2/3 overflow-hidden rounded-lg border border-border-default bg-bg-tertiary">
+                                        <img src={anime.relatedImage} alt={anime.relatedTitle} sizes="60px 30px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-bg-primary/20 group-hover:bg-bg-primary/10 transition" />
                                     </div>
 
-                                    <p className="text-sm text-center text-gray-300 leading-tight line-clamp-2 group-hover:text-white transition">{anime.relatedTitle}</p>
+                                    <p className="text-sm text-center text-text-secondary leading-tight line-clamp-2 group-hover:text-text-primary transition">{anime.relatedTitle}</p>
                                 </div>
                             </Link>
                         ))}
