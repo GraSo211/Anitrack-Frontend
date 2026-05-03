@@ -9,7 +9,7 @@ interface Props {
 
 export default function Hero({ bannerImage, title, colorBg }: Props) {
     return (
-        <div className="absolute inset-0 w-full lg:h-105 2xl:h-130 z-10 overflow-hidden">
+        <div className="absolute  inset-0 w-full lg:h-105 2xl:h-130 z-10 overflow-hidden">
             {bannerImage && (
                 <>
                     <img src={bannerImage} alt={title || "Desconocido"}  className="object-cover w-full " />

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     default: "Anitrack - Tu rastreador de anime",
     template: "%s | Anitrack",
   },
-  description: "Rastrea, descubre y organiza tus animes favoritos en un solo lugar.",
+  description: "Lleva el control de tus animes vistos, descubre los estrenos de la temporada y organiza tu lista de pendientes en un solo lugar. ¡Regístrate y personaliza tu perfil!",
   keywords: ["anime", "tracker", "anilist", "myanimelist", "lista de anime"],
   authors: [{ name: "Anitrack" }],
   manifest: "/manifest.json",
@@ -58,7 +58,7 @@ export default async function RootLayout({
         <Header isAuthenticated={isAuthenticated} />
         <SideBar />
 
-        <main id="main-content" className="w-full focus:outline-none" tabIndex={-1}>
+        <main id="main-content" className="w-full  focus:outline-none " tabIndex={-1}>
           {children}
         </main>
 
