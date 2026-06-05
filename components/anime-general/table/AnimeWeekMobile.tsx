@@ -1,37 +1,64 @@
-import { AnimeReleasing } from '@/types/anime/Anime'
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react'
+"use client";
+
+import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+import AiringSwitch from "./AiringSwitch";
+import {
+    CalendarFilterMode,
+    filterAnimesByUserList,
+} from "@/components/airingAnime/filterAnimesByUserList";
 
 interface Props {
-    animes: AnimeReleasing[]
+    animes: AnimeReleasing[];
+    userAnimeList?: AnimeList | null;
 }
 
-export default function AnimeWeekMobile({ animes }: Props) {
+export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
+    const [mode, setMode] = useState<CalendarFilterMode>("all");
+
     const animesChecked: AnimeReleasing[] = Array.isArray(animes) ? animes : [];
     const hasError = animes !== undefined && !Array.isArray(animes);
+
+    const animesAfterFilter = filterAnimesByUserList(
+        animesChecked,
+        userAnimeList ?? null,
+        mode,
+    );
+
+    const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
     const daysOfWeek = [
         { key: "monday", label: "Monday", spanishLabel: "Lunes" },
         { key: "tuesday", label: "Tuesday", spanishLabel: "Martes" },
-        { key: "wednesday", label: "Wednesday", spanishLabel: "Miercoles" },
+        { key: "wednesday", label: "Wednesday", spanishLabel: "Miércoles" },
         { key: "thursday", label: "Thursday", spanishLabel: "Jueves" },
         { key: "friday", label: "Friday", spanishLabel: "Viernes" },
-        { key: "saturday", label: "Saturday", spanishLabel: "Sabado" },
+        { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
 
     return (
-        <div className='flex w-full flex-col gap-3 '>
+        <div className="flex w-full flex-col gap-3 ">
+            {showToggle && (
+                <div className="flex w-full justify-center">
+                    <AiringSwitch
+                        onChange={(value) =>
+                            setMode(value === "following" ? "mine" : "all")
+                        }
+                    />
+                </div>
+            )}
             {
                 daysOfWeek.map((day) => (
-                    <div key={day.key} className='w-full flex flex-col '>
+                    <div key={day.key} className="w-full flex flex-col ">
                         <h3 className="text-lg font-bold px-2 text-text-primary mb-2 tracking-wide uppercase w-full rounded-sm bg-bg-tertiary border border-border-default">
                             {day.spanishLabel}
                         </h3>
                         <div className=" relative space-y-2 w-full ">
                             {
-                                animesChecked
+                                animesAfterFilter
                                     .filter((anime) => anime.schedule === day.key)
                                     .slice(0, 2)
                                     .map((anime) => (
@@ -73,7 +100,7 @@ export default function AnimeWeekMobile({ animes }: Props) {
                                                     EP {anime.nextAiringEpisode?.episode || "?"}
                                                 </span>
                                             </div>
-                                            
+
                                         </div>
 
                                     ))
@@ -86,5 +113,5 @@ export default function AnimeWeekMobile({ animes }: Props) {
                 ))
             }
         </div>
-    )
+    );
 }

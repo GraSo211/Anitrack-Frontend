@@ -1,13 +1,33 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import AiringSwitch from "./AiringSwitch";
 import AnimeLi from "./AnimeLi";
-import { AnimeReleasing } from "@/types/anime/Anime";
+import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import Link from "next/link";
+import {
+    CalendarFilterMode,
+    filterAnimesByUserList,
+} from "@/components/airingAnime/filterAnimesByUserList";
 
-export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undefined }) {
+export default function AnimeWeek({
+    animes,
+    userAnimeList,
+}: {
+    animes: AnimeReleasing[] | undefined;
+    userAnimeList?: AnimeList | null;
+}) {
+    const [mode, setMode] = useState<CalendarFilterMode>("all");
+
     const animesChecked: AnimeReleasing[] = Array.isArray(animes) ? animes : [];
     const hasError = animes !== undefined && !Array.isArray(animes);
+
+    const animesAfterFilter = filterAnimesByUserList(
+        animesChecked,
+        userAnimeList ?? null,
+        mode,
+    );
+
+    const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
     const daysOfWeek = [
         { key: "monday", label: "Monday", spanishLabel: "Lunes" },
@@ -18,12 +38,18 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
         { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
         { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
     ];
- 
+
     return (
         <div>
-            <div className=" flex mb-1 font-semibold ">
-                <AiringSwitch onChange={(value) => console.log(value)} />
-            </div>
+            {showToggle && (
+                <div className="flex mb-2 font-semibold">
+                    <AiringSwitch
+                        onChange={(value) =>
+                            setMode(value === "following" ? "mine" : "all")
+                        }
+                    />
+                </div>
+            )}
             <div className="grid grid-cols-7 gap-4 w-full">
                 {hasError && <div className="col-span-7 text-center text-red-400 text-sm mt-4">Ocurrió un problema al cargar los animes. Intentá nuevamente más tarde.</div>}
 
@@ -34,22 +60,22 @@ export default function AnimeWeek({ animes }: { animes: AnimeReleasing[] | undef
                     >
                         <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="w-full">
                             <h3 className="text-lg font-bold text-text-primary mb-2 tracking-wide uppercase border border-border-default w-full text-center rounded-sm bg-bg-tertiary hover:bg-accent-primary-subtle transition-colors hover:animate-pulse hover:cursor-pointer">
-                            {day.spanishLabel}
-                        </h3>
+                                {day.spanishLabel}
+                            </h3>
                         </Link>
-                        
+
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
-                            {animesChecked 
-                                    .filter((anime) => anime.schedule === day.key)
-                                    .map((anime) => (
-                                        <AnimeLi
-                                            key={anime.id}
-                                            id={anime.id}
-                                            episode={anime.nextAiringEpisode?.episode ?? 0}
-                                            coverImage={anime.coverImage.extraLarge || anime.coverImage.large || "/placeholder_cover.png"}
-                                            title={anime.title.romaji || anime.title.english || "Título Desconocido"}
-                                        />
-                                    ))}
+                            {animesAfterFilter
+                                .filter((anime) => anime.schedule === day.key)
+                                .map((anime) => (
+                                    <AnimeLi
+                                        key={anime.id}
+                                        id={anime.id}
+                                        episode={anime.nextAiringEpisode?.episode ?? 0}
+                                        coverImage={anime.coverImage.extraLarge || anime.coverImage.large || "/placeholder_cover.png"}
+                                        title={anime.title.romaji || anime.title.english || "Título Desconocido"}
+                                    />
+                                ))}
                         </ul>
                     </div>
                 ))}

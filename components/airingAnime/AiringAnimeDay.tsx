@@ -2,11 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AnimeReleasing } from "@/types/anime/Anime";
+import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import AiringSwitch from "@/components/anime-general/table/AiringSwitch";
+import {
+    CalendarFilterMode,
+    filterAnimesByUserList,
+} from "@/components/airingAnime/filterAnimesByUserList";
 
 interface Props {
     animes: AnimeReleasing[] | null;
+    userAnimeList?: AnimeList | null;
 }
 
 const convertTodayEmision = (animes: AnimeReleasing[]) => {
@@ -33,9 +40,11 @@ const formatCountdown = (seconds: number) => {
     return `${days}d ${hours}h ${minutes}m`;
 };
 
-export default function AiringAnimeDay({ animes }: Props) {
+export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
 
     const dayParam = useSearchParams().get("day");
+
+    const [mode, setMode] = useState<CalendarFilterMode>("all");
 
     const daysOfWeek = [
         { key: "monday", spanishLabel: "lunes" },
@@ -55,12 +64,29 @@ export default function AiringAnimeDay({ animes }: Props) {
         ? convertTodayEmision(animes)
         : [];
 
-    const animesOfDay = animesChecked.filter(
+    const animesAfterFilter = filterAnimesByUserList(
+        animesChecked,
+        userAnimeList ?? null,
+        mode,
+    );
+
+    const animesOfDay = animesAfterFilter.filter(
         anime => anime.schedule === dayEnglish
     );
 
+    const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
+
     return (
         <div className=" flex flex-col    gap-2 px-3 py-4">
+            {showToggle && (
+                <div className="flex justify-center sm:justify-start">
+                    <AiringSwitch
+                        onChange={(value) =>
+                            setMode(value === "following" ? "mine" : "all")
+                        }
+                    />
+                </div>
+            )}
             <div className="w-full overflow-x-auto">
                 <div className="flex w-max rounded-xl bg-bg-secondary border border-border-default">
                     {daysOfWeek.map((day) => {
@@ -152,7 +178,9 @@ export default function AiringAnimeDay({ animes }: Props) {
 
             {animesOfDay.length === 0 && (
                 <div className="text-center text-text-muted py-10">
-                    No hay animes programados para este día
+                    {mode === "mine"
+                        ? "No tenés animes en emisión en tu lista para este día"
+                        : "No hay animes programados para este día"}
                 </div>
             )}
         </div>

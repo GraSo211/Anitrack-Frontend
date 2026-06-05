@@ -1,24 +1,27 @@
-
-import { getReleasingAnimes } from '@/actions/animes/getReleasingAnimes';
-import AiringAnimeDay from '@/components/airingAnime/AiringAnimeDay';
-import { AnimeReleasing } from '@/types/anime/Anime';
-import { connection } from 'next/server'
-import React from 'react'
+import { cookies } from "next/headers";
+import { getReleasingAnimes } from "@/actions/animes/getReleasingAnimes";
+import { getAnimeList } from "@/actions/anime-list/getAnimeList";
+import AiringAnimeDay from "@/components/airingAnime/AiringAnimeDay";
+import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
+import { connection } from "next/server";
+import React from "react";
 
 export default async function page() {
-    await connection()
-    let animes: AnimeReleasing[] | null = await getReleasingAnimes();
+    await connection();
+    const cookieStore = await cookies();
+    const token = cookieStore.get("access_token")?.value;
 
-    //const animesChecked: AnimeReleasing[] = Array.isArray(animes) ? animes : [];
-    //const hasError = animes !== undefined && !Array.isArray(animes);
-
-
-   
+    const animes: AnimeReleasing[] | null = await getReleasingAnimes();
+    const userAnimeList: AnimeList | null = token
+        ? await getAnimeList(token, "watching")
+        : null;
 
     return (
-        <div className='w-full lg:flex justify-center items-center  overflow-hidden'>
-            <AiringAnimeDay animes={animes}></AiringAnimeDay>
-          
+        <div className="w-full lg:flex justify-center items-center  overflow-hidden">
+            <AiringAnimeDay
+                animes={animes}
+                userAnimeList={userAnimeList}
+            ></AiringAnimeDay>
         </div>
-    )
+    );
 }

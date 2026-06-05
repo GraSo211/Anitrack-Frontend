@@ -1,11 +1,13 @@
 import React from "react";
+import { cookies } from "next/headers";
 
 import "./Scrollbar.css";
 
 import { getReleasingAnimes } from "@/actions/animes/getReleasingAnimes";
+import { getAnimeList } from "@/actions/anime-list/getAnimeList";
 
 import AnimeWeek from "./AnimeWeek";
-import { AnimeReleasing } from "@/types/anime/Anime";
+import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import AnimeWeekMobile from "./AnimeWeekMobile";
 
 const convertTodayEmision = (animes: AnimeReleasing[]) => {
@@ -24,7 +26,14 @@ const convertTodayEmision = (animes: AnimeReleasing[]) => {
 };
 
 export default async function AiringAnimeTable() {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("access_token")?.value;
+
     let animes: AnimeReleasing[] | null = await getReleasingAnimes();
+    const userAnimeList: AnimeList | null = token
+        ? await getAnimeList(token, "watching")
+        : null;
+
     if (!animes) {
         return (
             <div className="w-full rounded-lg shadow-lg p-6 text-center">
@@ -42,10 +51,10 @@ export default async function AiringAnimeTable() {
             <h2 className="font-bold text-3xl mb-2 text-text-primary">Animes En Emisión</h2>
             <p className="mb-2 font-semibold">Sigue los estrenos semanales de tus series favoritas</p>
             <div className="hidden lg:flex">
-                <AnimeWeek animes={animes}></AnimeWeek>
+                <AnimeWeek animes={animes} userAnimeList={userAnimeList}></AnimeWeek>
             </div>
             <div className="flex w-full lg:hidden">
-                <AnimeWeekMobile animes={animes}></AnimeWeekMobile>
+                <AnimeWeekMobile animes={animes} userAnimeList={userAnimeList}></AnimeWeekMobile>
             </div>
 
         </div>
