@@ -88,7 +88,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
 
             {isAuthenticated ? (
               <Link
-                href="/lista-anime"
+                href="/perfil"
                 className={clsx(
                   "ml-2 px-4 py-2 rounded-lg",
                   "text-body-sm font-medium text-text-primary",
@@ -99,7 +99,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50"
                 )}
               >
-                Mi Lista
+                Mi Perfil
               </Link>
             ) : (
               <Link href="/login" className="ml-2">
