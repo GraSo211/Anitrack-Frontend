@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 
 import { AnimeCard as AnimeCardType } from '@/types/anime/Anime';
-import Filters from '@/components/animes/Filters';
+import Filters from '@/components/anime-general/filters/Filters';
 import { Genre } from '@/types/anime/Genre';
 import { Tag } from '@/types/anime/Tag';
 import { getFilteredAnimes } from '@/actions/animes/getFilteredAnimes';

@@ -1,7 +1,9 @@
 import { cookies } from "next/headers"
-import { getAnimeList } from "@/actions/anime-list/getAnimeList"
+import { getAnimeListEnriched } from "@/actions/anime-list/getAnimeListEnriched"
+import { getAllGenres } from '@/actions/animes/getAllGenres';
+import { getAllTags } from '@/actions/animes/getAllTags';
 import { redirect } from "next/navigation";
-import AnimeList from "@/components/anime-general/animeList/AnimeList";
+import AnimeListWithFilters from "@/components/anime-general/animeList/AnimeListWithFilters";
 
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
@@ -12,30 +14,19 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
     redirect("/login");
   }
 
-  const { status } = await searchParams ?? ""; // default: todos
+  const { status } = await searchParams ?? "";
 
-  const animeList = await getAnimeList(token, status);
-
+  const animeList = await getAnimeListEnriched(token, status);
+  const genres = await getAllGenres();
+  const tags = await getAllTags();
 
   if (!animeList) {
     return <div className="text-white p-6">Error al cargar la lista</div>;
   }
 
-  const statusDicc = {
-    watching: "Viendo",
-    completed: "Completado",
-    on_hold: "En espera",
-    dropped: "Abandonado",
-    plan_to_watch: "Planeado"
-  }
-  const label = status && status in statusDicc
-    ? statusDicc[status as keyof typeof statusDicc]
-    : "Todos";
   return (
     <div className="p-6 text-white flex justify-center items-center flex-col">
-      <h1 className="text-2xl font-bold mb-6">Animes en estado: {label}</h1>
-
-      <AnimeList animeList={animeList} ></AnimeList>
+      <AnimeListWithFilters animeList={animeList} genres={genres} tags={tags} />
     </div>
   );
 }
