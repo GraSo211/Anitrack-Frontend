@@ -60,7 +60,7 @@ export default function AnimeCard({
   };
 
   return (
-    <li
+    <div
       className={clsx(
         "group relative flex flex-col",
         "rounded-xl overflow-hidden",
@@ -171,6 +171,6 @@ export default function AnimeCard({
           </div>
         )}
       </div>
-    </li>
+    </div>
   );
 }

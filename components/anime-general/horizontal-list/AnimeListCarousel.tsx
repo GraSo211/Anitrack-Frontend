@@ -11,28 +11,30 @@ import { Autoplay, Navigation } from "swiper/modules";
 interface Props {
     animes: AnimeCardType[],
 }
-export default function AnimeListMobile({ animes }: Props) {
+export default function AnimeListCarousel({ animes }: Props) {
 
     return (
-        <div className=" flex justify-center items-center  w-60">
+        <div className="w-full min-w-0 overflow-hidden">
             <Swiper
                 modules={[Autoplay, Navigation]}
-                className=""
-                spaceBetween={5}
-                autoplay
-                slidesPerView={2}
+                slidesPerView={4}
+                spaceBetween={12}
                 loop
+                autoplay={{ pauseOnMouseEnter: true }}
+          
 
+                breakpoints={{
+                    400: { slidesPerView: 3, spaceBetween: 8 },
+                    1024: { slidesPerView: 4, spaceBetween: 12, navigation: true },
+                    1280: { slidesPerView: 5, spaceBetween: 12, navigation: true },
+                    1536: { slidesPerView: 6, spaceBetween: 12, navigation: true },
+                }}
             >
-
-
                 {animes.map((anime: AnimeCardType) => (
-                    <SwiperSlide  key={anime.id}>
+                    <SwiperSlide key={anime.id}>
                         <AnimeCard anime={anime} />
                     </SwiperSlide>
                 ))}
-
-
             </Swiper>
         </div>
     );

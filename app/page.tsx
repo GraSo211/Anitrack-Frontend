@@ -21,7 +21,7 @@ export default async function Home() {
                 <BestAnimeSeason></BestAnimeSeason>
             </section>
           
-            <section className="flex  justify-center lg:w-3/5   p-2 ">
+            <section className="flex   justify-center  w-full   p-2 ">
                 <AnimeCategories></AnimeCategories>
             </section>
         </main>
