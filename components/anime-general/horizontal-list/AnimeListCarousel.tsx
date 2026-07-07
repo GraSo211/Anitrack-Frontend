@@ -14,17 +14,16 @@ interface Props {
 export default function AnimeListCarousel({ animes }: Props) {
 
     return (
-        <div className="w-full min-w-0 overflow-hidden">
+        <div className="w-full min-w-0">
             <Swiper
                 modules={[Autoplay, Navigation]}
-                slidesPerView={4}
-                spaceBetween={12}
+                slidesPerView={2}
+                spaceBetween={8}
                 loop
                 autoplay={{ pauseOnMouseEnter: true }}
-          
-
                 breakpoints={{
-                    400: { slidesPerView: 3, spaceBetween: 8 },
+                    520: { slidesPerView: 3, spaceBetween: 8 },
+                    768: { slidesPerView: 4, spaceBetween: 12 },
                     1024: { slidesPerView: 4, spaceBetween: 12, navigation: true },
                     1280: { slidesPerView: 5, spaceBetween: 12, navigation: true },
                     1536: { slidesPerView: 6, spaceBetween: 12, navigation: true },

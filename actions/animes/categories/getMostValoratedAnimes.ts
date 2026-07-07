@@ -2,14 +2,14 @@
 
 import { AnimeCard } from "@/types/anime/Anime";
 
-export const getMostValoratedAnimes = async (): Promise<AnimeCard[] | null> => {
+export const getMostValoratedAnimes = async (cant: number = 10): Promise<AnimeCard[] | null> => {
     if (!process.env.BACKEND_URL) {
         console.error("BACKEND_URL no está definida");
         return null;
     }
 
     try {
-        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/mostValoratedAnimes`, {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/v1/anime/mostValoratedAnimes?cant=${cant}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

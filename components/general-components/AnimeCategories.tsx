@@ -8,9 +8,9 @@ import { AnimeCard } from "@/types/anime/Anime";
 import AnimeList from "../anime-general/horizontal-list/AnimeList";
 
 export default async function AnimeCategories() {
-    const seasonTrendAnimes: AnimeCard[] | null = await getSeasonTrendAnimes();
-    const upcomingAnimes: AnimeCard[] | null = await getUpcomingAnimeReleases();
-    const mostValoratedAnimes: AnimeCard[] | null = await getMostValoratedAnimes();
+    const seasonTrendAnimes: AnimeCard[] | null = await getSeasonTrendAnimes(10);
+    const upcomingAnimes: AnimeCard[] | null = await getUpcomingAnimeReleases(10);
+    const mostValoratedAnimes: AnimeCard[] | null = await getMostValoratedAnimes(10);
     const actionAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Action");
     const romanceAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Romance");
     const comedyAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Comedy");
