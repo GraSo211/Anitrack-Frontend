@@ -14,10 +14,10 @@ interface Props {
 export default function AnimeListCarousel({ animes }: Props) {
 
     return (
-        <div className="w-full min-w-0">
+        <div className="max-w-full min-w-0  ">
             <Swiper
                 modules={[Autoplay, Navigation]}
-                slidesPerView={2}
+                slidesPerView={3}
                 spaceBetween={8}
                 loop
                 autoplay={{ pauseOnMouseEnter: true }}
@@ -31,7 +31,7 @@ export default function AnimeListCarousel({ animes }: Props) {
             >
                 {animes.map((anime: AnimeCardType) => (
                     <SwiperSlide key={anime.id}>
-                        <AnimeCard anime={anime} />
+                        <AnimeCard anime={anime} className="w-full lg:w-full" />
                     </SwiperSlide>
                 ))}
             </Swiper>

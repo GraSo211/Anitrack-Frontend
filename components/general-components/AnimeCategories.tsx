@@ -16,7 +16,7 @@ export default async function AnimeCategories() {
     const comedyAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Comedy");
     const sliceOfLifeAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Slice of Life");
     return (
-        <div className="mx-auto max-w-md lg:max-w-4xl xl:max-w-7xl min-w-0">
+        <div className="mx-auto max-w-70 lg:max-w-4xl xl:max-w-7xl  min-w-0">
             {seasonTrendAnimes && <AnimeList category={seasonTrendAnimes} title="Lo más popular de la Temporada" />}
 
             {upcomingAnimes && <AnimeList category={upcomingAnimes} title="Estrenos más Esperados" />}
