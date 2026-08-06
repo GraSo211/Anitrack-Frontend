@@ -1,13 +1,16 @@
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import AiringAnimeDay from "@/components/airingAnime/AiringAnimeDay";
 import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { AIRING_DAYS, todayKey } from "@/utils/airingDays";
 
 jest.mock("next/navigation", () => ({
     useSearchParams: jest.fn(),
+    useRouter: jest.fn(),
 }));
 
 const useSearchParamsMock = useSearchParams as jest.Mock;
+const useRouterMock = useRouter as jest.Mock;
 
 const MONDAY_TIMESTAMP = (() => {
     const d = new Date();
@@ -44,9 +47,21 @@ const makeUserList = (ids: number[]): AnimeList => ({
     })),
 });
 
+const setDayParam = (value: string | null) => {
+    useSearchParamsMock.mockReturnValue({
+        get: jest.fn().mockReturnValue(value),
+    });
+};
+
+const getActiveDayPill = () =>
+    screen.getAllByRole("link").find((link) =>
+        link.getAttribute("aria-current") === "page"
+    );
+
 describe("AiringAnimeDay", () => {
     beforeEach(() => {
-        useSearchParamsMock.mockReturnValue({ get: jest.fn().mockReturnValue(null) });
+        useRouterMock.mockReturnValue({ push: jest.fn() });
+        setDayParam("lunes");
     });
 
     it("renders all releasing animes by default (no user list)", () => {
@@ -143,13 +158,61 @@ describe("AiringAnimeDay", () => {
         ).toBeInTheDocument();
     });
 
-    it("renders the day pills at the top", () => {
+    it("marks the day matching the day param as active", () => {
         const animes = [makeAnime(1, 100, "Naruto")];
         render(<AiringAnimeDay animes={animes} />);
 
-        const nav = screen.getAllByRole("link").find((link) =>
-            within(link).queryByText("LUNES"),
-        );
-        expect(nav).toBeInTheDocument();
+        const active = getActiveDayPill();
+        expect(active).toBeInTheDocument();
+        expect(within(active!).getByText("Lun")).toBeInTheDocument();
+        expect(
+            screen.getByRole("heading", { name: "Lunes" }),
+        ).toBeInTheDocument();
+    });
+
+    it("defaults to today when no day param is provided", () => {
+        setDayParam(null);
+        const animes = [makeAnime(1, 100, "Naruto")];
+        render(<AiringAnimeDay animes={animes} />);
+
+        const active = getActiveDayPill();
+        const todayShort =
+            AIRING_DAYS.find((day) => day.key === todayKey())?.short ?? "";
+        expect(active).toBeInTheDocument();
+        expect(within(active!).getByText(todayShort)).toBeInTheDocument();
+    });
+
+    it("resolves accented and non-accented day slugs to the same day", () => {
+        const animes = [makeAnime(1, 100, "Naruto")];
+
+        setDayParam("miércoles");
+        const { unmount } = render(<AiringAnimeDay animes={animes} />);
+        expect(
+            screen.getByRole("heading", { name: "Miércoles" }),
+        ).toBeInTheDocument();
+        const activeAccented = getActiveDayPill();
+        expect(within(activeAccented!).getByText("Mié")).toBeInTheDocument();
+        unmount();
+
+        setDayParam("miercoles");
+        render(<AiringAnimeDay animes={animes} />);
+        expect(
+            screen.getByRole("heading", { name: "Miércoles" }),
+        ).toBeInTheDocument();
+        const activePlain = getActiveDayPill();
+        expect(within(activePlain!).getByText("Mié")).toBeInTheDocument();
+    });
+
+    it("navigates to the previous and next day with the arrow buttons", () => {
+        const push = jest.fn();
+        useRouterMock.mockReturnValue({ push });
+        const animes = [makeAnime(1, 100, "Naruto")];
+        render(<AiringAnimeDay animes={animes} />);
+
+        fireEvent.click(screen.getByRole("button", { name: "Día anterior" }));
+        expect(push).toHaveBeenCalledWith("/airingAnimes?day=domingo");
+
+        fireEvent.click(screen.getByRole("button", { name: "Día siguiente" }));
+        expect(push).toHaveBeenCalledWith("/airingAnimes?day=martes");
     });
 });

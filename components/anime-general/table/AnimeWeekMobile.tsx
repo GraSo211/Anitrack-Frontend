@@ -9,6 +9,11 @@ import {
     CalendarFilterMode,
     filterAnimesByUserList,
 } from "@/components/airingAnime/filterAnimesByUserList";
+import {
+    AIRING_DAYS,
+    getDateNumberForDay,
+    todayKey,
+} from "@/utils/airingDays";
 
 interface Props {
     animes: AnimeReleasing[];
@@ -29,18 +34,10 @@ export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
 
     const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
-    const daysOfWeek = [
-        { key: "monday", label: "Monday", spanishLabel: "Lunes" },
-        { key: "tuesday", label: "Tuesday", spanishLabel: "Martes" },
-        { key: "wednesday", label: "Wednesday", spanishLabel: "Miércoles" },
-        { key: "thursday", label: "Thursday", spanishLabel: "Jueves" },
-        { key: "friday", label: "Friday", spanishLabel: "Viernes" },
-        { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
-        { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
-    ];
+    const today = todayKey();
 
     return (
-        <div className="flex w-full flex-col gap-3 ">
+        <div className="flex w-full flex-col gap-4">
             {showToggle && (
                 <div className="flex w-full justify-center">
                     <AiringSwitch
@@ -50,68 +47,88 @@ export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
                     />
                 </div>
             )}
-            {
-                daysOfWeek.map((day) => (
-                    <div key={day.key} className="w-full flex flex-col ">
-                        <h3 className="text-lg font-bold px-2 text-text-primary mb-2 tracking-wide uppercase w-full rounded-sm bg-bg-tertiary border border-border-default">
-                            {day.spanishLabel}
+            {hasError && (
+                <div className="text-center text-red-400 text-sm mt-4">
+                    Ocurrió un problema al cargar los animes. Intentá
+                    nuevamente más tarde.
+                </div>
+            )}
+            {AIRING_DAYS.map((day) => (
+                <div key={day.key} className="w-full flex flex-col gap-2">
+                    <Link
+                        href={`/airingAnimes?day=${day.slug}`}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border-default transition-colors hover:bg-accent-primary-subtle"
+                    >
+                        <h3 className="text-lg font-bold text-text-primary tracking-wide uppercase leading-tight">
+                            {day.short}
                         </h3>
-                        <div className=" relative space-y-2 w-full ">
-                            {
-                                animesAfterFilter
-                                    .filter((anime) => anime.schedule === day.key)
-                                    .slice(0, 2)
-                                    .map((anime) => (
-                                        <div
-                                            key={anime.id}
-                                            className="
-                                                    flex items-center gap-3
-                                                    p-2 w-full
-                                                    rounded-md
-                                                   
-                                                    transition-colors
-                                                "
-                                        >
-
-
-                                            <Image
-                                                src={
-                                                    anime.coverImage?.large ||
-                                                    anime.coverImage?.medium ||
-                                                    "/default-anime-cover.jpg"
-                                                }
-                                                alt={
-                                                    anime.title.romaji ||
-                                                    anime.title.english ||
-                                                    "Título Desconocido"
-                                                }
-                                                width={90}
-                                                height={40}
-                                                className="rounded-sm  object-cover shrink-0 aspect-video"
-                                            />
-
-
-                                            <div className="flex flex-col justify-center  ">
-                                                <span className="text-xs font-semibold text-text-primary">
-                                                    {anime.title.romaji || anime.title.english}
-                                                </span>
-
-                                                <span className="text-xs text-text-tertiary">
-                                                    EP {anime.nextAiringEpisode?.episode || "?"}
-                                                </span>
-                                            </div>
-
-                                        </div>
-
-                                    ))
+                        <span className="text-caption font-semibold text-text-tertiary">
+                            {getDateNumberForDay(day.key)}
+                        </span>
+                        {day.key === today && (
+                            <span className="text-caption font-semibold uppercase tracking-wider bg-accent-primary-subtle text-accent-primary px-2 py-0.5 rounded-full">
+                                Hoy
+                            </span>
+                        )}
+                    </Link>
+                    <div className="relative space-y-2 w-full">
+                        {(() => {
+                            const dayAnimes = animesAfterFilter.filter(
+                                (anime) => anime.schedule === day.key,
+                            );
+                            if (dayAnimes.length === 0) {
+                                return (
+                                    <p className="text-caption text-text-muted px-3 py-1">
+                                        Sin estrenos
+                                    </p>
+                                );
                             }
-                            <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="absolute bottom-0 right-0 text-xs text-text-primary border border-border-default py-1 px-2 rounded-md bg-bg-tertiary hover:text-accent-primary cursor-pointer">Ver todos →</Link>
+                            return dayAnimes.slice(0, 2).map((anime) => (
+                                <Link
+                                    key={anime.id}
+                                    href={`/anime/a-${anime.id}`}
+                                    className="flex items-center gap-3 p-2 w-full rounded-md transition-colors hover:bg-bg-tertiary"
+                                >
+                                    <Image
+                                        src={
+                                            anime.coverImage?.large ||
+                                            anime.coverImage?.medium ||
+                                            "/coverImagePlaceholder.png"
+                                        }
+                                        alt={
+                                            anime.title.romaji ||
+                                            anime.title.english ||
+                                            "Título Desconocido"
+                                        }
+                                        width={90}
+                                        height={40}
+                                        className="rounded-sm object-cover shrink-0 aspect-video"
+                                    />
+                                    <div className="flex flex-col justify-center">
+                                        <span className="text-xs font-semibold text-text-primary line-clamp-1">
+                                            {anime.title.romaji ||
+                                                anime.title.english}
+                                        </span>
+                                        <span className="text-xs text-text-tertiary">
+                                            EP{" "}
+                                            {anime.nextAiringEpisode?.episode ||
+                                                "?"}
+                                        </span>
+                                    </div>
+                                </Link>
+                            ));
+                        })()}
+                        <div className="flex justify-end">
+                            <Link
+                                href={`/airingAnimes?day=${day.slug}`}
+                                className="text-xs text-text-primary border border-border-default py-1 px-2 rounded-md bg-bg-tertiary hover:text-accent-primary transition-colors cursor-pointer"
+                            >
+                                Ver todos →
+                            </Link>
                         </div>
-
-
                     </div>
-                ))
-            }
+                </div>
+            ))}
         </div>
     );
 }

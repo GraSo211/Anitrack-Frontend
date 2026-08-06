@@ -8,6 +8,11 @@ import {
     CalendarFilterMode,
     filterAnimesByUserList,
 } from "@/components/airingAnime/filterAnimesByUserList";
+import {
+    AIRING_DAYS,
+    getDateNumberForDay,
+    todayKey,
+} from "@/utils/airingDays";
 
 export default function AnimeWeek({
     animes,
@@ -29,15 +34,7 @@ export default function AnimeWeek({
 
     const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
-    const daysOfWeek = [
-        { key: "monday", label: "Monday", spanishLabel: "Lunes" },
-        { key: "tuesday", label: "Tuesday", spanishLabel: "Martes" },
-        { key: "wednesday", label: "Wednesday", spanishLabel: "Miércoles" },
-        { key: "thursday", label: "Thursday", spanishLabel: "Jueves" },
-        { key: "friday", label: "Friday", spanishLabel: "Viernes" },
-        { key: "saturday", label: "Saturday", spanishLabel: "Sábado" },
-        { key: "sunday", label: "Sunday", spanishLabel: "Domingo" },
-    ];
+    const today = todayKey();
 
     return (
         <div>
@@ -51,29 +48,68 @@ export default function AnimeWeek({
                 </div>
             )}
             <div className="grid grid-cols-7 gap-4 w-full">
-                {hasError && <div className="col-span-7 text-center text-red-400 text-sm mt-4">Ocurrió un problema al cargar los animes. Intentá nuevamente más tarde.</div>}
+                {hasError && (
+                    <div className="col-span-7 text-center text-red-400 text-sm mt-4">
+                        Ocurrió un problema al cargar los animes. Intentá
+                        nuevamente más tarde.
+                    </div>
+                )}
 
-                {daysOfWeek.map((day) => (
+                {AIRING_DAYS.map((day) => (
                     <div
                         key={day.key}
-                        className="bg-bg-secondary rounded-xl p-1 flex flex-col items-center w-37.5 2xl:w-50 max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105 border border-border-default"
+                        className="bg-bg-secondary rounded-xl p-1 flex flex-col items-center max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105 border border-border-default"
                     >
-                        <Link href={`/airingAnimes?day=${day.spanishLabel.toLowerCase()}`} className="w-full">
-                            <h3 className="text-lg font-bold text-text-primary mb-2 tracking-wide uppercase border border-border-default w-full text-center rounded-sm bg-bg-tertiary hover:bg-accent-primary-subtle transition-colors hover:animate-pulse hover:cursor-pointer">
-                                {day.spanishLabel}
-                            </h3>
+                        <Link
+                            href={`/airingAnimes?day=${day.slug}`}
+                            className="w-full"
+                        >
+                            <div
+                                className={`
+                                    w-full text-center rounded-lg border py-1.5 mb-1 transition-colors
+                                    ${
+                                        day.key === today
+                                            ? "border-accent-primary/40 bg-accent-primary-subtle hover:bg-accent-primary/25"
+                                            : "border-border-default bg-bg-tertiary hover:bg-accent-primary-subtle"
+                                    }
+                                `}
+                            >
+                                <h3 className="text-lg font-bold text-text-primary tracking-wide uppercase leading-tight">
+                                    {day.short}
+                                </h3>
+                                <span
+                                    className={`text-xs font-semibold ${
+                                        day.key === today
+                                            ? "text-accent-primary"
+                                            : "text-text-tertiary"
+                                    }`}
+                                >
+                                    {getDateNumberForDay(day.key)}
+                                </span>
+                            </div>
                         </Link>
 
-                        <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2 ">
+                        <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2">
                             {animesAfterFilter
                                 .filter((anime) => anime.schedule === day.key)
                                 .map((anime) => (
                                     <AnimeLi
                                         key={anime.id}
                                         id={anime.id}
-                                        episode={anime.nextAiringEpisode?.episode ?? 0}
-                                        coverImage={anime.coverImage.extraLarge || anime.coverImage.large || "/placeholder_cover.png"}
-                                        title={anime.title.romaji || anime.title.english || "Título Desconocido"}
+                                        episode={
+                                            anime.nextAiringEpisode?.episode ??
+                                            0
+                                        }
+                                        coverImage={
+                                            anime.coverImage.extraLarge ||
+                                            anime.coverImage.large ||
+                                            "/coverImagePlaceholder.png"
+                                        }
+                                        title={
+                                            anime.title.romaji ||
+                                            anime.title.english ||
+                                            "Título Desconocido"
+                                        }
                                     />
                                 ))}
                         </ul>
