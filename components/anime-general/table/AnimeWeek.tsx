@@ -8,6 +8,7 @@ import {
     CalendarFilterMode,
     filterAnimesByUserList,
 } from "@/components/airingAnime/filterAnimesByUserList";
+import { buildWatchingMap } from "@/utils/animeWatchingMap";
 import {
     AIRING_DAYS,
     getDateNumberForDay,
@@ -17,9 +18,11 @@ import {
 export default function AnimeWeek({
     animes,
     userAnimeList,
+    token,
 }: {
     animes: AnimeReleasing[] | undefined;
     userAnimeList?: AnimeList | null;
+    token?: string;
 }) {
     const [mode, setMode] = useState<CalendarFilterMode>("all");
 
@@ -35,6 +38,7 @@ export default function AnimeWeek({
     const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
     const today = todayKey();
+    const watchingMap = buildWatchingMap(userAnimeList);
 
     return (
         <div>
@@ -61,7 +65,7 @@ export default function AnimeWeek({
                         className="bg-bg-secondary rounded-xl p-1 flex flex-col items-center max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105 border border-border-default"
                     >
                         <Link
-                            href={`/airingAnimes?day=${day.slug}`}
+                            href={`/en-emision?day=${day.slug}`}
                             className="w-full"
                         >
                             <div
@@ -92,26 +96,45 @@ export default function AnimeWeek({
                         <ul className="space-y-3 w-full scrollbar overflow-y-auto m-2">
                             {animesAfterFilter
                                 .filter((anime) => anime.schedule === day.key)
-                                .map((anime) => (
-                                    <AnimeLi
-                                        key={anime.id}
-                                        id={anime.id}
-                                        episode={
-                                            anime.nextAiringEpisode?.episode ??
-                                            0
-                                        }
-                                        coverImage={
-                                            anime.coverImage.extraLarge ||
-                                            anime.coverImage.large ||
-                                            "/coverImagePlaceholder.png"
-                                        }
-                                        title={
-                                            anime.title.romaji ||
-                                            anime.title.english ||
-                                            "Título Desconocido"
-                                        }
-                                    />
-                                ))}
+                                .map((anime) => {
+                                    const item =
+                                        anime.idMal != null
+                                            ? watchingMap.get(anime.idMal)
+                                            : undefined;
+                                    return (
+                                        <AnimeLi
+                                            key={anime.id}
+                                            id={anime.id}
+                                            episode={
+                                                anime.nextAiringEpisode
+                                                    ?.episode ?? 0
+                                            }
+                                            coverImage={
+                                                anime.coverImage.extraLarge ||
+                                                anime.coverImage.large ||
+                                                "/coverImagePlaceholder.png"
+                                            }
+                                            title={
+                                                anime.title.romaji ||
+                                                anime.title.english ||
+                                                "Título Desconocido"
+                                            }
+                                            token={token}
+                                            idMal={anime.idMal}
+                                            inList={!!item}
+                                            episodesWatched={
+                                                item?.episodesWatched
+                                            }
+                                            status={
+                                                item?.status ?? "watching"
+                                            }
+                                            score={item?.score ?? 0}
+                                            nextEpisode={
+                                                anime.nextAiringEpisode?.episode
+                                            }
+                                        />
+                                    );
+                                })}
                         </ul>
                     </div>
                 ))}

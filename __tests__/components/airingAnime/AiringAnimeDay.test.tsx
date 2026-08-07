@@ -1,13 +1,22 @@
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
 import AiringAnimeDay from "@/components/airingAnime/AiringAnimeDay";
 import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AIRING_DAYS, todayKey } from "@/utils/airingDays";
+import { addAnimeToList } from "@/actions/anime-list/addAnimeToList";
+import { modifyAnimeToList } from "@/actions/anime-list/modifyAnimeToList";
 
 jest.mock("next/navigation", () => ({
     useSearchParams: jest.fn(),
     useRouter: jest.fn(),
 }));
+
+jest.mock("@/actions/anime-list/addAnimeToList");
+jest.mock("@/actions/anime-list/modifyAnimeToList");
+
+const mockedAdd = addAnimeToList as jest.MockedFunction<typeof addAnimeToList>;
+const mockedModify =
+    modifyAnimeToList as jest.MockedFunction<typeof modifyAnimeToList>;
 
 const useSearchParamsMock = useSearchParams as jest.Mock;
 const useRouterMock = useRouter as jest.Mock;
@@ -21,7 +30,12 @@ const MONDAY_TIMESTAMP = (() => {
     return Math.floor(d.getTime() / 1000);
 })();
 
-const makeAnime = (id: number, idMal: number | null, title: string): AnimeReleasing => ({
+const makeAnime = (
+    id: number,
+    idMal: number | null,
+    title: string,
+    episode = 1,
+): AnimeReleasing => ({
     id,
     idMal,
     title: { romaji: title, english: null },
@@ -30,7 +44,7 @@ const makeAnime = (id: number, idMal: number | null, title: string): AnimeReleas
         id,
         airingAt: MONDAY_TIMESTAMP,
         timeUntilAiring: 86400,
-        episode: 1,
+        episode,
         mediaId: id,
     },
 });
@@ -210,9 +224,48 @@ describe("AiringAnimeDay", () => {
         render(<AiringAnimeDay animes={animes} />);
 
         fireEvent.click(screen.getByRole("button", { name: "Día anterior" }));
-        expect(push).toHaveBeenCalledWith("/airingAnimes?day=domingo");
+        expect(push).toHaveBeenCalledWith("/en-emision?day=domingo");
 
         fireEvent.click(screen.getByRole("button", { name: "Día siguiente" }));
-        expect(push).toHaveBeenCalledWith("/airingAnimes?day=martes");
+        expect(push).toHaveBeenCalledWith("/en-emision?day=martes");
+    });
+
+    it("marks the previous episode for a followed anime without leaving the page", async () => {
+        mockedAdd.mockResolvedValue({
+            status: "watching",
+            score: 0,
+            numEpisodes: 0,
+            rewatching: false,
+        });
+        mockedModify.mockResolvedValue({
+            status: "watching",
+            score: 0,
+            numEpisodes: 5,
+            rewatching: false,
+        });
+        const animes = [makeAnime(1, 100, "Naruto", 6)];
+        render(
+            <AiringAnimeDay
+                animes={animes}
+                userAnimeList={makeUserList([100])}
+                token="token"
+            />,
+        );
+
+        fireEvent.click(
+            screen.getByRole("button", {
+                name: "Marcar episodio 5 como visto",
+            }),
+        );
+
+        await waitFor(() =>
+            expect(mockedModify).toHaveBeenCalledWith(
+                "token",
+                100,
+                "watching",
+                0,
+                5,
+            ),
+        );
     });
 });

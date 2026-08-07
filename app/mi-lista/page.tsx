@@ -11,7 +11,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const token = cookieStore.get("access_token")?.value;
 
   if (!token) {
-    redirect("/login");
+    redirect("/iniciar-sesion");
   }
 
   const { status } = await searchParams ?? "";

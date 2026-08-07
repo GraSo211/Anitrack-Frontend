@@ -75,7 +75,7 @@ export default function HeroCarousel({ images }: Props) {
                         Comenzar a Trackear
                     </Link>
 
-                    <Link href="/login"
+                    <Link href="/iniciar-sesion"
                         className="cursor-pointer
                             text-sm px-4 py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 transition-all shadow
                             2xl:px-6 2xl:text-base

@@ -63,12 +63,14 @@ export default async function AiringAnimeTable() {
                 <AnimeWeek
                     animes={animes}
                     userAnimeList={userAnimeList}
+                    token={token ?? undefined}
                 ></AnimeWeek>
             </div>
             <div className="flex w-full lg:hidden">
                 <AnimeWeekMobile
                     animes={animes}
                     userAnimeList={userAnimeList}
+                    token={token ?? undefined}
                 ></AnimeWeekMobile>
             </div>
         </div>

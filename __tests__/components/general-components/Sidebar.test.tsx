@@ -54,7 +54,7 @@ describe('Sidebar Component', () => {
     const loginLink = screen.getByText('Iniciar Sesion');
     const animesLink = screen.getByText('Animes');
 
-    expect(loginLink.closest('a')).toHaveAttribute('href', '/login');
+    expect(loginLink.closest('a')).toHaveAttribute('href', '/iniciar-sesion');
     expect(animesLink.closest('a')).toHaveAttribute('href', '/animes');
   });
 });

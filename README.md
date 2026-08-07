@@ -113,11 +113,11 @@ Open [http://localhost:3000](http://localhost:3000) and you're in.
 app/                   App Router routes (pages live here)
   layout.tsx           Root layout: Header, Sidebar, Footer, auth cookie read
   page.tsx             Home: hero, weekly airing table, best of season, categories
-  airingAnimes/        Per-day airing detail view
+  en-emision/          Per-day airing detail view
   anime/[id]/          Anime detail page
   animes/              Catalog browser with filters
-  lista-anime/         Authenticated user list (per status)
-  login/               MyAnimeList OAuth + email form
+  mi-lista/            Authenticated user list (per status)
+  iniciar-sesion/      MyAnimeList OAuth + email form
   perfil/              Authenticated user profile + stats
   usuarios/, /[user]/  Public user directory and profiles
 actions/               Server actions ("use server") grouped by domain
@@ -143,11 +143,11 @@ __tests__/             Mirrors source tree (Jest)
 | Route | Auth | Purpose |
 | --- | --- | --- |
 | `/` | optional | Home: hero, weekly airing table, best of season, categories |
-| `/airingAnimes` | optional | Per-day airing schedule with all/mine filter |
+| `/en-emision` | optional | Per-day airing schedule with all/mine filter |
 | `/animes` | none | Catalog with search, genre and tag filters |
 | `/anime/[id]` | none | Anime detail (cover, banner, episodes, trailer, relations) |
-| `/lista-anime` | **required** | The signed-in user's list, filtered by status via `?status=` |
-| `/login` | none | MyAnimeList OAuth (primary) + placeholder email form |
+| `/mi-lista` | **required** | The signed-in user's list, filtered by status via `?status=` |
+| `/iniciar-sesion` | none | MyAnimeList OAuth (primary) + placeholder email form |
 | `/perfil` | required (client) | Profile summary and statistics |
 | `/usuarios` | none | Public user directory |
 | `/usuarios/[user]` | none | Public user profile |
@@ -159,8 +159,8 @@ These are the non-obvious ones — read [`AGENTS.md`](./AGENTS.md) for the long 
 - **Path alias is `@/*`** (configured in `tsconfig.json` and `jest.config.ts`). No relative `../../` imports.
 - **Server actions** are imported freely from both server and client components — Next.js handles the RPC. Do **not** wrap them in `fetch()` from the client.
 - **Cookie forwarding**: server actions that need auth read the cookie themselves and forward it as a `Cookie: access_token=<token>` header (see `actions/anime-list/getAnimeList.ts`). The browser cookie is not used for these calls.
-- **Server pages that read `cookies()`** must `await connection()` from `next/server` before the read (see `app/airingAnimes/page.tsx`). Otherwise builds and runtime warn.
-- **Auth check pattern**: `const token = (await cookies()).get("access_token")?.value;` then either `if (!token) redirect("/login")` (strict, used by `/lista-anime`) or pass `null` to the client (lenient, used by `/` and `/airingAnimes`).
+- **Server pages that read `cookies()`** must `await connection()` from `next/server` before the read (see `app/en-emision/page.tsx`). Otherwise builds and runtime warn.
+- **Auth check pattern**: `const token = (await cookies()).get("access_token")?.value;` then either `if (!token) redirect("/iniciar-sesion")` (strict, used by `/mi-lista`) or pass `null` to the client (lenient, used by `/` and `/en-emision`).
 - **Anime id mismatch** is the #1 footgun. The user's list (`AnimeItem.id`) uses **MAL ids**; the releasing calendar (`AnimeReleasing.id`) uses **AniList ids** with MAL id under `idMal`. Always match `idMal === a.id` when joining the two — or reuse `components/airingAnime/filterAnimesByUserList.ts`.
 - **No code comments unless asked.** JSDoc lives on shared widgets; feature code stays comment-free.
 - **Styling**: Tailwind v4, no config file. Theme tokens (`bg-bg-secondary`, `text-text-primary`, `border-border-default`, `accent-primary`, ...) are defined as CSS variables in `app/globals.css` and exposed via the `@theme` directive.

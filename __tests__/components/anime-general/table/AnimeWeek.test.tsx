@@ -1,6 +1,13 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import AnimeWeek from "@/components/anime-general/table/AnimeWeek";
 import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
+import { modifyAnimeToList } from "@/actions/anime-list/modifyAnimeToList";
+
+jest.mock("@/actions/anime-list/modifyAnimeToList");
+jest.mock("@/actions/anime-list/addAnimeToList");
+
+const mockedModify =
+    modifyAnimeToList as jest.MockedFunction<typeof modifyAnimeToList>;
 
 const FRIDAY_TIMESTAMP = (() => {
     const d = new Date();
@@ -16,6 +23,7 @@ const makeAnime = (
     idMal: number | null,
     title: string,
     schedule: string,
+    episode = 1,
 ): AnimeReleasing => ({
     id,
     idMal,
@@ -25,7 +33,7 @@ const makeAnime = (
         id,
         airingAt: FRIDAY_TIMESTAMP,
         timeUntilAiring: 86400,
-        episode: 1,
+        episode,
         mediaId: id,
     },
     schedule,
@@ -119,5 +127,38 @@ describe("AnimeWeek", () => {
 
         fireEvent.click(screen.getByText("Todos los animes"));
         expect(screen.getByText("Bleach")).toBeInTheDocument();
+    });
+
+    it("marks the previous episode for a followed anime", async () => {
+        mockedModify.mockResolvedValue({
+            status: "watching",
+            score: 0,
+            numEpisodes: 5,
+            rewatching: false,
+        });
+        const animes = [makeAnime(1, 100, "Naruto", "friday", 6)];
+        render(
+            <AnimeWeek
+                animes={animes}
+                userAnimeList={makeUserList([100])}
+                token="token"
+            />,
+        );
+
+        fireEvent.click(
+            screen.getByRole("button", {
+                name: "Marcar episodio 5 como visto",
+            }),
+        );
+
+        await waitFor(() =>
+            expect(mockedModify).toHaveBeenCalledWith(
+                "token",
+                100,
+                "watching",
+                0,
+                5,
+            ),
+        );
     });
 });

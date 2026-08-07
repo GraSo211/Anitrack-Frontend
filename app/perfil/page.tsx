@@ -99,27 +99,27 @@ export default function Page() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 
-          <Link href="/lista-anime?status=watching">
+          <Link href="/mi-lista?status=watching">
             <Stat label="Viendo" value={user.statistics.numWatching} clickable />
           </Link>
 
-          <Link href="/lista-anime?status=completed">
+          <Link href="/mi-lista?status=completed">
             <Stat label="Completado" value={user.statistics.numCompleted} clickable />
           </Link>
 
-          <Link href="/lista-anime?status=on_hold">
+          <Link href="/mi-lista?status=on_hold">
             <Stat label="En espera" value={user.statistics.numOnHold} clickable />
           </Link>
 
-          <Link href="/lista-anime?status=dropped">
+          <Link href="/mi-lista?status=dropped">
             <Stat label="Abandonado" value={user.statistics.numDropped} clickable />
           </Link>
 
-          <Link href="/lista-anime?status=plan_to_watch">
+          <Link href="/mi-lista?status=plan_to_watch">
             <Stat label="Planeado" value={user.statistics.numPlanToWatch} clickable />
           </Link>
 
-          <Link href="/lista-anime">
+          <Link href="/mi-lista">
             <Stat label="Total" value={user.statistics.numTotal} clickable />
           </Link>
 

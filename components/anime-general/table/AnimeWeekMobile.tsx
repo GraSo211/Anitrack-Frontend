@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import AiringSwitch from "./AiringSwitch";
+import MarkPreviousEpisodeButton from "@/components/airingAnime/MarkPreviousEpisodeButton";
+import { buildWatchingMap } from "@/utils/animeWatchingMap";
 import {
     CalendarFilterMode,
     filterAnimesByUserList,
@@ -18,9 +20,14 @@ import {
 interface Props {
     animes: AnimeReleasing[];
     userAnimeList?: AnimeList | null;
+    token?: string;
 }
 
-export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
+export default function AnimeWeekMobile({
+    animes,
+    userAnimeList,
+    token,
+}: Props) {
     const [mode, setMode] = useState<CalendarFilterMode>("all");
 
     const animesChecked: AnimeReleasing[] = Array.isArray(animes) ? animes : [];
@@ -35,6 +42,7 @@ export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
     const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
     const today = todayKey();
+    const watchingMap = buildWatchingMap(userAnimeList);
 
     return (
         <div className="flex w-full flex-col gap-4">
@@ -56,7 +64,7 @@ export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
             {AIRING_DAYS.map((day) => (
                 <div key={day.key} className="w-full flex flex-col gap-2">
                     <Link
-                        href={`/airingAnimes?day=${day.slug}`}
+                        href={`/en-emision?day=${day.slug}`}
                         className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border-default transition-colors hover:bg-accent-primary-subtle"
                     >
                         <h3 className="text-lg font-bold text-text-primary tracking-wide uppercase leading-tight">
@@ -83,44 +91,78 @@ export default function AnimeWeekMobile({ animes, userAnimeList }: Props) {
                                     </p>
                                 );
                             }
-                            return dayAnimes.slice(0, 2).map((anime) => (
-                                <Link
-                                    key={anime.id}
-                                    href={`/anime/a-${anime.id}`}
-                                    className="flex items-center gap-3 p-2 w-full rounded-md transition-colors hover:bg-bg-tertiary"
-                                >
-                                    <Image
-                                        src={
-                                            anime.coverImage?.large ||
-                                            anime.coverImage?.medium ||
-                                            "/coverImagePlaceholder.png"
-                                        }
-                                        alt={
-                                            anime.title.romaji ||
-                                            anime.title.english ||
-                                            "Título Desconocido"
-                                        }
-                                        width={90}
-                                        height={40}
-                                        className="rounded-sm object-cover shrink-0 aspect-video"
-                                    />
-                                    <div className="flex flex-col justify-center">
-                                        <span className="text-xs font-semibold text-text-primary line-clamp-1">
-                                            {anime.title.romaji ||
-                                                anime.title.english}
-                                        </span>
-                                        <span className="text-xs text-text-tertiary">
-                                            EP{" "}
-                                            {anime.nextAiringEpisode?.episode ||
-                                                "?"}
-                                        </span>
+                            return dayAnimes.slice(0, 2).map((anime) => {
+                                const item =
+                                    anime.idMal != null
+                                        ? watchingMap.get(anime.idMal)
+                                        : undefined;
+                                return (
+                                    <div
+                                        key={anime.id}
+                                        className="group flex items-center gap-2 w-full"
+                                    >
+                                        <Link
+                                            href={`/anime/a-${anime.id}`}
+                                            aria-label={
+                                                anime.title.romaji ||
+                                                anime.title.english ||
+                                                "Título Desconocido"
+                                            }
+                                            className="flex items-center gap-3 p-2 flex-1 min-w-0 rounded-md transition-colors hover:bg-bg-tertiary"
+                                        >
+                                            <Image
+                                                src={
+                                                    anime.coverImage?.large ||
+                                                    anime.coverImage?.medium ||
+                                                    "/coverImagePlaceholder.png"
+                                                }
+                                                alt={
+                                                    anime.title.romaji ||
+                                                    anime.title.english ||
+                                                    "Título Desconocido"
+                                                }
+                                                width={90}
+                                                height={40}
+                                                className="rounded-sm object-cover shrink-0 aspect-video"
+                                            />
+                                            <div className="flex flex-col justify-center">
+                                                <span className="text-xs font-semibold text-text-primary line-clamp-1">
+                                                    {anime.title.romaji ||
+                                                        anime.title.english}
+                                                </span>
+                                                <span className="text-xs text-text-tertiary">
+                                                    EP{" "}
+                                                    {anime.nextAiringEpisode
+                                                        ?.episode || "?"}
+                                                </span>
+                                            </div>
+                                        </Link>
+                                        {anime.nextAiringEpisode && (
+                                            <MarkPreviousEpisodeButton
+                                                token={token}
+                                                idMal={anime.idMal}
+                                                inList={!!item}
+                                                episodesWatched={
+                                                    item?.episodesWatched
+                                                }
+                                                status={
+                                                    item?.status ?? "watching"
+                                                }
+                                                score={item?.score ?? 0}
+                                                nextEpisode={
+                                                    anime.nextAiringEpisode
+                                                        .episode
+                                                }
+                                                className="shrink-0"
+                                            />
+                                        )}
                                     </div>
-                                </Link>
-                            ));
+                                );
+                            });
                         })()}
                         <div className="flex justify-end">
                             <Link
-                                href={`/airingAnimes?day=${day.slug}`}
+                                href={`/en-emision?day=${day.slug}`}
                                 className="text-xs text-text-primary border border-border-default py-1 px-2 rounded-md bg-bg-tertiary hover:text-accent-primary transition-colors cursor-pointer"
                             >
                                 Ver todos →

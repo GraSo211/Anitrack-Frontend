@@ -27,7 +27,7 @@ Recommended pre-commit order: `npx tsc --noEmit && npx eslint . && npx jest`.
 
 ## Layout
 ```
-app/                   App Router routes (/, /airingAnimes, /anime/[id], /animes, /lista-anime, /login, /perfil)
+app/                   App Router routes (/, /en-emision, /anime/[id], /animes, /mi-lista, /iniciar-sesion, /perfil)
 actions/anime/         per-anime reads (by id, by MAL id, by any id)
 actions/anime-list/    user list CRUD; `getAnimeList(token, status?)` is the entry point
 actions/animes/        listing/search/filter endpoints (`getReleasingAnimes` is the calendar data source)
@@ -43,15 +43,15 @@ __tests__/             mirrors source tree
 ## Patterns an agent will get wrong
 - **Path alias is `@/*`** (not `~/`, not `src/`). Already configured in `tsconfig.json` and `jest.config.ts`.
 - **Server actions** are imported into both server and client components freely — Next.js handles the RPC. Do **not** wrap them in `fetch()` from the client.
-- **Server pages must `await connection()`** if they read `cookies()` (see `app/airingAnimes/page.tsx`). Otherwise builds/runtime warn.
-- **Auth check pattern** for pages: `const token = (await cookies()).get("access_token")?.value;` then either `if (!token) redirect("/login")` (strict) or pass `null` to client (lenient). `app/lista-anime/page.tsx` uses strict; `app/airingAnimes/page.tsx` and `app/page.tsx` use lenient.
+- **Server pages must `await connection()`** if they read `cookies()` (see `app/en-emision/page.tsx`). Otherwise builds/runtime warn.
+- **Auth check pattern** for pages: `const token = (await cookies()).get("access_token")?.value;` then either `if (!token) redirect("/iniciar-sesion")` (strict) or pass `null` to client (lenient). `app/mi-lista/page.tsx` uses strict; `app/en-emision/page.tsx` and `app/page.tsx` use lenient.
 - **Cookie forwarding in server actions**: the action reads the cookie and puts it in a `Cookie: access_token=<token>` header itself (see `actions/anime-list/getAnimeList.ts`). Do not rely on browser-side cookies for these calls.
 - **Anime id mismatch** is the #1 footgun. The user's list (`AnimeItem.id`) uses **MAL ids**. The releasing calendar (`AnimeReleasing.id`) uses **AniList ids**; MAL id is `idMal`. Always match on `idMal === a.id` for "is this in my list" filters. The shared helper `components/airingAnime/filterAnimesByUserList.ts` does this correctly — reuse it.
 - **AiringSwitch value mapping**: `components/anime-general/table/AiringSwitch.tsx` calls `onChange("all" | "following")` (not `"mine"`). Parent components must translate `"following" → "mine"`. See `AiringAnimeDay.tsx`, `AnimeWeek.tsx`, `AnimeWeekMobile.tsx`.
 - **`AnimeWeekMobile.tsx` is now a client component** (`"use client"`). It used to be a server component; that change is required for the all/mine toggle to work on mobile. If you split it, keep the directive.
 - **Reuse `Button`** from `components/general-components/Button.tsx` — variants `primary | secondary | ghost | danger | success`, sizes `sm | md | lg | icon`. Don't hand-roll buttons.
 - **`User.url` comes from the backend** (`GET /users/me` returns `"https://myanimelist.net/profile/{name}"`). Never build it from `user.name` client-side.
-- **`mainPicture` swap bug (backend)**: `MyAnimeListAnimeListMapper.mapPicture` puts the MAL **large** URL in `mainPicture.medium` and the MAL **medium** URL in `mainPicture.large`. The frontend renders `mainPicture.large` on `/lista-anime` (so it shows the medium image). This is a **backend bug** — don't "fix" it by switching reads in the frontend, it would break once the mapper is corrected.
+- **`mainPicture` swap bug (backend)**: `MyAnimeListAnimeListMapper.mapPicture` puts the MAL **large** URL in `mainPicture.medium` and the MAL **medium** URL in `mainPicture.large`. The frontend renders `mainPicture.large` on `/mi-lista` (so it shows the medium image). This is a **backend bug** — don't "fix" it by switching reads in the frontend, it would break once the mapper is corrected.
 - **Anime detail episodes panel**: `AnimeStatusContext` (provider, client, in `components/anime/right-section/`) owns `{status, score, numEpisodes, watched[], consecutive}` and syncs to MAL via `modifyAnimeToList` (`PATCH /animeList/{id}/update`). `AnimeStatusControls` renders the add-to-list/status/score/count bar; `EpisodesPanel` renders the row list with the `consecutive` switch (default ON, marks all previous episodes when you mark one; when OFF each row toggles independently and the synced count is the number of watched rows). Layout in `RightSection`/`MobileSection`: controls → description → trailer → episodes. The `Episodes.tsx` leaf takes `episodeNumber`/`watched`/`onToggle` (the old Jikan episode list is gone — rows are generated from `anime.episodes`, falling back to `animeStatus.numEpisodes`/`nextAiringEpisode.episode`).
 
 ## Styling
@@ -62,7 +62,7 @@ __tests__/             mirrors source tree
 
 ## Calendar / airing schedule feature
 Two surfaces share the same "all airing vs. my watching list" filter:
-- `/airingAnimes` — per-day detail view (`AiringAnimeDay`)
+- `/en-emision` — per-day detail view (`AiringAnimeDay`)
 - Home page weekly grid — `AnimeWeek` (desktop) + `AnimeWeekMobile` (mobile) inside `AiringAnimeTable`
 
 Both server components fetch `getReleasingAnimes()` + (if `access_token` exists) `getAnimeList(token, "watching")`, then pass both to a client child that owns the toggle. Toggle is **hidden** when there's no token or the watching list is empty — do not show a disabled state. See `components/airingAnime/filterAnimesByUserList.ts` for the shared filter.

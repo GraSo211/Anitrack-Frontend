@@ -10,6 +10,8 @@ import { FiCheck } from "react-icons/fi";
 import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import AiringSwitch from "@/components/anime-general/table/AiringSwitch";
 import Button from "@/components/general-components/Button";
+import MarkPreviousEpisodeButton from "@/components/airingAnime/MarkPreviousEpisodeButton";
+import { buildWatchingMap } from "@/utils/animeWatchingMap";
 import {
     CalendarFilterMode,
     filterAnimesByUserList,
@@ -28,6 +30,7 @@ import {
 interface Props {
     animes: AnimeReleasing[] | null;
     userAnimeList?: AnimeList | null;
+    token?: string;
 }
 
 const formatCountdown = (seconds: number) => {
@@ -46,7 +49,11 @@ const formatHHMM = (unix: number) =>
         minute: "2-digit",
     });
 
-export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
+export default function AiringAnimeDay({
+    animes,
+    userAnimeList,
+    token,
+}: Props) {
     const router = useRouter();
     const dayParam = useSearchParams().get("day");
     const [mode, setMode] = useState<CalendarFilterMode>("all");
@@ -81,14 +88,12 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
     const countByDay = (key: DayKey) =>
         animesAfterFilter.filter((anime) => anime.schedule === key).length;
 
-    const watchingIds = new Set(
-        (userAnimeList?.animeList ?? []).map((item) => item.id),
-    );
+    const watchingMap = buildWatchingMap(userAnimeList);
 
     const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
 
     const navigateTo = (key: typeof activeKey) =>
-        router.push(`/airingAnimes?day=${keyToDay(key).slug}`);
+        router.push(`/en-emision?day=${keyToDay(key).slug}`);
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "ArrowLeft") {
@@ -164,7 +169,7 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
                             return (
                                 <Link
                                     key={day.key}
-                                    href={`/airingAnimes?day=${day.slug}`}
+                                    href={`/en-emision?day=${day.slug}`}
                                     aria-current={isActive ? "page" : undefined}
                                     className={`
                                         relative flex flex-col items-center justify-center w-16 sm:w-20 py-2 rounded-xl
@@ -244,15 +249,17 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
 
                     const airing = anime.nextAiringEpisode;
                     const isSoon = !!airing && airing.timeUntilAiring < 86400;
-                    const inList =
-                        anime.idMal != null && watchingIds.has(anime.idMal);
+                    const item =
+                        anime.idMal != null
+                            ? watchingMap.get(anime.idMal)
+                            : undefined;
+                    const inList = !!item;
                     const color = anime.coverImage.color;
 
                     return (
-                        <Link
+                        <div
                             key={anime.id}
-                            href={`/anime/a-${anime.id}`}
-                            className="group relative flex flex-col aspect-[2/3] rounded-xl overflow-hidden border border-border-default card-hover hover:border-border-strong animate-fade-in-up"
+                            className="group relative aspect-[2/3] rounded-xl overflow-hidden border border-border-default card-hover hover:border-border-strong animate-fade-in-up"
                             style={{
                                 backgroundColor: color
                                     ? `${color}22`
@@ -260,59 +267,80 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
                                 animationDelay: `${index * 40}ms`,
                             }}
                         >
-                            <Image
-                                src={cover}
-                                alt={title}
-                                fill
-                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
+                            <Link
+                                href={`/anime/a-${anime.id}`}
+                                aria-label={title}
+                                className="block absolute inset-0"
+                            >
+                                <Image
+                                    src={cover}
+                                    alt={title}
+                                    fill
+                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
 
-                            <div className="absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/25 to-transparent" />
-
-                            {airing && (
-                                <span className="absolute top-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-bg-primary/85 px-1.5 py-0.5 text-caption font-semibold text-text-primary backdrop-blur-sm">
-                                    <CiClock2 aria-hidden="true" />
-                                    EP {airing.episode}
-                                </span>
-                            )}
-
-                            {inList && (
-                                <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-status-success/90 px-1.5 py-0.5 text-caption font-semibold text-white backdrop-blur-sm">
-                                    <FiCheck aria-hidden="true" />
-                                    En tu lista
-                                </span>
-                            )}
-
-                            <div className="absolute bottom-0 inset-x-0 z-10 p-2.5 flex flex-col gap-1.5">
-                                <h3 className="text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md">
-                                    {title}
-                                </h3>
+                                <div className="absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/25 to-transparent" />
 
                                 {airing && (
-                                    <div className="flex flex-wrap items-center gap-1.5">
-                                        <span
-                                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption font-semibold backdrop-blur-sm ${
-                                                isSoon
-                                                    ? "bg-accent-tertiary/25 text-accent-tertiary"
-                                                    : "bg-accent-primary/25 text-accent-primary"
-                                            }`}
-                                        >
-                                            <CiClock2 aria-hidden="true" />
-                                            {isSoon
-                                                ? "Estreno pronto · "
-                                                : "Se emite en "}
-                                            {formatCountdown(
-                                                airing.timeUntilAiring,
-                                            )}
-                                        </span>
-                                        <span className="inline-flex items-center gap-1 rounded-full bg-bg-primary/70 px-2 py-0.5 text-caption font-semibold text-text-secondary backdrop-blur-sm">
-                                            {formatHHMM(airing.airingAt)}
-                                        </span>
-                                    </div>
+                                    <span className="absolute top-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-bg-primary/85 px-1.5 py-0.5 text-caption font-semibold text-text-primary backdrop-blur-sm">
+                                        <CiClock2 aria-hidden="true" />
+                                        EP {airing.episode}
+                                    </span>
                                 )}
-                            </div>
-                        </Link>
+
+                                {inList && (
+                                    <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-status-success/90 px-1.5 py-0.5 text-caption font-semibold text-white backdrop-blur-sm">
+                                        <FiCheck aria-hidden="true" />
+                                        En tu lista
+                                    </span>
+                                )}
+
+                                <div className="absolute bottom-0 inset-x-0 z-10 p-2.5 flex flex-col gap-1.5">
+                                    <h3 className="text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md">
+                                        {title}
+                                    </h3>
+
+                                    {airing && (
+                                        <div className="flex flex-wrap items-center gap-1.5">
+                                            <span
+                                                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption font-semibold backdrop-blur-sm ${
+                                                    isSoon
+                                                        ? "bg-accent-tertiary/25 text-accent-tertiary"
+                                                        : "bg-accent-primary/25 text-accent-primary"
+                                                }`}
+                                            >
+                                                <CiClock2
+                                                    aria-hidden="true"
+                                                />
+                                                {isSoon
+                                                    ? "Estreno pronto · "
+                                                    : "Se emite en "}
+                                                {formatCountdown(
+                                                    airing.timeUntilAiring,
+                                                )}
+                                            </span>
+                                            <span className="inline-flex items-center gap-1 rounded-full bg-bg-primary/70 px-2 py-0.5 text-caption font-semibold text-text-secondary backdrop-blur-sm">
+                                                {formatHHMM(airing.airingAt)}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </Link>
+
+                            {airing && (
+                                <MarkPreviousEpisodeButton
+                                    token={token}
+                                    idMal={anime.idMal}
+                                    inList={inList}
+                                    episodesWatched={item?.episodesWatched}
+                                    status={item?.status ?? "watching"}
+                                    score={item?.score ?? 0}
+                                    nextEpisode={airing.episode}
+                                    className="absolute bottom-2 right-2 z-20"
+                                />
+                            )}
+                        </div>
                     );
                 })}
             </div>

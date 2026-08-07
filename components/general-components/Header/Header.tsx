@@ -16,7 +16,7 @@ interface HeaderProps {
 
 const navLinks = [
   { href: "/animes", label: "Animes" },
-  { href: "/airingAnimes", label: "En Emisión" },
+  { href: "/en-emision", label: "En Emisión" },
 ];
 
 /**
@@ -120,7 +120,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
                 </Link>
               </>
             ) : (
-              <Link href="/login" className="ml-2">
+              <Link href="/iniciar-sesion" className="ml-2">
                 <Button variant="primary" size="sm">
                   Iniciar Sesión
                 </Button>

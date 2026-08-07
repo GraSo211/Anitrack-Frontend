@@ -555,6 +555,25 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+/* Reveal on hover only (desktop); always visible on touch screens */
+.reveal-on-hover {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.group:hover .reveal-on-hover,
+.reveal-on-hover:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .reveal-on-hover {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 /* Button active states */
 .btn-active:active {
   transform: scale(0.98);

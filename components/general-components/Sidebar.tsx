@@ -16,7 +16,7 @@ interface SidebarProps {
 const navLinks = [
   { href: "/", label: "Inicio", icon: FiHome },
   { href: "/animes", label: "Animes", icon: FiFilm },
-  { href: "/airingAnimes", label: "En Emisión", icon: FiCalendar },
+  { href: "/en-emision", label: "En Emisión", icon: FiCalendar },
 ];
 
 /**
@@ -169,7 +169,7 @@ export default function Sidebar({ isAuthenticated = false }: SidebarProps) {
               {isAuthenticated ? (
                 <>
                   <Link
-                    href="/lista-anime"
+                    href="/mi-lista"
                     onClick={toggle}
                     className={clsx(
                       "flex items-center gap-3",
@@ -218,7 +218,7 @@ export default function Sidebar({ isAuthenticated = false }: SidebarProps) {
                 </>
               ) : (
                 <Link
-                  href="/login"
+                  href="/iniciar-sesion"
                   onClick={toggle}
                   className={clsx(
                     "flex items-center justify-center gap-2",
