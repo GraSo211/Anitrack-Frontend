@@ -23,8 +23,8 @@ export interface FiltersProps {
 }
 
 
-const removeFromArray = (item: string, array: string[], setArray: (newArray: string[]) => void) => {
-  setArray(array.filter((v) => v !== item));
+const toggleArrayItem = (item: string, array: string[], setArray: (newArray: string[]) => void) => {
+  setArray(array.includes(item) ? array.filter((v) => v !== item) : [...array, item]);
 };
 
 
@@ -95,7 +95,7 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
                 <div
                   key={g.name}
                   className='flex cursor-pointer items-center justify-between gap-2 px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1'
-                  onClick={() => setGenres([...genreSelected, g.name])}
+                  onClick={() => toggleArrayItem(g.name, genreSelected, setGenres)}
                 >
                   {g.name}
                   {genreSelected.includes(g.name) &&
@@ -109,7 +109,7 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
                 <div
                   key={t.name}
                   className="group flex cursor-pointer relative items-center justify-between gap-2 px-4 hover:bg-accent-primary-subtle text-text-primary rounded-xs p-1"
-                  onClick={() => setTags([...tagSelected, t.name])}
+                  onClick={() => toggleArrayItem(t.name, tagSelected, setTags)}
                 >
                   {t.name}
 
@@ -266,13 +266,13 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
       <div className='flex gap-2 items-center w-fit flex-wrap group'>
         <FaTags className="text-text-secondary" />
         {genreSelected.filter((v): v is string => !!v).map((f, index) => (
-          <span key={index} className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => removeFromArray(f, genreSelected, setGenres)}>
+          <span key={index} className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => toggleArrayItem(f, genreSelected, setGenres)}>
             {f}
           </span>
         ))}
 
         {tagSelected.filter((v): v is string => !!v).map((f, index) => (
-          <span key={index} className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => removeFromArray(f, tagSelected, setTags)}>
+          <span key={index} className="cursor-pointer bg-bg-tertiary text-text-primary border border-border-default px-2 py-1 rounded-md text-sm hover:bg-accent-primary-subtle" onClick={() => toggleArrayItem(f, tagSelected, setTags)}>
             {f}
           </span>
         ))}

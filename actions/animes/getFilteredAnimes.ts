@@ -19,8 +19,8 @@ export const getFilteredAnimes = async (filters: FilterParams): Promise<AnimeCar
     try {
         const params = new URLSearchParams();
         params.append("cant",filters.cant.toString()); 
-        filters.genre?.forEach((g) => params.append("genre", g));
-        filters.tag?.forEach((t) => params.append("tag", t));
+        [...new Set(filters.genre ?? [])].forEach((g) => params.append("genre", g));
+        [...new Set(filters.tag ?? [])].forEach((t) => params.append("tag", t));
         if (filters.season) params.append("season", filters.season);
         if (filters.year) params.append("year", filters.year.toString());
         if (filters.status) params.append("status", filters.status);
