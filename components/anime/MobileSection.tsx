@@ -156,7 +156,7 @@ export default function MobileSection({ anime, token, animeStatus }: Props) {
                     <div className="grid grid-cols-2 gap-4 place-content-center w-full max-w-sm">
 
                         {anime.relations.items.map((anime) => (
-                            <Link key={anime.relatedMediaId} href={`/anime/${anime.relatedMediaId}`} className="group">
+                            <Link key={anime.relatedMediaId} href={`/anime/a-${anime.relatedMediaId}`} className="group">
                                 <div className="flex flex-col gap-2">
                                     <div className="relative aspect-2/3 overflow-hidden rounded-lg border border-border-default bg-bg-tertiary">
                                         <img src={anime.relatedImage} alt={anime.relatedTitle} sizes="60px 30px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
