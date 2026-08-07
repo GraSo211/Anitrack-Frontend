@@ -56,7 +56,7 @@ export default async function RootLayout({
         </a>
 
         <Header isAuthenticated={isAuthenticated} />
-        <SideBar />
+        <SideBar isAuthenticated={isAuthenticated} />
 
         <main id="main-content" className="w-full  focus:outline-none " tabIndex={-1}>
           {children}

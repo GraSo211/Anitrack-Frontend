@@ -16,6 +16,7 @@ export default function () {
                     <ul className='flex flex-col gap-2 mt-3'>
                         <li className='text-sm text-gray-400 hover:text-gray-200 cursor-pointer' ><button onClick={() => useSelector("dashboard")}>Dashboard</button></li>
                         <li className='text-sm text-gray-400 hover:text-gray-200 cursor-pointer'><button onClick={() => useSelector("hero")}>Hero Images</button></li>
+                        <li className='text-sm text-gray-400 hover:text-gray-200 cursor-pointer'><button onClick={() => useSelector("users")}>Usuarios</button></li>
                         <li className='text-sm text-gray-400 hover:text-gray-200 cursor-pointer'><button onClick={() => useSelector("configuration")}>Configuracion</button></li>
                     </ul>
                 </div>

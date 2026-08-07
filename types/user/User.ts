@@ -8,6 +8,7 @@ export type User = {
   location: string | null;
   joinedAt: string | null;
   timeZone: string | null;
+  admin: boolean;
 
   statistics: {
     numWatching: number;

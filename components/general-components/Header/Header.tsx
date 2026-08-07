@@ -6,6 +6,7 @@ import Search from "./Search";
 import { IoMenu } from "react-icons/io5";
 import { clsx } from "clsx";
 import { useSidebarStore } from "@/stores/sidebar";
+import { useCurrentUser } from "../useCurrentUser";
 import ThemeToggle from "../ThemeToggle";
 import Button from "../Button";
 
@@ -29,6 +30,7 @@ const navLinks = [
  */
 export default function Header({ isAuthenticated }: HeaderProps) {
   const toggle = useSidebarStore((state) => state.toggle);
+  const { user } = useCurrentUser(isAuthenticated);
 
   return (
     <header
@@ -86,20 +88,37 @@ export default function Header({ isAuthenticated }: HeaderProps) {
             ))}
 
             {isAuthenticated ? (
-              <Link
-                href="/perfil"
-                className={clsx(
-                  "ml-2 px-4 py-2 rounded-lg",
-                  "text-body-sm font-medium text-text-primary",
-                  "bg-accent-primary text-white",
-                  "hover:bg-accent-primary-hover",
-                  "shadow-md hover:shadow-glow",
-                  "transition-all duration-fast ease-out",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50"
+              <>
+                {user?.admin && (
+                  <Link
+                    href="/administrador"
+                    className={clsx(
+                      "ml-2 px-4 py-2 rounded-lg",
+                      "text-body-sm font-medium text-text-primary",
+                      "bg-bg-tertiary border border-border-default",
+                      "hover:bg-bg-quaternary hover:border-border-strong",
+                      "transition-all duration-fast ease-out",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/30"
+                    )}
+                  >
+                    Panel Admin
+                  </Link>
                 )}
-              >
-                Mi Perfil
-              </Link>
+                <Link
+                  href="/perfil"
+                  className={clsx(
+                    "ml-2 px-4 py-2 rounded-lg",
+                    "text-body-sm font-medium text-text-primary",
+                    "bg-accent-primary text-white",
+                    "hover:bg-accent-primary-hover",
+                    "shadow-md hover:shadow-glow",
+                    "transition-all duration-fast ease-out",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50"
+                  )}
+                >
+                  Mi Perfil
+                </Link>
+              </>
             ) : (
               <Link href="/login" className="ml-2">
                 <Button variant="primary" size="sm">

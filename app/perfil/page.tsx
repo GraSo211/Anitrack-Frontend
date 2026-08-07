@@ -69,6 +69,12 @@ export default function Page() {
 
           <h1 className="text-3xl font-bold">{user.name}</h1>
 
+          {user.admin && (
+            <span className="w-fit rounded-full bg-accent-primary-subtle px-3 py-1 text-xs font-medium text-accent-primary">
+              Administrador
+            </span>
+          )}
+
           <Link href={user.url} target="_blank" className="text-sm text-blue-400 hover:underline w-fit">
             Ver en MyAnimeList
           </Link>

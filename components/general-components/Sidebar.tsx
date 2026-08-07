@@ -5,8 +5,9 @@ import Search from "./Header/Search";
 import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
 import { useSidebarStore } from "@/stores/sidebar";
+import { useCurrentUser } from "./useCurrentUser";
 import { clsx } from "clsx";
-import { FiHome, FiFilm, FiLogIn, FiUser, FiCalendar, FiList } from "react-icons/fi";
+import { FiHome, FiFilm, FiLogIn, FiUser, FiCalendar, FiList, FiShield } from "react-icons/fi";
 
 interface SidebarProps {
   isAuthenticated?: boolean;
@@ -30,6 +31,7 @@ const navLinks = [
 export default function Sidebar({ isAuthenticated = false }: SidebarProps) {
   const isOpen = useSidebarStore((state) => state.isOpen);
   const toggle = useSidebarStore((state) => state.toggle);
+  const { user } = useCurrentUser(isAuthenticated);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -196,6 +198,23 @@ export default function Sidebar({ isAuthenticated = false }: SidebarProps) {
                     <FiUser className="w-5 h-5" aria-hidden="true" />
                     <span>Perfil</span>
                   </Link>
+                  {isAuthenticated && user?.admin && (
+                    <Link
+                      href="/administrador"
+                      onClick={toggle}
+                      className={clsx(
+                        "flex items-center gap-3",
+                        "px-4 py-3 rounded-lg mt-1",
+                        "text-body-sm font-medium text-text-secondary",
+                        "hover:text-text-primary hover:bg-bg-tertiary",
+                        "transition-all duration-fast ease-out",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/30"
+                      )}
+                    >
+                      <FiShield className="w-5 h-5" aria-hidden="true" />
+                      <span>Panel Admin</span>
+                    </Link>
+                  )}
                 </>
               ) : (
                 <Link

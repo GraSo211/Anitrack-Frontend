@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Hero from './hero/AdminHero'
+import AdminUsers from './users/AdminUsers'
 import { ADMINSELECTOR } from '@/types/admin/AdminSelector';
 
 
@@ -20,6 +21,10 @@ export default function ConfigSelector({ selector }: Props) {
             }
             {
                 selector == "hero" && <Hero></Hero>
+
+            }
+            {
+                selector == "users" && <AdminUsers></AdminUsers>
 
             }
             {

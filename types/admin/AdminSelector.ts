@@ -1,1 +1,1 @@
-export type ADMINSELECTOR = "dashboard" | "hero" | "configuration";
+export type ADMINSELECTOR = "dashboard" | "hero" | "users" | "configuration";
