@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { CiCalendar, CiClock2 } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FiCheck } from "react-icons/fi";
 import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import AiringSwitch from "@/components/anime-general/table/AiringSwitch";
 import Button from "@/components/general-components/Button";
@@ -21,6 +22,7 @@ import {
     keyToDay,
     slugToKey,
     todayKey,
+    type DayKey,
 } from "@/utils/airingDays";
 
 interface Props {
@@ -37,6 +39,12 @@ const formatCountdown = (seconds: number) => {
     if (hours > 0) return `${hours}h ${minutes}m`;
     return `${minutes}m`;
 };
+
+const formatHHMM = (unix: number) =>
+    new Date(unix * 1000).toLocaleTimeString("es-AR", {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
 
 export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
     const router = useRouter();
@@ -68,6 +76,13 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
 
     const animesOfDay = animesAfterFilter.filter(
         (anime) => anime.schedule === activeKey,
+    );
+
+    const countByDay = (key: DayKey) =>
+        animesAfterFilter.filter((anime) => anime.schedule === key).length;
+
+    const watchingIds = new Set(
+        (userAnimeList?.animeList ?? []).map((item) => item.id),
     );
 
     const showToggle = !!userAnimeList && userAnimeList.animeList.length > 0;
@@ -144,6 +159,7 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
                         {AIRING_DAYS.map((day) => {
                             const isActive = day.key === activeKey;
                             const isTodayDay = day.key === todayKey();
+                            const count = countByDay(day.key);
 
                             return (
                                 <Link
@@ -151,16 +167,27 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
                                     href={`/airingAnimes?day=${day.slug}`}
                                     aria-current={isActive ? "page" : undefined}
                                     className={`
-                                        relative flex flex-col items-center justify-center w-14 sm:w-16 py-2 rounded-lg
+                                        relative flex flex-col items-center justify-center w-16 sm:w-20 py-2 rounded-xl
                                         border transition-all duration-200 shrink-0
                                         ${
                                             isActive
-                                                ? "bg-accent-primary text-text-inverse border-accent-primary shadow-glow"
+                                                ? "bg-linear-to-b from-accent-primary to-accent-secondary text-text-inverse border-accent-primary shadow-glow"
                                                 : "bg-bg-secondary text-text-secondary border-border-default hover:bg-bg-tertiary hover:text-text-primary"
+                                        }
+                                        ${
+                                            isTodayDay && !isActive
+                                                ? "border-accent-primary/40"
+                                                : ""
                                         }
                                     `}
                                 >
-                                    <span className="text-caption font-semibold leading-none uppercase">
+                                    <span
+                                        className={`text-caption font-semibold leading-none uppercase ${
+                                            isActive
+                                                ? "text-text-inverse"
+                                                : "text-text-tertiary"
+                                        }`}
+                                    >
                                         {day.short}
                                     </span>
                                     <span
@@ -171,6 +198,17 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
                                         }`}
                                     >
                                         {getDateNumberForDay(day.key)}
+                                    </span>
+                                    <span
+                                        className={`text-caption font-semibold leading-none mt-0.5 ${
+                                            isActive
+                                                ? "text-text-inverse/80"
+                                                : count > 0
+                                                  ? "text-accent-primary"
+                                                  : "text-text-muted"
+                                        }`}
+                                    >
+                                        {count} ep
                                     </span>
                                     {isTodayDay && !isActive && (
                                         <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-accent-primary" />
@@ -191,8 +229,8 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                {animesOfDay.map((anime) => {
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
+                {animesOfDay.map((anime, index) => {
                     const title =
                         anime.title.english ??
                         anime.title.romaji ??
@@ -206,54 +244,72 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
 
                     const airing = anime.nextAiringEpisode;
                     const isSoon = !!airing && airing.timeUntilAiring < 86400;
+                    const inList =
+                        anime.idMal != null && watchingIds.has(anime.idMal);
+                    const color = anime.coverImage.color;
 
                     return (
                         <Link
                             key={anime.id}
                             href={`/anime/a-${anime.id}`}
-                            className="group flex gap-4 rounded-xl border border-border-default bg-bg-secondary p-2.5 card-hover hover:border-border-strong"
+                            className="group relative flex flex-col aspect-[2/3] rounded-xl overflow-hidden border border-border-default card-hover hover:border-border-strong animate-fade-in-up"
                             style={{
-                                backgroundColor: anime.coverImage.color
-                                    ? `${anime.coverImage.color}18`
+                                backgroundColor: color
+                                    ? `${color}22`
                                     : undefined,
+                                animationDelay: `${index * 40}ms`,
                             }}
                         >
-                            <div className="relative w-24 aspect-2/3 shrink-0 overflow-hidden rounded-lg">
-                                <Image
-                                    src={cover}
-                                    alt={title}
-                                    fill
-                                    sizes="96px"
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                />
-                                {airing && (
-                                    <span className="absolute top-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-bg-primary/85 px-1.5 py-0.5 text-caption font-semibold text-text-primary backdrop-blur-sm">
-                                        <CiClock2 aria-hidden="true" />
-                                        EP {airing.episode}
-                                    </span>
-                                )}
-                            </div>
+                            <Image
+                                src={cover}
+                                alt={title}
+                                fill
+                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
 
-                            <div className="flex flex-col justify-between py-1 min-w-0 w-full">
-                                <div>
-                                    <h3 className="text-body-sm font-semibold text-text-primary line-clamp-2">
-                                        {title}
-                                    </h3>
-                                </div>
+                            <div className="absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/25 to-transparent" />
+
+                            {airing && (
+                                <span className="absolute top-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-bg-primary/85 px-1.5 py-0.5 text-caption font-semibold text-text-primary backdrop-blur-sm">
+                                    <CiClock2 aria-hidden="true" />
+                                    EP {airing.episode}
+                                </span>
+                            )}
+
+                            {inList && (
+                                <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-status-success/90 px-1.5 py-0.5 text-caption font-semibold text-white backdrop-blur-sm">
+                                    <FiCheck aria-hidden="true" />
+                                    En tu lista
+                                </span>
+                            )}
+
+                            <div className="absolute bottom-0 inset-x-0 z-10 p-2.5 flex flex-col gap-1.5">
+                                <h3 className="text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md">
+                                    {title}
+                                </h3>
 
                                 {airing && (
-                                    <p
-                                        className={`text-caption font-medium ${
-                                            isSoon
-                                                ? "text-accent-tertiary"
-                                                : "text-accent-primary"
-                                        }`}
-                                    >
-                                        {isSoon
-                                            ? "Estreno pronto · "
-                                            : "Se emite en "}
-                                        {formatCountdown(airing.timeUntilAiring)}
-                                    </p>
+                                    <div className="flex flex-wrap items-center gap-1.5">
+                                        <span
+                                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption font-semibold backdrop-blur-sm ${
+                                                isSoon
+                                                    ? "bg-accent-tertiary/25 text-accent-tertiary"
+                                                    : "bg-accent-primary/25 text-accent-primary"
+                                            }`}
+                                        >
+                                            <CiClock2 aria-hidden="true" />
+                                            {isSoon
+                                                ? "Estreno pronto · "
+                                                : "Se emite en "}
+                                            {formatCountdown(
+                                                airing.timeUntilAiring,
+                                            )}
+                                        </span>
+                                        <span className="inline-flex items-center gap-1 rounded-full bg-bg-primary/70 px-2 py-0.5 text-caption font-semibold text-text-secondary backdrop-blur-sm">
+                                            {formatHHMM(airing.airingAt)}
+                                        </span>
+                                    </div>
                                 )}
                             </div>
                         </Link>
@@ -263,10 +319,9 @@ export default function AiringAnimeDay({ animes, userAnimeList }: Props) {
 
             {animesOfDay.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-3 py-14 text-center">
-                    <CiCalendar
-                        className="w-10 h-10 text-text-muted"
-                        aria-hidden="true"
-                    />
+                    <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-primary-subtle text-accent-primary border border-accent-primary/30">
+                        <CiCalendar className="w-8 h-8" aria-hidden="true" />
+                    </span>
                     <p className="text-body-md text-text-secondary">
                         {mode === "mine"
                             ? "No tenés animes en emisión en tu lista para este día"
