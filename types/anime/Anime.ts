@@ -1,5 +1,3 @@
-import { Episode } from "./Episode";
-
 export type Anime = {
     id: number;
     malId: number;
@@ -88,24 +86,6 @@ export type AnimeReleasing = {
         mediaId: number;
     } | null;
     schedule?: string;
-};
-
-export type AnimeResponse = {
-    Media: Anime;
-    Page: {
-        airingSchedules: Array<{
-            episode: number;
-            airingAt: number;
-            media: {
-                id: number;
-                title: {
-                    romaji: string;
-                    english: string;
-                };
-            };
-        }>;
-    };
-    Episodes: Array<Episode>;
 };
 
 export type AnimesByName = {

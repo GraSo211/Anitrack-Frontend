@@ -4,6 +4,7 @@ import { User } from '@/types/user/User';
 const mockUser: User = {
   id: 1,
   name: 'Test User',
+  url: 'https://myanimelist.net/profile/Test User',
   picture: 'https://example.com/avatar.jpg',
   gender: 'Male',
   birthday: '1990-01-01',

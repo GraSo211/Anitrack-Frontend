@@ -1,4 +1,5 @@
 import { Anime } from '@/types/anime/Anime'
+import { AnimeStatus as AnimeStatusType } from '@/types/anime/Anime'
 
 
 import Link from 'next/link'
@@ -8,15 +9,17 @@ import { FaFireAlt } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import buildTrailerUrl from '@/utils/buildTrailerUrl'
 
-import { EpisodePage } from '@/types/anime/Episode'
 import AnimeStatus from '../anime-general/info/AnimeStatus';
 import Genres from '../anime-general/info/Genres';
-import Episodes from '../anime-general/info/Episodes';
+import { AnimeStatusProvider } from './right-section/AnimeStatusContext';
+import AnimeStatusControls from './right-section/AnimeStatusControls';
+import EpisodesPanel from './right-section/EpisodesPanel';
 
 
 interface Props {
     anime: Anime
-    episodePage: EpisodePage | null
+    token?: string
+    animeStatus?: AnimeStatusType | null
 }
 
 const formatDate = (d?: { day?: number; month?: number; year?: number }) => {
@@ -32,7 +35,7 @@ const formatAiringDate = (unix?: number) => {
     });
 };
 
-export default function MobileSection({ anime, episodePage }: Props) {
+export default function MobileSection({ anime, token, animeStatus }: Props) {
     return (
         <div className="mt-4 flex flex-col  justify-center items-center col-span-1">
             {anime.coverImage && anime.coverImage.extraLarge && <img src={anime.coverImage.extraLarge} alt={anime.title.romaji || "Desconocido"} width={300} height={500} className="rounded-xl shadow-xl border border-border-default" />}
@@ -111,41 +114,41 @@ export default function MobileSection({ anime, episodePage }: Props) {
                 )}
             </div>
 
-            {anime.trailer?.thumbnail && (
-                <section>
-                    <Link href={buildTrailerUrl(anime.trailer)!} target="_blank">
-                        <div className="relative w-full max-w-120 aspect-video">
-                            <img
-                                alt={anime.title?.romaji ?? "Trailer"}
-                                src={anime.trailer.thumbnail}
-                                height={400}
-                                width={600}
+            <AnimeStatusProvider
+                animeStatus={animeStatus ?? null}
+                token={token}
+                id={anime.malId}
+                episodes={anime.episodes}
+                nextEpisode={anime.nextAiringEpisode?.episode}
+            >
+                {token && <AnimeStatusControls />}
 
-                                className="rounded-lg object-cover hover:brightness-90 transition"
-                            />
+                {anime.description && (
+                    <section className="bg-bg-secondary border border-border-default rounded-xl p-4 my-2">
+                        <div className="text-text-primary text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: anime.description }}></div>
+                    </section>
+                )}
 
-                        </div>
-                    </Link>
-                </section>
-            )}
+                {anime.trailer?.thumbnail && (
+                    <section>
+                        <Link href={buildTrailerUrl(anime.trailer)!} target="_blank">
+                            <div className="relative w-full max-w-120 aspect-video">
+                                <img
+                                    alt={anime.title?.romaji ?? "Trailer"}
+                                    src={anime.trailer.thumbnail}
+                                    height={400}
+                                    width={600}
 
-            {anime.description && (
-                <section className="bg-bg-secondary border border-border-default rounded-xl p-4 my-2">
-                    <div className="text-text-primary text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: anime.description }}></div>
-                </section>
-            )}
+                                    className="rounded-lg object-cover hover:brightness-90 transition"
+                                />
 
+                            </div>
+                        </Link>
+                    </section>
+                )}
 
-
-            <section className="mt-2">
-                <h2 className="text-2xl font-bold text-text-primary mb-4">Episodios</h2>
-
-                {episodePage !== null && episodePage.items?.map((episode) => <Episodes key={episode.malId} episode={episode} watched={false} />)}
-            </section>
-
-
-
-            {/* Related anime */}
+                {token && <EpisodesPanel />}
+            </AnimeStatusProvider>
             {anime.relations && !anime.relations.empty && anime.relations.items.length > 0 && (
                 <section className="mt-2 flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold text-text-primary mb-4">Animes relacionados</h2>

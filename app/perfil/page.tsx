@@ -69,6 +69,10 @@ export default function Page() {
 
           <h1 className="text-3xl font-bold">{user.name}</h1>
 
+          <Link href={user.url} target="_blank" className="text-sm text-blue-400 hover:underline w-fit">
+            Ver en MyAnimeList
+          </Link>
+
           <div className="flex flex-wrap gap-4 text-sm opacity-70">
             {user.location && <span>{user.location}</span>}
             {user.gender && <span>{user.gender}</span>}

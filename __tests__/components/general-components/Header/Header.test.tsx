@@ -56,7 +56,7 @@ describe('Header Component', () => {
     render(<Header isAuthenticated={false} />);
 
     expect(screen.getByText('Animes')).toBeInTheDocument();
-    expect(screen.getByText('Usuarios')).toBeInTheDocument();
+    expect(screen.getByText('En Emisión')).toBeInTheDocument();
   });
 
   it('should render search on large screens', () => {
@@ -70,6 +70,5 @@ describe('Header Component', () => {
 
     expect(screen.getByText('ANITRACK').closest('a')).toHaveAttribute('href', '/');
     expect(screen.getByText('Animes').closest('a')).toHaveAttribute('href', '/animes');
-    expect(screen.getByText('Usuarios').closest('a')).toHaveAttribute('href', '/usuarios');
   });
 });

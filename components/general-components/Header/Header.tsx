@@ -16,7 +16,6 @@ interface HeaderProps {
 const navLinks = [
   { href: "/animes", label: "Animes" },
   { href: "/airingAnimes", label: "En Emisión" },
-  { href: "/usuarios", label: "Usuarios" },
 ];
 
 /**

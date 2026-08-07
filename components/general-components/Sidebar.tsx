@@ -6,7 +6,7 @@ import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
 import { useSidebarStore } from "@/stores/sidebar";
 import { clsx } from "clsx";
-import { FiHome, FiFilm, FiUsers, FiLogIn, FiUser, FiCalendar, FiList } from "react-icons/fi";
+import { FiHome, FiFilm, FiLogIn, FiUser, FiCalendar, FiList } from "react-icons/fi";
 
 interface SidebarProps {
   isAuthenticated?: boolean;
@@ -16,7 +16,6 @@ const navLinks = [
   { href: "/", label: "Inicio", icon: FiHome },
   { href: "/animes", label: "Animes", icon: FiFilm },
   { href: "/airingAnimes", label: "En Emisión", icon: FiCalendar },
-  { href: "/usuarios", label: "Usuarios", icon: FiUsers },
 ];
 
 /**

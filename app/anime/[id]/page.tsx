@@ -1,8 +1,9 @@
 
-import { Anime } from "@/types/anime/Anime";
-import { EpisodePage } from "@/types/anime/Episode";
-import { getEpisodesOfAnime } from "@/actions/animes/getEpisodesOfAnime";
+import { Anime, AnimeStatus as AnimeStatusType } from "@/types/anime/Anime";
 import { getAnimeByAnyId } from "@/actions/anime/getAnimeByAnyId";
+import { getAnimeStatus } from "@/actions/anime-list/getAnimeStatus";
+import { connection } from "next/server";
+import { cookies } from "next/headers";
 import LeftSection from "@/components/anime/left-section/LeftSection";
 import RightSection from "@/components/anime/right-section/RightSection";
 import MobileSection from "@/components/anime/MobileSection";
@@ -16,14 +17,15 @@ export default async function page({ params }: Props) {
     const { id } = await params;
     const anime: Anime | null = await getAnimeByAnyId(id);
 
-    
-    const episodePage: EpisodePage | null = await getEpisodesOfAnime(anime!.malId);
-
-
-
     if (!anime) {
         return <div className="min-h-screen flex items-center justify-center">Error al cargar el anime</div>;
     }
+
+    await connection();
+    const cookieStore = await cookies();
+    const token = cookieStore.get("access_token")?.value;
+    const animeStatus: AnimeStatusType | null = token ? await getAnimeStatus(token, anime.malId) : null;
+    const nextEpisode = anime.nextAiringEpisode?.episode;
 
     return (
         <div className="min-h-screen relative flow-root bg-black">
@@ -73,13 +75,15 @@ export default async function page({ params }: Props) {
                         genres={anime.genres}
                         description={anime.description}
                         trailer={anime.trailer}
-                        episodePage={episodePage}
                         episodes={anime.episodes}
+                        token={token}
+                        animeStatus={animeStatus}
+                        nextEpisode={nextEpisode}
                     />
                 </div>
 
                 <div className="lg:hidden">
-                    <MobileSection anime={anime} episodePage={episodePage} />
+                    <MobileSection anime={anime} token={token} animeStatus={animeStatus} />
                 </div>
             </main>
         </div>

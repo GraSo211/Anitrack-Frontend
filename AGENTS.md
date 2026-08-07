@@ -27,12 +27,12 @@ Recommended pre-commit order: `npx tsc --noEmit && npx eslint . && npx jest`.
 
 ## Layout
 ```
-app/                   App Router routes (/, /airingAnimes, /anime/[id], /animes, /lista-anime, /login, /perfil, /usuarios, /usuarios/[user])
+app/                   App Router routes (/, /airingAnimes, /anime/[id], /animes, /lista-anime, /login, /perfil)
 actions/anime/         per-anime reads (by id, by MAL id, by any id)
 actions/anime-list/    user list CRUD; `getAnimeList(token, status?)` is the entry point
 actions/animes/        listing/search/filter endpoints (`getReleasingAnimes` is the calendar data source)
 actions/auth/          login (MAL OAuth)
-actions/user/          user reads
+actions/user/          empty — user reads happen client-side in `app/perfil/page.tsx` via `NEXT_PUBLIC_BACKEND_URL` + `credentials: "include"`
 components/            feature-grouped; `general-components/` holds shared design-system widgets
 stores/                zustand stores
 types/                 all shared types; `anime/Anime.ts` exports most anime shapes
@@ -50,6 +50,9 @@ __tests__/             mirrors source tree
 - **AiringSwitch value mapping**: `components/anime-general/table/AiringSwitch.tsx` calls `onChange("all" | "following")` (not `"mine"`). Parent components must translate `"following" → "mine"`. See `AiringAnimeDay.tsx`, `AnimeWeek.tsx`, `AnimeWeekMobile.tsx`.
 - **`AnimeWeekMobile.tsx` is now a client component** (`"use client"`). It used to be a server component; that change is required for the all/mine toggle to work on mobile. If you split it, keep the directive.
 - **Reuse `Button`** from `components/general-components/Button.tsx` — variants `primary | secondary | ghost | danger | success`, sizes `sm | md | lg | icon`. Don't hand-roll buttons.
+- **`User.url` comes from the backend** (`GET /users/me` returns `"https://myanimelist.net/profile/{name}"`). Never build it from `user.name` client-side.
+- **`mainPicture` swap bug (backend)**: `MyAnimeListAnimeListMapper.mapPicture` puts the MAL **large** URL in `mainPicture.medium` and the MAL **medium** URL in `mainPicture.large`. The frontend renders `mainPicture.large` on `/lista-anime` (so it shows the medium image). This is a **backend bug** — don't "fix" it by switching reads in the frontend, it would break once the mapper is corrected.
+- **Anime detail episodes panel**: `AnimeStatusContext` (provider, client, in `components/anime/right-section/`) owns `{status, score, numEpisodes, watched[], consecutive}` and syncs to MAL via `modifyAnimeToList` (`PATCH /animeList/{id}/update`). `AnimeStatusControls` renders the add-to-list/status/score/count bar; `EpisodesPanel` renders the row list with the `consecutive` switch (default ON, marks all previous episodes when you mark one; when OFF each row toggles independently and the synced count is the number of watched rows). Layout in `RightSection`/`MobileSection`: controls → description → trailer → episodes. The `Episodes.tsx` leaf takes `episodeNumber`/`watched`/`onToggle` (the old Jikan episode list is gone — rows are generated from `anime.episodes`, falling back to `animeStatus.numEpisodes`/`nextAiringEpisode.episode`).
 
 ## Styling
 - Tailwind v4 (PostCSS plugin `@tailwindcss/postcss`). No `tailwind.config.*` — theme is defined in `app/globals.css` via CSS variables and the `@theme` directive. Tokens: `bg-bg-secondary`, `text-text-primary`, `border-border-default`, `accent-primary`, etc.
@@ -68,7 +71,7 @@ Both server components fetch `getReleasingAnimes()` + (if `access_token` exists)
 - Jest + Testing Library + jsdom. `jest.setup.ts` already mocks `next/navigation`, `next/headers`, and sets `BACKEND_URL` / `NEXT_PUBLIC_BACKEND_URL`.
 - Mock `useSearchParams` per-test if the component reads the day param (`AiringAnimeDay` does).
 - Co-locate tests under `__tests__/` mirroring the source path.
-- **Three pre-existing test suites are red on master** and unrelated to recent work: `__tests__/components/general-components/Header/Header.test.tsx`, `Sidebar.test.tsx`, `anime-general/info/AnimeStatus.test.tsx`. Don't try to "fix" them in unrelated PRs — they fail on `screen.getByText("Iniciar Sesion")` (no accent) vs the actual rendered `Iniciar Sesión` (with accent). Confirmed by stashing changes and re-running.
+- **Three pre-existing test suites are red on master** and unrelated to recent work: `__tests__/components/general-components/Header/Header.test.tsx`, `Sidebar.test.tsx`, `anime-general/info/AnimeStatus.test.tsx`. Don't try to "fix" them in unrelated PRs — they fail on `screen.getByText("Iniciar Sesion")` (no accent) vs the actual rendered `Iniciar Sesión` (with accent), and `Header` also asserts `Perfil` vs the rendered `Mi Perfil`. Confirmed by stashing changes and re-running.
 
 ## Conventions
 - Spanish UI strings, English code identifiers. Comments and JSDoc are mixed Spanish/English — match surrounding style.
