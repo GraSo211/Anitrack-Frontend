@@ -1,13 +1,53 @@
 "use client"
+import { deleteHeroImage } from '@/actions/admin/deleteHeroImage'
+import { getHeroImages } from '@/actions/admin/getHeroImages'
 import { postImagesHero } from '@/actions/admin/postImagesHero'
+import Button from '@/components/general-components/Button'
+import { HeroImage } from '@/types/admin/HeroImage'
 import React from 'react'
 import Dropzone from 'react-dropzone'
+import { FiTrash2 } from 'react-icons/fi'
 
 export default function AdminHero() {
     const [images, setImages] = React.useState<File[]>([])
-    const postImages = async ()=>{
-        await postImagesHero(images);
-    }
+    const [uploadedImages, setUploadedImages] = React.useState<HeroImage[]>([])
+    const [isUploading, setIsUploading] = React.useState(false)
+    const [message, setMessage] = React.useState<string | null>(null)
+
+    const loadHeroImages = React.useCallback(async () => {
+        const heroImages = await getHeroImages();
+        setUploadedImages(heroImages ?? []);
+    }, []);
+
+    React.useEffect(() => {
+        loadHeroImages();
+    }, [loadHeroImages]);
+
+    const postImages = async () => {
+        setIsUploading(true);
+        setMessage(null);
+        const result = await postImagesHero(images);
+        setIsUploading(false);
+        if (result) {
+            setImages([]);
+            setMessage("Imágenes subidas correctamente");
+            loadHeroImages();
+        } else {
+            setMessage("Error al subir las imágenes");
+        }
+    };
+
+    const removeImage = async (publicId: string) => {
+        setMessage(null);
+        const result = await deleteHeroImage(publicId);
+        if (result) {
+            setMessage("Imagen eliminada");
+            loadHeroImages();
+        } else {
+            setMessage("Error al eliminar la imagen");
+        }
+    };
+
     return (
         <div className='flex-1 p-4 flex flex-col w-full  '>
             <span className='text-xs text-gray-400'>Hero</span>
@@ -55,7 +95,14 @@ export default function AdminHero() {
                     </section>
                 )}
             </Dropzone>
-            <button onClick={postImages} className='self-center border w-fit rounded-md p-2 hover:bg-gray-600' disabled={images.length === 0}>Subir Imagenes</button>
+
+            <div className='self-center flex flex-col items-center gap-3'>
+                <Button variant="primary" onClick={postImages} disabled={images.length === 0} isLoading={isUploading}>
+                    Subir Imágenes
+                </Button>
+                {message && <p className='text-sm text-gray-400'>{message}</p>}
+            </div>
+
             <div className='overflow-x-auto flex   self-center  gap-2 w-9/12'>
                 {images.map((image, index) => (
                     <div key={index} className="mb-4  shrink-0">
@@ -63,6 +110,29 @@ export default function AdminHero() {
                     </div>
                 ))}
 
+            </div>
+
+            <div className='mt-6 w-full max-w-4xl self-center'>
+                <h3 className='font-semibold text-sm text-gray-300 mb-3'>Imágenes subidas</h3>
+                {uploadedImages.length === 0 ? (
+                    <p className='text-sm text-gray-500'>No hay imágenes subidas todavía.</p>
+                ) : (
+                    <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                        {uploadedImages.map((heroImage) => (
+                            <div key={heroImage.publicId} className='relative rounded-lg overflow-hidden border border-gray-700'>
+                                <img src={heroImage.secureUrl} alt={heroImage.publicId} className='w-full h-28 object-cover' />
+                                <Button
+                                    variant="danger"
+                                    size="icon"
+                                    onClick={() => removeImage(heroImage.publicId)}
+                                    leftIcon={<FiTrash2 />}
+                                    aria-label={`Eliminar imagen ${heroImage.publicId}`}
+                                    className='absolute top-2 right-2 bg-status-error/90'
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
         </div>

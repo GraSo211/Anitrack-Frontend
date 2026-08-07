@@ -660,6 +660,25 @@ body {
     cursor: default;
 }
 
+/* Pagination bullets sutiles (hero) */
+.swiper-pagination-bullet {
+    width: 8px !important;
+    height: 8px !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    opacity: 1 !important;
+    border-radius: var(--radius-pill) !important;
+    transition: all var(--duration-normal) var(--ease-default) !important;
+}
+
+.swiper-pagination-bullet-active {
+    width: 20px !important;
+    background: var(--accent-primary) !important;
+}
+
+.swiper-pagination {
+    bottom: 16px !important;
+}
+
 /* ========================================
    PRINT STYLES
    ======================================== */
