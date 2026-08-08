@@ -9,6 +9,8 @@ export default function Footer() {
                     © {new Date().getFullYear()} AniTrack
                 </span>
 
+                <span>Parte de: GraSo EcoSystem</span>
+                <span>Hecho por GraSo Studios</span>
                 {/* Right */}
                 <span className="hidden sm:block">
                     Datos provistos por MyAnimeList y AniList
