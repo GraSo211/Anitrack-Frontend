@@ -17,10 +17,10 @@ export default function EpisodesPanel() {
                     onClick={toggleConsecutive}
                     aria-pressed={consecutive}
                     aria-label={consecutive ? "Modo consecutivo activo" : "Modo consecutivo inactivo"}
-                    className="flex items-center gap-2 cursor-pointer"
+                    className="flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded-full"
                 >
                     <span className={`w-10 h-5 rounded-full relative transition ${consecutive ? "bg-accent-primary" : "bg-bg-tertiary"}`}>
-                        <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition ${consecutive ? "left-5" : "left-0.5"}`} />
+                        <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-text-primary transition ${consecutive ? "left-5" : "left-0.5"}`} />
                     </span>
                     <span className="text-xs text-text-secondary">Modo consecutivo</span>
                 </button>

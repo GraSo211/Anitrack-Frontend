@@ -1,7 +1,7 @@
 "use client";
 
 import { useThemeStore } from "@/stores/theme";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiSun, FiMoon, FiMonitor } from "react-icons/fi";
 import { clsx } from "clsx";
 
@@ -28,10 +28,40 @@ export default function ThemeToggle({
 }: ThemeToggleProps) {
   const { theme, resolvedTheme, setTheme, toggleTheme } = useThemeStore();
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Close dropdown on click outside or Escape
+  useEffect(() => {
+    if (variant !== "dropdown" || !isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, variant]);
 
   // Placeholder para evitar hydration mismatch
   if (!mounted) {
@@ -46,10 +76,10 @@ export default function ThemeToggle({
   }
 
   const themeOptions = [
-    { value: "light", label: "Claro", icon: FiSun },
-    { value: "dark", label: "Oscuro", icon: FiMoon },
-    { value: "system", label: "Sistema", icon: FiMonitor },
-  ] as const;
+    { value: "light" as const, label: "Claro", icon: FiSun },
+    { value: "dark" as const, label: "Oscuro", icon: FiMoon },
+    { value: "system" as const, label: "Sistema", icon: FiMonitor },
+  ];
 
   const currentTheme = themeOptions.find((t) => t.value === theme);
   const CurrentIcon = currentTheme?.icon ?? FiMonitor;
@@ -57,11 +87,13 @@ export default function ThemeToggle({
   // Dropdown variant
   if (variant === "dropdown") {
     return (
-      <div className={clsx("relative group", className)}>
+      <div ref={containerRef} className={clsx("relative", className)}>
         <button
+          type="button"
           aria-label="Cambiar tema"
-          aria-expanded="false"
-          aria-haspopup="true"
+          aria-expanded={isOpen}
+          aria-haspopup="menu"
+          onClick={() => setIsOpen((prev) => !prev)}
           className={clsx(
             "flex items-center gap-2",
             "px-3 py-2 rounded-lg",
@@ -77,42 +109,49 @@ export default function ThemeToggle({
         </button>
 
         {/* Dropdown Menu */}
-        <div
-          className={clsx(
-            "absolute right-0 mt-2 w-40",
-            "bg-bg-secondary border border-border-default",
-            "rounded-xl shadow-xl",
-            "opacity-0 invisible",
-            "group-hover:opacity-100 group-hover:visible",
-            "transition-all duration-fast",
-            "z-50"
-          )}
-        >
-          {themeOptions.map((option) => {
-            const Icon = option.icon;
-            const isActive = theme === option.value;
+        {isOpen && (
+          <div
+            role="menu"
+            aria-label="Opciones de tema"
+            className={clsx(
+              "absolute right-0 mt-2 w-40",
+              "bg-bg-secondary border border-border-default",
+              "rounded-xl shadow-xl",
+              "overflow-hidden",
+              "z-50"
+            )}
+          >
+            {themeOptions.map((option) => {
+              const Icon = option.icon;
+              const isActive = theme === option.value;
 
-            return (
-              <button
-                key={option.value}
-                onClick={() => setTheme(option.value)}
-                className={clsx(
-                  "w-full flex items-center gap-3",
-                  "px-4 py-2.5 text-body-sm",
-                  "transition-colors duration-fast",
-                  "first:rounded-t-xl last:rounded-b-xl",
-                  isActive
-                    ? "text-accent-primary bg-accent-primary-subtle"
-                    : "text-text-secondary hover:text-text-primary hover:bg-bg-tertiary"
-                )}
-                aria-pressed={isActive}
-              >
-                <Icon className="w-4 h-4" />
-                {option.label}
-              </button>
-            );
-          })}
-        </div>
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={isActive}
+                  onClick={() => {
+                    setTheme(option.value);
+                    setIsOpen(false);
+                  }}
+                  className={clsx(
+                    "w-full flex items-center gap-3",
+                    "px-4 py-2.5 text-body-sm",
+                    "transition-colors duration-fast",
+                    "first:rounded-t-xl last:rounded-b-xl",
+                    isActive
+                      ? "text-accent-primary bg-accent-primary-subtle"
+                      : "text-text-secondary hover:text-text-primary hover:bg-bg-tertiary"
+                  )}
+                >
+                  <Icon className="w-4 h-4" />
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
@@ -124,6 +163,7 @@ export default function ThemeToggle({
 
     return (
       <button
+        type="button"
         onClick={toggleTheme}
         aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
         className={clsx(
@@ -150,6 +190,7 @@ export default function ThemeToggle({
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
       aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
       className={clsx(

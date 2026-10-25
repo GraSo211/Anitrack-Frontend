@@ -20,18 +20,23 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
       />
 
       <button
+        type="button"
+        aria-pressed={selected === "all"}
         onClick={() => handleSelect("all")}
         className={`
-          relative text-xs z-10 px-2 py-2 rounded-lg transition-colors duration-300 ${selected === "all" ? "text-text-primary" : "text-text-tertiary"}
+          relative text-xs z-10 px-2 py-2 min-h-9 min-w-[4.5rem] rounded-lg transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary
+          ${selected === "all" ? "text-text-primary" : "text-text-tertiary"}
         `}
       >
         Todos los animes
       </button>
 
       <button
+        type="button"
+        aria-pressed={selected === "following"}
         onClick={() => handleSelect("following")}
         className={`
-          relative text-xs z-10 px-2 py-2 rounded-lg transition-colors duration-300
+          relative text-xs z-10 px-2 py-2 min-h-9 min-w-[4.5rem] rounded-lg transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary
           ${selected === "following" ? "text-text-primary" : "text-text-tertiary"}
         `}
       >

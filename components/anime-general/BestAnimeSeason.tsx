@@ -14,9 +14,17 @@ export default async function BestAnimeSeason() {
             <h2 className="text-xl font-bold lg:text-3xl mb-1">El público ha hablado</h2>
             <h3 className="font-semibold lg:text-xl mb-6 text-text-secondary">Este es el anime mejor valorado de la temporada</h3>
 
-            {anime && (
+            {anime ? (
                 <div className="relative w-full h-75 rounded-xl overflow-hidden shadow-lg">
-                    {anime.bannerImage && <Image src={anime.bannerImage} alt={title} fill className="object-cover brightness-75" />}
+                    {anime.bannerImage && (
+                        <Image
+                            src={anime.bannerImage}
+                            alt={title}
+                            fill
+                            sizes="(max-width: 1280px) 100vw, 80vw"
+                            className="object-cover brightness-75"
+                        />
+                    )}
 
                     <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70" />
 
@@ -24,12 +32,12 @@ export default async function BestAnimeSeason() {
                         <h3 className="text-xl  lg:text-2xl font-bold drop-shadow-lg">{title}</h3>
 
                         <div className="flex gap-3 mt-2">
-                            <span className="px-3 py-1 text-sm bg-bg-quaternary/80 border border-border-default rounded-full flex items-center gap-1"><FaStar /> {anime.averageScore ?? "—"}</span>
-                            <span className="px-3 py-1 text-sm bg-bg-tertiary/80 border border-border-default rounded-full flex items-center gap-1"><FaFireAlt  /> {anime.popularity?.toLocaleString() ?? "—"}</span>
+                            <span className="px-3 py-1 text-sm bg-bg-quaternary/80 border border-border-default rounded-full flex items-center gap-1"><FaStar aria-hidden="true" /> {anime.averageScore ?? "—"}</span>
+                            <span className="px-3 py-1 text-sm bg-bg-tertiary/80 border border-border-default rounded-full flex items-center gap-1"><FaFireAlt aria-hidden="true" /> {anime.popularity?.toLocaleString() ?? "—"}</span>
                         </div>
                     </div>
                 </div>
-            )}
+            ) : null}
         </div>
     );
 }

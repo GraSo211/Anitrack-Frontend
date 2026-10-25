@@ -38,10 +38,10 @@ export default async function AiringAnimeTable() {
                 <h2 className="font-bold text-3xl mb-4 text-text-primary">
                     Animes en emisión
                 </h2>
-                <p className="text-red-400">
+                <p className="text-status-error">
                     No se pudieron cargar los animes en emisión.
                 </p>
-                <p className="text-sm text-white/60 mt-2">
+                <p className="text-sm text-text-secondary mt-2">
                     Intentá nuevamente más tarde.
                 </p>
             </div>

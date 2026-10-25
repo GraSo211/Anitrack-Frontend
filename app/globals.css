@@ -401,7 +401,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   background: var(--accent-primary);
-  color: white;
+  color: var(--text-inverse);
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
   font-weight: 500;
@@ -654,20 +654,20 @@ body {
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: white !important;
-    background: rgba(18, 18, 26, 0.8) !important;
+    color: var(--text-primary) !important;
+    background: var(--bg-secondary) !important;
     backdrop-filter: blur(8px);
     width: 40px !important;
     height: 40px !important;
     border-radius: 50% !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-lg);
     transition: all 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-default);
 }
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background: rgba(99, 102, 241, 0.9) !important;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    background: var(--accent-primary) !important;
+    box-shadow: var(--shadow-glow);
 }
 .swiper-button-next::after,
 .swiper-button-prev::after {
@@ -683,7 +683,7 @@ body {
 .swiper-pagination-bullet {
     width: 8px !important;
     height: 8px !important;
-    background: rgba(255, 255, 255, 0.4) !important;
+    background: color-mix(in srgb, var(--text-primary) 40%, transparent) !important;
     opacity: 1 !important;
     border-radius: var(--radius-pill) !important;
     transition: all var(--duration-normal) var(--ease-default) !important;

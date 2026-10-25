@@ -1,11 +1,15 @@
 "use client";
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { Genre } from '@/types/anime/Genre';
 import { Tag } from '@/types/anime/Tag';
 import type { EnrichedAnimeItem, EnrichedAnimeList } from '@/actions/anime-list/getAnimeListEnriched';
 import Filters from '@/components/anime-general/filters/Filters';
+import EmptyState from '@/components/general-components/EmptyState';
+import Skeleton from '@/components/general-components/Skeleton';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
+import { FiInbox } from 'react-icons/fi';
 
 interface Props {
   animeList: EnrichedAnimeList;
@@ -55,6 +59,8 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
     });
   }, [animeList.animeList, genreSelected, seasonSelected, yearSelected, statusSelected]);
 
+  const hasItems = animeList.animeList.length > 0;
+
   return (
     <div className="min-h-screen px-6 py-12">
       <div className="max-w-7xl mx-auto w-full">
@@ -77,40 +83,63 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
           setStatus={setStatus}
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 xl:gap-6">
-          {filteredItems.map((anime) => (
-            <Link
-              href={`/anime/m-${anime.id}`}
-              key={anime.id}
-              className="bg-bg-secondary border border-border-default rounded-lg overflow-hidden shadow hover:scale-105 transition"
-            >
-              <img
-                src={anime.mainPicture.large}
-                alt={anime.title}
-                className="w-full h-56 object-cover"
+        {!hasItems ? (
+          <EmptyState
+            icon={<FiInbox className="w-8 h-8" />}
+            title="Tu lista está vacía"
+            description="Todavía no agregaste ningún anime. Empezá a explorar para encontrar tus próximas series."
+          />
+        ) : filteredItems.length === 0 ? (
+          <EmptyState
+            icon={<FiInbox className="w-8 h-8" />}
+            title="Sin resultados"
+            description="No hay animes en tu lista que coincidan con esos filtros."
+          />
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 xl:gap-6">
+              {filteredItems.map((anime) => (
+                <Link
+                  href={`/anime/m-${anime.id}`}
+                  key={anime.id}
+                  className="min-w-0 bg-bg-secondary border border-border-default rounded-lg overflow-hidden shadow hover:scale-105 transition"
+                >
+                  <div className="relative aspect-[2/3] w-full bg-bg-tertiary">
+                    <Image
+                      src={anime.mainPicture.large}
+                      alt={anime.title}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1280px) 25vw, 16vw"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="p-2">
+                    <h2 className="text-sm font-semibold line-clamp-2" title={anime.title}>
+                      {anime.title}
+                    </h2>
+
+                    <div className="text-xs flex items-center gap-1 text-text-tertiary mt-1">
+                      <FaStar size={20} /> {anime.score}
+                    </div>
+
+                    <div className="text-xs text-text-muted">
+                      {statusLabels[anime.status] ?? anime.status}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {filteredItems.length === 0 && (
+              <EmptyState
+                icon={<FiInbox className="w-8 h-8" />}
+                title="No se encontraron animes"
+                description="Probá con otros filtros para ver más resultados."
+                className="mt-8"
               />
-
-              <div className="p-2">
-                <h2 className="text-sm font-semibold line-clamp-2">
-                  {anime.title}
-                </h2>
-
-                <div className="text-xs flex items-center gap-1 text-text-tertiary mt-1">
-                  <FaStar size={20} /> {anime.score}
-                </div>
-
-                <div className="text-xs text-text-muted">
-                  {statusLabels[anime.status] ?? anime.status}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {filteredItems.length === 0 && (
-          <div className="text-center text-text-tertiary mt-8">
-            No se encontraron animes con los filtros seleccionados.
-          </div>
+            )}
+          </>
         )}
       </div>
     </div>

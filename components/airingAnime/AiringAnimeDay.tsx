@@ -297,7 +297,10 @@ export default function AiringAnimeDay({
                                 )}
 
                                 <div className="absolute bottom-0 inset-x-0 z-10 p-2.5 flex flex-col gap-1.5">
-                                    <h3 className="text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md">
+                                    <h3
+                                        className="text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md"
+                                        title={title}
+                                    >
                                         {title}
                                     </h3>
 

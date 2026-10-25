@@ -53,12 +53,12 @@ export default function AdminUsers() {
 
     return (
         <div className='flex-1 p-4 flex flex-col w-full'>
-            <span className='text-xs text-gray-400'>Usuarios</span>
-            <h2 className='font-bold'>Administración de usuarios</h2>
-            <p className='text-sm'>Determina qué usuarios de MyAnimeList son administradores del sitio.</p>
+            <span className='text-xs text-text-secondary'>Usuarios</span>
+            <h2 className='font-bold text-text-primary'>Administración de usuarios</h2>
+            <p className='text-sm text-text-secondary'>Determina qué usuarios de MyAnimeList son administradores del sitio.</p>
 
             <div className='mt-6 flex flex-col gap-2 max-w-md'>
-                <label htmlFor='admin-username' className='text-sm text-gray-300'>Username de MyAnimeList</label>
+                <label htmlFor='admin-username' className='text-sm text-text-secondary'>Username de MyAnimeList</label>
                 <div className='flex gap-2'>
                     <input
                         id='admin-username'
@@ -66,35 +66,35 @@ export default function AdminUsers() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder='ej: graso'
-                        className='flex-1 rounded-md border border-gray-700 bg-bg-tertiary px-3 py-2 text-sm text-text-primary outline-none focus:border-accent-primary'
+                        className='flex-1 rounded-md border border-border-default bg-bg-tertiary px-3 py-2 text-sm text-text-primary placeholder:text-text-muted outline-none focus:border-accent-primary focus-visible:ring-2 focus-visible:ring-accent-primary/50'
                     />
                     <Button
                         variant="primary"
                         onClick={handleAdd}
                         disabled={!username.trim() || isLoading}
                         isLoading={isLoading}
-                        leftIcon={<FiUserPlus />}
+                        leftIcon={<FiUserPlus aria-hidden="true" />}
                     >
                         Agregar
                     </Button>
                 </div>
-                {message && <p className='text-sm text-gray-400'>{message}</p>}
+                {message && <p className='text-sm text-text-secondary'>{message}</p>}
             </div>
 
             <div className='mt-8 w-full max-w-2xl'>
-                <h3 className='font-semibold text-sm text-gray-300 mb-3'>Administradores actuales</h3>
+                <h3 className='font-semibold text-sm text-text-secondary mb-3'>Administradores actuales</h3>
                 {admins.length === 0 ? (
-                    <p className='text-sm text-gray-500'>No hay administradores.</p>
+                    <p className='text-sm text-text-tertiary'>No hay administradores.</p>
                 ) : (
                     <div className='flex flex-col gap-2'>
                         {admins.map((admin) => (
-                            <div key={admin.username} className='flex items-center justify-between rounded-lg border border-gray-700 px-4 py-3'>
+                            <div key={admin.username} className='flex items-center justify-between rounded-lg border border-border-default px-4 py-3'>
                                 <div className='flex items-center gap-3'>
-                                    <FiShield className='w-4 h-4 text-accent-primary' />
+                                    <FiShield className='w-4 h-4 text-accent-primary' aria-hidden="true" />
                                     <div className='flex flex-col'>
                                         <span className='text-sm font-medium text-text-primary'>{admin.username}</span>
                                         {admin.createdAt && (
-                                            <span className='text-xs text-gray-500'>
+                                            <span className='text-xs text-text-tertiary'>
                                                 Desde {new Date(admin.createdAt).toLocaleDateString()}
                                             </span>
                                         )}
@@ -110,7 +110,7 @@ export default function AdminUsers() {
                                     size="sm"
                                     onClick={() => handleRemove(admin)}
                                     disabled={admin.root || isLoading}
-                                    leftIcon={<FiTrash2 />}
+                                    leftIcon={<FiTrash2 aria-hidden="true" />}
                                 >
                                     Quitar
                                 </Button>

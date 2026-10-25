@@ -4,6 +4,7 @@ import { getHeroImages } from '@/actions/admin/getHeroImages'
 import { postImagesHero } from '@/actions/admin/postImagesHero'
 import Button from '@/components/general-components/Button'
 import { HeroImage } from '@/types/admin/HeroImage'
+import Image from 'next/image'
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import { FiTrash2 } from 'react-icons/fi'
@@ -50,28 +51,29 @@ export default function AdminHero() {
 
     return (
         <div className='flex-1 p-4 flex flex-col w-full  '>
-            <span className='text-xs text-gray-400'>Hero</span>
-            <h2 className='font-bold'>Imagenes del Hero</h2>
-            <p className='text-sm'>Gestiona las imagenes que se motraran en el slideshow principal del sitio.</p>
+            <span className='text-xs text-text-secondary'>Hero</span>
+            <h2 className='font-bold text-text-primary'>Imagenes del Hero</h2>
+            <p className='text-sm text-text-secondary'>Gestiona las imagenes que se motraran en el slideshow principal del sitio.</p>
 
             <Dropzone onDrop={acceptedFiles => setImages(prev => [...prev, ...acceptedFiles])}>
                 {({ getRootProps, getInputProps }) => (
                     <section className='w-full '>
-                        <div className="max-w-2xl w-full mx-auto p-4 " {...getRootProps()}>
+                        <div className="max-w-2xl w-full mx-auto p-4 rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50" {...getRootProps()}>
                             <div
-                                className=" border-dashed border-2 border-gray-400 rounded-3xl shadow-sm p-10 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition-colors"
+                                className=" border-dashed border-2 border-border-default rounded-3xl shadow-sm p-10 flex flex-col items-center justify-center cursor-pointer hover:border-border-strong transition-colors"
 
                             >
-                                <input {...getInputProps()} />
+                                <input {...getInputProps()} aria-label='Seleccionar imágenes para el hero' />
                                 {/* Contenedor del Icono Circular */}
-                                <div className="flex items-center justify-center h-16 w-16 border rounded-full mb-8">
+                                <div className="flex items-center justify-center h-16 w-16 border border-border-default rounded-full mb-8">
                                     {/* Icono de Subida (SVG de Heroicons) */}
                                     <svg
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         strokeWidth="1.5"
                                         stroke="currentColor"
-                                        className="w-6 h-6 text-gray-500"
+                                        className="w-6 h-6 text-text-tertiary"
+                                        aria-hidden="true"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -83,10 +85,10 @@ export default function AdminHero() {
 
                                 {/* Textos */}
                                 <div className="text-center">
-                                    <p className="text-lg font-medium text-gray-200">
+                                    <p className="text-lg font-medium text-text-primary">
                                         Arrastrá imágenes o hacé click para seleccionar
                                     </p>
-                                    <p className="mt-1 text-sm text-gray-500">
+                                    <p className="mt-1 text-sm text-text-tertiary">
                                         PNG, JPG, WEBP - múltiples archivos
                                     </p>
                                 </div>
@@ -100,12 +102,13 @@ export default function AdminHero() {
                 <Button variant="primary" onClick={postImages} disabled={images.length === 0} isLoading={isUploading}>
                     Subir Imágenes
                 </Button>
-                {message && <p className='text-sm text-gray-400'>{message}</p>}
+                {message && <p className='text-sm text-text-secondary'>{message}</p>}
             </div>
 
             <div className='overflow-x-auto flex   self-center  gap-2 w-9/12'>
                 {images.map((image, index) => (
-                    <div key={index} className="mb-4  shrink-0">
+                    <div key={index} className="mb-4  shrink-0 bg-bg-tertiary rounded-lg">
+                        {/* Preview local: next/image no acepta blob URLs de URL.createObjectURL */}
                         <img src={URL.createObjectURL(image)} alt={`Image ${index}`} className="w-28  h-auto rounded-lg shadow-md" />
                     </div>
                 ))}
@@ -113,14 +116,20 @@ export default function AdminHero() {
             </div>
 
             <div className='mt-6 w-full max-w-4xl self-center'>
-                <h3 className='font-semibold text-sm text-gray-300 mb-3'>Imágenes subidas</h3>
+                <h3 className='font-semibold text-sm text-text-secondary mb-3'>Imágenes subidas</h3>
                 {uploadedImages.length === 0 ? (
-                    <p className='text-sm text-gray-500'>No hay imágenes subidas todavía.</p>
+                    <p className='text-sm text-text-tertiary'>No hay imágenes subidas todavía.</p>
                 ) : (
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                         {uploadedImages.map((heroImage) => (
-                            <div key={heroImage.publicId} className='relative rounded-lg overflow-hidden border border-gray-700'>
-                                <img src={heroImage.secureUrl} alt={heroImage.publicId} className='w-full h-28 object-cover' />
+                            <div key={heroImage.publicId} className='relative h-28 rounded-lg overflow-hidden border border-border-default bg-bg-tertiary'>
+                                <Image
+                                    src={heroImage.secureUrl}
+                                    alt={heroImage.publicId}
+                                    fill
+                                    sizes='(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw'
+                                    className='object-cover'
+                                />
                                 <Button
                                     variant="danger"
                                     size="icon"

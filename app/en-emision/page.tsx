@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import type { Metadata } from "next";
 import { getReleasingAnimes } from "@/actions/animes/getReleasingAnimes";
 import { getAnimeList } from "@/actions/anime-list/getAnimeList";
 import AiringAnimeDay from "@/components/airingAnime/AiringAnimeDay";
@@ -6,11 +7,18 @@ import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
 import { connection } from "next/server";
 import React, { Suspense } from "react";
 import Link from "next/link";
-import { FiAlertTriangle, FiCalendar } from "react-icons/fi";
+import { FiAlertTriangle, FiCalendar, FiInbox } from "react-icons/fi";
+import EmptyState from "@/components/general-components/EmptyState";
 import {
     airingDayKeyFromTimestamp,
     todayKey,
 } from "@/utils/airingDays";
+
+export const metadata: Metadata = {
+    title: "Animes en emisión",
+    description: "Consulta el calendario semanal de estrenos y descubre qué episodios de anime se emiten cada día para no perderte ninguno de tus favoritos.",
+    alternates: { canonical: "/en-emision" },
+};
 
 export default async function page() {
     await connection();
@@ -95,23 +103,35 @@ export default async function page() {
                 </header>
 
                 {animes === null ? (
-                    <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-                        <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-status-error-subtle text-status-error border border-status-error/30">
-                            <FiAlertTriangle className="h-8 w-8" />
-                        </span>
-                        <p className="text-body-lg text-text-primary font-semibold">
-                            No se pudieron cargar los animes en emisión
-                        </p>
-                        <p className="text-body-sm text-text-muted">
-                            Intentá nuevamente más tarde.
-                        </p>
-                        <Link
-                            href="/animes"
-                            className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-white hover:bg-accent-primary-hover transition-all"
-                        >
-                            Explorar catálogo
-                        </Link>
-                    </div>
+                    <EmptyState
+                        icon={<FiAlertTriangle className="w-8 h-8" />}
+                        title="No se pudieron cargar los animes en emisión"
+                        description="Ocurrió un problema al obtener los estrenos. Intentá nuevamente más tarde."
+                        className="py-20"
+                        action={
+                            <Link
+                                href="/animes"
+                                className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-white hover:bg-accent-primary-hover transition-all"
+                            >
+                                Explorar catálogo
+                            </Link>
+                        }
+                    />
+                ) : animes.length === 0 ? (
+                    <EmptyState
+                        icon={<FiInbox className="w-8 h-8" />}
+                        title="No hay animes en emisión"
+                        description="No encontramos estrenos programados por el momento. Volvé a consultar más tarde."
+                        className="py-20"
+                        action={
+                            <Link
+                                href="/animes"
+                                className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-white hover:bg-accent-primary-hover transition-all"
+                            >
+                                Explorar catálogo
+                            </Link>
+                        }
+                    />
                 ) : (
                     <Suspense
                         fallback={

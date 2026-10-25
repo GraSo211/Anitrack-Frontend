@@ -1,23 +1,30 @@
 "use client";
 
-
-import React from "react";
+import React, { useState } from "react";
+import { clsx } from "clsx";
 
 export default function LoginForm() {
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleMALLogin = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/mal/url`, {
-            credentials: "include"
-        });
+        if (isLoading) return;
+        setIsLoading(true);
 
-        const data = await response.json();
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/mal/url`, {
+                credentials: "include"
+            });
 
-        window.location.href = data.url;
+            const data = await response.json();
+
+            window.location.href = data.url;
+        } finally {
+            // Keep loading state while redirecting; no need to reset.
+        }
     };
 
     return (
         <div className="flex flex-col items-center gap-6">
-
 
             {/* Login MAL */}
             <div className="flex flex-col items-center gap-2 w-full max-w-sm">
@@ -27,8 +34,15 @@ export default function LoginForm() {
                 </p>
 
                 <button
-                    className="w-full flex items-center justify-center gap-3 py-2 px-4 rounded-md
-      bg-[#2e51a2] hover:bg-[#1f3f8a] text-white font-semibold transition shadow-md"
+                    type="button"
+                    disabled={isLoading}
+                    className={clsx(
+                        "w-full flex items-center justify-center gap-3 py-2 px-4 rounded-md",
+                        "bg-accent-primary hover:bg-accent-primary-hover text-white font-semibold",
+                        "transition shadow-md",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50",
+                        "disabled:opacity-60 disabled:cursor-not-allowed"
+                    )}
                     onClick={handleMALLogin}
                 >
 
@@ -40,7 +54,7 @@ export default function LoginForm() {
                         className="w-5 h-5 rounded-sm"
                     />
 
-                    Iniciar sesión con MyAnimeList
+                    {isLoading ? "Cargando..." : "Iniciar sesión con MyAnimeList"}
                 </button>
 
             </div>

@@ -30,6 +30,7 @@ const navLinks = [
  * - Accesibilidad completa (ARIA)
  */
 export default function Header({ isAuthenticated }: HeaderProps) {
+  const isOpen = useSidebarStore((state) => state.isOpen);
   const toggle = useSidebarStore((state) => state.toggle);
   const { user } = useCurrentUser(isAuthenticated);
 
@@ -139,8 +140,8 @@ export default function Header({ isAuthenticated }: HeaderProps) {
             <ThemeToggle variant="icon" />
             <button
               onClick={toggle}
-              aria-label="Abrir menú de navegación"
-              aria-expanded="false"
+              aria-label={isOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+              aria-expanded={isOpen}
               aria-controls="mobile-sidebar"
               className={clsx(
                 "p-2.5 rounded-lg",

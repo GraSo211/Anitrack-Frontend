@@ -53,7 +53,7 @@ export default function AnimeWeek({
             )}
             <div className="grid grid-cols-7 gap-4 w-full">
                 {hasError && (
-                    <div className="col-span-7 text-center text-red-400 text-sm mt-4">
+                    <div className="col-span-7 text-center text-status-error text-sm mt-4">
                         Ocurrió un problema al cargar los animes. Intentá
                         nuevamente más tarde.
                     </div>
@@ -62,7 +62,7 @@ export default function AnimeWeek({
                 {AIRING_DAYS.map((day) => (
                     <div
                         key={day.key}
-                        className="bg-bg-secondary rounded-xl p-1 flex flex-col items-center max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105 border border-border-default"
+                        className="bg-bg-secondary rounded-xl p-1 flex flex-col items-center min-h-0 max-h-100 2xl:max-h-150 overflow-hidden shadow-lg transition-transform hover:scale-105 border border-border-default"
                     >
                         <Link
                             href={`/en-emision?day=${day.slug}`}

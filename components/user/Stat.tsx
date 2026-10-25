@@ -1,4 +1,5 @@
 import React from 'react'
+import { clsx } from "clsx";
 
 export default function Stat({ label, value, clickable }: {
   label: string;
@@ -7,15 +8,15 @@ export default function Stat({ label, value, clickable }: {
 }) {
   return (
     <div
-      className={`
-        p-4 rounded-xl bg-white/5 border border-white/10
-        flex flex-col items-center justify-center
-        transition
-        ${clickable ? "hover:bg-white/10 hover:scale-105 cursor-pointer" : ""}
-      `}
+      className={clsx(
+        "p-4 rounded-xl bg-bg-secondary border border-border-default",
+        "flex flex-col items-center justify-center",
+        "transition",
+        clickable && "hover:bg-white/10 hover:scale-105 cursor-pointer"
+      )}
     >
-      <span className="text-2xl font-bold">{value}</span>
-      <span className="text-sm opacity-70">{label}</span>
+      <span className="text-2xl font-bold text-text-primary">{value}</span>
+      <span className="text-sm text-text-secondary">{label}</span>
     </div>
   );
 }

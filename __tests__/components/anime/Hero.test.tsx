@@ -10,7 +10,8 @@ describe('Hero Component', () => {
 
     const img = screen.getByAltText(title);
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', bannerImage);
+    // next/image sirve la imagen vía /_next/image?url=...
+    expect(img.getAttribute('src')).toContain('banner.jpg');
   });
 
   it('should render fallback color when bannerImage is not provided', () => {

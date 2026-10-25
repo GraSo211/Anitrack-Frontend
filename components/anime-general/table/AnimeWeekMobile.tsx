@@ -56,7 +56,7 @@ export default function AnimeWeekMobile({
                 </div>
             )}
             {hasError && (
-                <div className="text-center text-red-400 text-sm mt-4">
+                <div className="text-center text-status-error text-sm mt-4">
                     Ocurrió un problema al cargar los animes. Intentá
                     nuevamente más tarde.
                 </div>
@@ -108,25 +108,39 @@ export default function AnimeWeekMobile({
                                                 anime.title.english ||
                                                 "Título Desconocido"
                                             }
+                                            title={
+                                                anime.title.romaji ||
+                                                anime.title.english ||
+                                                "Título Desconocido"
+                                            }
                                             className="flex items-center gap-3 p-2 flex-1 min-w-0 rounded-md transition-colors hover:bg-bg-tertiary"
                                         >
-                                            <Image
-                                                src={
-                                                    anime.coverImage?.large ||
-                                                    anime.coverImage?.medium ||
-                                                    "/coverImagePlaceholder.png"
-                                                }
-                                                alt={
-                                                    anime.title.romaji ||
-                                                    anime.title.english ||
-                                                    "Título Desconocido"
-                                                }
-                                                width={90}
-                                                height={40}
-                                                className="rounded-sm object-cover shrink-0 aspect-video"
-                                            />
-                                            <div className="flex flex-col justify-center">
-                                                <span className="text-xs font-semibold text-text-primary line-clamp-1">
+                                            <div className="relative w-24 shrink-0 aspect-video rounded-sm overflow-hidden bg-bg-tertiary">
+                                                <Image
+                                                    src={
+                                                        anime.coverImage?.large ||
+                                                        anime.coverImage?.medium ||
+                                                        "/coverImagePlaceholder.png"
+                                                    }
+                                                    alt={
+                                                        anime.title.romaji ||
+                                                        anime.title.english ||
+                                                        "Título Desconocido"
+                                                    }
+                                                    fill
+                                                    sizes="96px"
+                                                    className="object-cover"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col justify-center min-w-0">
+                                                <span
+                                                    className="text-xs font-semibold text-text-primary line-clamp-1"
+                                                    title={
+                                                        anime.title.romaji ||
+                                                        anime.title.english ||
+                                                        "Título Desconocido"
+                                                    }
+                                                >
                                                     {anime.title.romaji ||
                                                         anime.title.english}
                                                 </span>
