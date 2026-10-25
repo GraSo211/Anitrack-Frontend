@@ -82,84 +82,88 @@ export default async function page({ params }: Props) {
             />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mt-48 lg:mt-56 grid grid-cols-1 lg:grid-cols-[minmax(0,320px)_1fr] gap-x-8 gap-y-4 bg-bg-secondary border border-border-default rounded-2xl shadow-2xl p-6">
-                    <div className="order-1 lg:col-start-1 flex justify-center lg:justify-start">
-                        {anime.coverImage?.extraLarge && (
-                            <CoverImage
-                                src={anime.coverImage.extraLarge}
-                                alt={title || "Desconocido"}
-                                className="w-72 lg:w-full"
-                                sizes="(max-width: 1024px) 300px, 320px"
+                <div className="mt-48 lg:mt-56 flex flex-col lg:flex-row gap-4 lg:gap-8 bg-bg-secondary border border-border-default rounded-2xl shadow-2xl p-6">
+                    <div className="contents lg:flex lg:flex-col lg:w-80 lg:shrink-0 gap-4">
+                        <div className="order-1 lg:order-none flex justify-center lg:justify-start">
+                            {anime.coverImage?.extraLarge && (
+                                <CoverImage
+                                    src={anime.coverImage.extraLarge}
+                                    alt={title || "Desconocido"}
+                                    className="w-72 lg:w-full"
+                                    sizes="(max-width: 1024px) 300px, 320px"
+                                />
+                            )}
+                        </div>
+
+                        <div className="order-3 lg:order-none">
+                            <MetadataCard
+                                season={anime.season}
+                                seasonYear={anime.seasonYear}
+                                countryOfOrigin={anime.countryOfOrigin}
+                                isAdult={anime.isAdult}
+                                studio={anime.studio}
+                                source={anime.source}
+                                episodes={anime.episodes}
+                                duration={anime.duration}
+                                startDate={anime.startDate}
+                                endDate={anime.endDate}
+                                nextAiringEpisode={anime.nextAiringEpisode}
                             />
+                        </div>
+
+                        {anime.relations && (
+                            <div className="order-8 lg:order-none">
+                                <RelatedAnime relations={anime.relations} />
+                            </div>
                         )}
                     </div>
 
-                    <div className="order-2 lg:col-start-2 lg:row-start-1 min-w-0">
-                        <AnimeHeader
-                            title={title}
-                            synonyms={anime.synonyms}
-                            averageScore={anime.averageScore}
-                            popularity={anime.popularity}
-                            status={anime.status}
-                            genres={anime.genres}
-                        />
-                    </div>
+                    <div className="contents lg:flex lg:flex-col lg:flex-1 lg:min-w-0 gap-4">
+                        <div className="order-2 lg:order-none min-w-0">
+                            <AnimeHeader
+                                title={title}
+                                synonyms={anime.synonyms}
+                                averageScore={anime.averageScore}
+                                popularity={anime.popularity}
+                                status={anime.status}
+                                genres={anime.genres}
+                            />
+                        </div>
 
-                    <div className="order-3 lg:col-start-1">
-                        <MetadataCard
-                            season={anime.season}
-                            seasonYear={anime.seasonYear}
-                            countryOfOrigin={anime.countryOfOrigin}
-                            isAdult={anime.isAdult}
-                            studio={anime.studio}
-                            source={anime.source}
+                        <AnimeStatusProvider
+                            animeStatus={animeStatus ?? null}
+                            isAuthenticated={isAuthenticated}
+                            id={anime.malId}
                             episodes={anime.episodes}
-                            duration={anime.duration}
-                            startDate={anime.startDate}
-                            endDate={anime.endDate}
-                            nextAiringEpisode={anime.nextAiringEpisode}
-                        />
+                            nextEpisode={nextEpisode}
+                        >
+                            <div className="contents">
+                                {isAuthenticated && (
+                                    <div className="order-4 lg:order-none min-w-0">
+                                        <AnimeStatusControls />
+                                    </div>
+                                )}
+
+                                {anime.description && (
+                                    <div className="order-5 lg:order-none min-w-0">
+                                        <DescriptionSection description={anime.description} />
+                                    </div>
+                                )}
+
+                                {anime.trailer?.thumbnail && (
+                                    <div className="order-6 lg:order-none min-w-0">
+                                        <TrailerSection trailer={anime.trailer} title={title} />
+                                    </div>
+                                )}
+
+                                {isAuthenticated && (
+                                    <div className="order-7 lg:order-none min-w-0">
+                                        <EpisodesPanel />
+                                    </div>
+                                )}
+                            </div>
+                        </AnimeStatusProvider>
                     </div>
-
-                    <AnimeStatusProvider
-                        animeStatus={animeStatus ?? null}
-                        isAuthenticated={isAuthenticated}
-                        id={anime.malId}
-                        episodes={anime.episodes}
-                        nextEpisode={nextEpisode}
-                    >
-                        <div className="contents">
-                            {isAuthenticated && (
-                                <div className="order-4 lg:col-start-2 min-w-0">
-                                    <AnimeStatusControls />
-                                </div>
-                            )}
-
-                            {anime.description && (
-                                <div className="order-5 lg:col-start-2 min-w-0">
-                                    <DescriptionSection description={anime.description} />
-                                </div>
-                            )}
-
-                            {anime.trailer?.thumbnail && (
-                                <div className="order-6 lg:col-start-2 min-w-0">
-                                    <TrailerSection trailer={anime.trailer} title={title} />
-                                </div>
-                            )}
-
-                            {isAuthenticated && (
-                                <div className="order-7 lg:col-start-2 min-w-0">
-                                    <EpisodesPanel />
-                                </div>
-                            )}
-                        </div>
-                    </AnimeStatusProvider>
-
-                    {anime.relations && (
-                        <div className="order-8 lg:col-start-1">
-                            <RelatedAnime relations={anime.relations} />
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
