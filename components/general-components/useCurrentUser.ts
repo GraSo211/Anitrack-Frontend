@@ -28,6 +28,10 @@ export function useCurrentUser(isAuthenticated: boolean) {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/me`, {
                     credentials: "include",
                 });
+                if (response.status === 401) {
+                    window.location.href = "/iniciar-sesion";
+                    return;
+                }
                 if (!response.ok) throw new Error("No autenticado");
                 const data: User = await response.json();
                 setUser(data);

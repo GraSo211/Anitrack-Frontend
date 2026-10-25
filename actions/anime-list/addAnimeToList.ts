@@ -1,12 +1,16 @@
 "use server";
 
 import { AnimeStatus } from "@/types/anime/Anime";
+import { cookies } from "next/headers";
 
-export const addAnimeToList = async (token:string, id: number) => {
+export const addAnimeToList = async (id: number) => {
     if (!process.env.BACKEND_URL) {
         console.error("BACKEND_URL no está definida");
         return null;
     }
+    if (!id) return null;
+    const token = (await cookies()).get("access_token")?.value;
+    if (!token) return null;
     try {
         const response = await fetch(`${process.env.BACKEND_URL}/api/v1/animeList/${id}`, {
             method: "PATCH",

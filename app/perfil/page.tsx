@@ -20,6 +20,11 @@ export default function Page() {
           { credentials: "include" }
         );
 
+        if (response.status === 401) {
+          window.location.href = "/iniciar-sesion";
+          return;
+        }
+
         if (!response.ok) throw new Error("No autenticado");
 
         const data: User = await response.json();
@@ -93,65 +98,71 @@ export default function Page() {
 
       </div>
 
-      {/* STATS PRINCIPALES */}
-      <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Listas de Animes</h2>
+      {user.statistics === null ? (
+        <p className="mt-8">Estadísticas no disponibles</p>
+      ) : (
+        <>
+          {/* STATS PRINCIPALES */}
+          <section className="mt-8">
+            <h2 className="text-xl font-semibold mb-4">Listas de Animes</h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 
-          <Link href="/mi-lista?status=watching">
-            <Stat label="Viendo" value={user.statistics.numWatching} clickable />
-          </Link>
+              <Link href="/mi-lista?status=watching">
+                <Stat label="Viendo" value={user.statistics.numWatching} clickable />
+              </Link>
 
-          <Link href="/mi-lista?status=completed">
-            <Stat label="Completado" value={user.statistics.numCompleted} clickable />
-          </Link>
+              <Link href="/mi-lista?status=completed">
+                <Stat label="Completado" value={user.statistics.numCompleted} clickable />
+              </Link>
 
-          <Link href="/mi-lista?status=on_hold">
-            <Stat label="En espera" value={user.statistics.numOnHold} clickable />
-          </Link>
+              <Link href="/mi-lista?status=on_hold">
+                <Stat label="En espera" value={user.statistics.numOnHold} clickable />
+              </Link>
 
-          <Link href="/mi-lista?status=dropped">
-            <Stat label="Abandonado" value={user.statistics.numDropped} clickable />
-          </Link>
+              <Link href="/mi-lista?status=dropped">
+                <Stat label="Abandonado" value={user.statistics.numDropped} clickable />
+              </Link>
 
-          <Link href="/mi-lista?status=plan_to_watch">
-            <Stat label="Planeado" value={user.statistics.numPlanToWatch} clickable />
-          </Link>
+              <Link href="/mi-lista?status=plan_to_watch">
+                <Stat label="Planeado" value={user.statistics.numPlanToWatch} clickable />
+              </Link>
 
-          <Link href="/mi-lista">
-            <Stat label="Total" value={user.statistics.numTotal} clickable />
-          </Link>
+              <Link href="/mi-lista">
+                <Stat label="Total" value={user.statistics.numTotal} clickable />
+              </Link>
 
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* MÉTRICAS */}
-      <section className="mt-10">
-        <h2 className="text-xl font-semibold mb-4">Actividad</h2>
+          {/* MÉTRICAS */}
+          <section className="mt-10">
+            <h2 className="text-xl font-semibold mb-4">Actividad</h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 
-          <Stat label="Episodios vistos" value={user.statistics.episodesWatched} />
-          <Stat label="Puntaje promedio" value={user.statistics.meanScore} />
-          <Stat label="Rewatch" value={user.statistics.timesRewatched} />
-          <Stat label="Días totales" value={user.statistics.daysTotal} />
+              <Stat label="Episodios vistos" value={user.statistics.episodesWatched} />
+              <Stat label="Puntaje promedio" value={user.statistics.meanScore} />
+              <Stat label="Rewatch" value={user.statistics.timesRewatched} />
+              <Stat label="Días totales" value={user.statistics.daysTotal} />
 
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* TIEMPO */}
-      <section className="mt-10">
-        <h2 className="text-xl font-semibold mb-4">Tiempo</h2>
+          {/* TIEMPO */}
+          <section className="mt-10">
+            <h2 className="text-xl font-semibold mb-4">Tiempo</h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
-          <Stat label="Días viendo" value={user.statistics.daysWatched} />
-          <Stat label="En emisión" value={user.statistics.daysWatching} />
-          <Stat label="Completados" value={user.statistics.daysCompleted} />
+              <Stat label="Días viendo" value={user.statistics.daysWatched} />
+              <Stat label="En emisión" value={user.statistics.daysWatching} />
+              <Stat label="Completados" value={user.statistics.daysCompleted} />
 
-        </div>
-      </section>
+            </div>
+          </section>
+        </>
+      )}
 
     </div>
   );

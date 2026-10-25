@@ -30,7 +30,7 @@ import {
 interface Props {
     animes: AnimeReleasing[] | null;
     userAnimeList?: AnimeList | null;
-    token?: string;
+    isAuthenticated?: boolean;
 }
 
 const formatCountdown = (seconds: number) => {
@@ -52,7 +52,7 @@ const formatHHMM = (unix: number) =>
 export default function AiringAnimeDay({
     animes,
     userAnimeList,
-    token,
+    isAuthenticated,
 }: Props) {
     const router = useRouter();
     const dayParam = useSearchParams().get("day");
@@ -330,7 +330,7 @@ export default function AiringAnimeDay({
 
                             {airing && (
                                 <MarkPreviousEpisodeButton
-                                    token={token}
+                                    isAuthenticated={isAuthenticated}
                                     idMal={anime.idMal}
                                     inList={inList}
                                     episodesWatched={item?.episodesWatched}

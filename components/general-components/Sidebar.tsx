@@ -7,7 +7,8 @@ import { RxCross1 } from "react-icons/rx";
 import { useSidebarStore } from "@/stores/sidebar";
 import { useCurrentUser } from "./useCurrentUser";
 import { clsx } from "clsx";
-import { FiHome, FiFilm, FiLogIn, FiUser, FiCalendar, FiList, FiShield } from "react-icons/fi";
+import { FiHome, FiFilm, FiLogIn, FiUser, FiCalendar, FiList, FiShield, FiLogOut } from "react-icons/fi";
+import { logout } from "@/utils/logout";
 
 interface SidebarProps {
   isAuthenticated?: boolean;
@@ -215,6 +216,24 @@ export default function Sidebar({ isAuthenticated = false }: SidebarProps) {
                       <span>Panel Admin</span>
                     </Link>
                   )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      toggle();
+                      logout();
+                    }}
+                    className={clsx(
+                      "flex items-center gap-3 w-full text-left",
+                      "px-4 py-3 rounded-lg mt-1",
+                      "text-body-sm font-medium text-text-secondary",
+                      "hover:text-text-primary hover:bg-bg-tertiary",
+                      "transition-all duration-fast ease-out",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/30"
+                    )}
+                  >
+                    <FiLogOut className="w-5 h-5" aria-hidden="true" />
+                    <span>Cerrar Sesión</span>
+                  </button>
                 </>
               ) : (
                 <Link

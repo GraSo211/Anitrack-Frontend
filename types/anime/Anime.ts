@@ -4,7 +4,7 @@ export type Anime = {
     title: {
         romaji?: string;
         english?: string;
-    };
+    } | null;
     status?: string;
     description?: string;
     startDate?: {
@@ -45,7 +45,6 @@ export type Anime = {
             relatedTitle: string;
             relatedImage: string;
         }[];
-        empty: boolean;
     };
     studio?: string;
     isAdult?: boolean;
@@ -60,7 +59,7 @@ export type Anime = {
 
 export type AnimeCard = {
     id: number;
-    malId?: number;
+    idMal?: number | null;
     title: { romaji?: string; english?: string };
     coverImage: { extraLarge?: string; large?: string; medium?: string; color?: string };
 };
@@ -143,8 +142,8 @@ export type AnimeTopSeason = {
     title: {
         romaji: string;
         english: string | null;
-    }
+    } | null
     bannerImage: string | null;
     averageScore: number | null;
-    popularity: number;
+    popularity: number | null;
 }

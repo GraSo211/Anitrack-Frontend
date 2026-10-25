@@ -235,7 +235,7 @@ export default function Search() {
                       <Image
                         src={
                           anime.coverImage?.extraLarge ||
-                          "/coverImagePlaceholder.jpg"
+                          "/coverImagePlaceholder.png"
                         }
                         alt=""
                         fill

@@ -20,13 +20,13 @@ import {
 interface Props {
     animes: AnimeReleasing[];
     userAnimeList?: AnimeList | null;
-    token?: string;
+    isAuthenticated?: boolean;
 }
 
 export default function AnimeWeekMobile({
     animes,
     userAnimeList,
-    token,
+    isAuthenticated,
 }: Props) {
     const [mode, setMode] = useState<CalendarFilterMode>("all");
 
@@ -139,7 +139,7 @@ export default function AnimeWeekMobile({
                                         </Link>
                                         {anime.nextAiringEpisode && (
                                             <MarkPreviousEpisodeButton
-                                                token={token}
+                                                isAuthenticated={isAuthenticated}
                                                 idMal={anime.idMal}
                                                 inList={!!item}
                                                 episodesWatched={

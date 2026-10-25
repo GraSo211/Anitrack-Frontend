@@ -248,7 +248,7 @@ describe("AiringAnimeDay", () => {
             <AiringAnimeDay
                 animes={animes}
                 userAnimeList={makeUserList([100])}
-                token="token"
+                isAuthenticated
             />,
         );
 
@@ -260,7 +260,6 @@ describe("AiringAnimeDay", () => {
 
         await waitFor(() =>
             expect(mockedModify).toHaveBeenCalledWith(
-                "token",
                 100,
                 "watching",
                 0,

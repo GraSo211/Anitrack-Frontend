@@ -28,5 +28,5 @@ export type User = {
     episodesWatched: number;
     timesRewatched: number;
     meanScore: number;
-  };
+  } | null;
 };

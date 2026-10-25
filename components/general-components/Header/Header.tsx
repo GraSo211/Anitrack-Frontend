@@ -9,6 +9,7 @@ import { useSidebarStore } from "@/stores/sidebar";
 import { useCurrentUser } from "../useCurrentUser";
 import ThemeToggle from "../ThemeToggle";
 import Button from "../Button";
+import { logout } from "@/utils/logout";
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -118,6 +119,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
                 >
                   Mi Perfil
                 </Link>
+                <Button variant="ghost" size="sm" onClick={logout} className="ml-2">Cerrar Sesión</Button>
               </>
             ) : (
               <Link href="/iniciar-sesion" className="ml-2">

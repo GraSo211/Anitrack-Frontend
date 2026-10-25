@@ -26,12 +26,12 @@ interface Props {
         thumbnail?: string;
     };
     episodes: number | undefined;
-    token?: string;
+    isAuthenticated?: boolean;
     animeStatus?: AnimeStatusType | null;
     nextEpisode?: number;
 }
 
-export default function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodes, token, animeStatus, nextEpisode }: Props) {
+export default function RightSection({ malId, titleRomaji, titleEnglish, synonyms, averageScore, popularity, status, genres, description, trailer, episodes, isAuthenticated, animeStatus, nextEpisode }: Props) {
     return (
         <div className="flex flex-col w-full relative">
             <div>
@@ -48,8 +48,8 @@ export default function RightSection({ malId, titleRomaji, titleEnglish, synonym
 
             <Genres genres={genres} />
 
-            <AnimeStatusProvider animeStatus={animeStatus ?? null} token={token} id={malId} episodes={episodes} nextEpisode={nextEpisode}>
-                {token && <AnimeStatusControls />}
+            <AnimeStatusProvider animeStatus={animeStatus ?? null} isAuthenticated={isAuthenticated} id={malId} episodes={episodes} nextEpisode={nextEpisode}>
+                {isAuthenticated && <AnimeStatusControls />}
 
                 {description && (
                     <section className="bg-bg-secondary border border-border-default rounded-xl p-4 my-2">
@@ -73,7 +73,7 @@ export default function RightSection({ malId, titleRomaji, titleEnglish, synonym
                     </section>
                 )}
 
-                {token && <EpisodesPanel />}
+                {isAuthenticated && <EpisodesPanel />}
             </AnimeStatusProvider>
         </div>
     );

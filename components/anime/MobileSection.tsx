@@ -18,7 +18,7 @@ import EpisodesPanel from './right-section/EpisodesPanel';
 
 interface Props {
     anime: Anime
-    token?: string
+    isAuthenticated?: boolean
     animeStatus?: AnimeStatusType | null
 }
 
@@ -35,10 +35,10 @@ const formatAiringDate = (unix?: number) => {
     });
 };
 
-export default function MobileSection({ anime, token, animeStatus }: Props) {
+export default function MobileSection({ anime, isAuthenticated, animeStatus }: Props) {
     return (
         <div className="mt-4 flex flex-col  justify-center items-center col-span-1">
-            {anime.coverImage && anime.coverImage.extraLarge && <img src={anime.coverImage.extraLarge} alt={anime.title.romaji || "Desconocido"} width={300} height={500} className="rounded-xl shadow-xl border border-border-default" />}
+            {anime.coverImage && anime.coverImage.extraLarge && <img src={anime.coverImage.extraLarge} alt={anime.title?.romaji || "Desconocido"} width={300} height={500} className="rounded-xl shadow-xl border border-border-default" />}
 
 
             <div>
@@ -116,12 +116,12 @@ export default function MobileSection({ anime, token, animeStatus }: Props) {
 
             <AnimeStatusProvider
                 animeStatus={animeStatus ?? null}
-                token={token}
+                isAuthenticated={isAuthenticated}
                 id={anime.malId}
                 episodes={anime.episodes}
                 nextEpisode={anime.nextAiringEpisode?.episode}
             >
-                {token && <AnimeStatusControls />}
+                {isAuthenticated && <AnimeStatusControls />}
 
                 {anime.description && (
                     <section className="bg-bg-secondary border border-border-default rounded-xl p-4 my-2">
@@ -147,9 +147,9 @@ export default function MobileSection({ anime, token, animeStatus }: Props) {
                     </section>
                 )}
 
-                {token && <EpisodesPanel />}
+                {isAuthenticated && <EpisodesPanel />}
             </AnimeStatusProvider>
-            {anime.relations && !anime.relations.empty && anime.relations.items.length > 0 && (
+            {anime.relations && anime.relations.items.length > 0 && (
                 <section className="mt-2 flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold text-text-primary mb-4">Animes relacionados</h2>
 

@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect, unstable_rethrow } from "next/navigation";
 import { AnimeList } from "@/types/anime/Anime";
 
 export const getAnimeList = async (token:string, status?: string): Promise<AnimeList | null> => {
@@ -19,6 +20,10 @@ export const getAnimeList = async (token:string, status?: string): Promise<Anime
             },
         });
 
+        if (response.status === 401) {
+            redirect("/iniciar-sesion");
+        }
+
         if (!response.ok) {
             throw new Error(`Error status: ${response.status}`);
         }
@@ -27,6 +32,7 @@ export const getAnimeList = async (token:string, status?: string): Promise<Anime
 
         return data;
     } catch (error) {
+        unstable_rethrow(error);
         console.error("Fallo de fetch getAnimeList:", error);
         return null;
     }

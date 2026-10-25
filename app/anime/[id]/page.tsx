@@ -30,7 +30,7 @@ export default async function page({ params }: Props) {
     return (
         <div className="min-h-screen relative flow-root bg-black">
             {/* Hero */}
-            <Hero bannerImage={anime.bannerImage} colorBg={anime.coverImage?.color} title={anime.title.romaji || anime.title.english} />
+            <Hero bannerImage={anime.bannerImage} colorBg={anime.coverImage?.color} title={anime.title?.romaji || anime.title?.english} />
 
             {/* Content */}
             <main className=" relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,7 +48,7 @@ export default async function page({ params }: Props) {
                     {/* Left */}
                     <LeftSection
                         coverImage={anime.coverImage?.extraLarge || anime.coverImage?.large}
-                        title={anime.title.romaji || anime.title.english}
+                        title={anime.title?.romaji || anime.title?.english}
                         studio={anime.studio}
                         source={anime.source}
                         episodes={anime.episodes}
@@ -66,8 +66,8 @@ export default async function page({ params }: Props) {
                     {/* Right */}
                     <RightSection
                         malId={anime.malId}
-                        titleRomaji={anime.title.romaji}
-                        titleEnglish={anime.title.english}
+                        titleRomaji={anime.title?.romaji ?? ""}
+                        titleEnglish={anime.title?.english}
                         synonyms={anime.synonyms}
                         averageScore={anime.averageScore}
                         popularity={anime.popularity}
@@ -76,14 +76,14 @@ export default async function page({ params }: Props) {
                         description={anime.description}
                         trailer={anime.trailer}
                         episodes={anime.episodes}
-                        token={token}
+                        isAuthenticated={Boolean(token)}
                         animeStatus={animeStatus}
                         nextEpisode={nextEpisode}
                     />
                 </div>
 
                 <div className="lg:hidden">
-                    <MobileSection anime={anime} token={token} animeStatus={animeStatus} />
+                    <MobileSection anime={anime} isAuthenticated={Boolean(token)} animeStatus={animeStatus} />
                 </div>
             </main>
         </div>

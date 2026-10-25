@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa";
 
 export default async function BestAnimeSeason() {
     const anime: AnimeTopSeason | null = await getTopSeasonAnime();
+    const title = anime?.title?.english || anime?.title?.romaji || "Sin título";
 
     return (
         <div className="w-full p-3 xl:w-[80%] mx-auto text-text-primary">
@@ -15,16 +16,16 @@ export default async function BestAnimeSeason() {
 
             {anime && (
                 <div className="relative w-full h-75 rounded-xl overflow-hidden shadow-lg">
-                    {anime.bannerImage && <Image src={anime.bannerImage} alt={anime.title.romaji || anime.title.english || ""} fill className="object-cover brightness-75" />}
+                    {anime.bannerImage && <Image src={anime.bannerImage} alt={title} fill className="object-cover brightness-75" />}
 
                     <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70" />
 
                     <div className="absolute bottom-4 left-4 text-white">
-                        <h3 className="text-xl  lg:text-2xl font-bold drop-shadow-lg">{anime.title.english || anime.title.romaji}</h3>
+                        <h3 className="text-xl  lg:text-2xl font-bold drop-shadow-lg">{title}</h3>
 
                         <div className="flex gap-3 mt-2">
-                            <span className="px-3 py-1 text-sm bg-bg-quaternary/80 border border-border-default rounded-full flex items-center gap-1"><FaStar /> {anime.averageScore}</span>
-                            <span className="px-3 py-1 text-sm bg-bg-tertiary/80 border border-border-default rounded-full flex items-center gap-1"><FaFireAlt  /> {anime.popularity.toLocaleString()}</span>
+                            <span className="px-3 py-1 text-sm bg-bg-quaternary/80 border border-border-default rounded-full flex items-center gap-1"><FaStar /> {anime.averageScore ?? "—"}</span>
+                            <span className="px-3 py-1 text-sm bg-bg-tertiary/80 border border-border-default rounded-full flex items-center gap-1"><FaFireAlt  /> {anime.popularity?.toLocaleString() ?? "—"}</span>
                         </div>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ export const getAnimeStatus = async (token:string| undefined, id:number) => {
         return null;
     }
     try {
+        if(!id)return null;
         if(!token)return null;
         const response = await fetch(`${process.env.BACKEND_URL}/api/v1/animeList/${id}/status`, {
             method: "GET",

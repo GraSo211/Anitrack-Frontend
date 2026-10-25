@@ -6,7 +6,7 @@ import { AnimeStatus, Status } from "@/types/anime/Anime";
 
 interface Props {
     animeStatus: AnimeStatus | null;
-    token?: string;
+    isAuthenticated?: boolean;
     id: number;
     episodes?: number;
     nextEpisode?: number;
@@ -29,7 +29,7 @@ interface ContextValue {
 
 const AnimeStatusContext = createContext<ContextValue | null>(null);
 
-export function AnimeStatusProvider({ animeStatus, token, id, episodes, nextEpisode, children }: Props) {
+export function AnimeStatusProvider({ animeStatus, isAuthenticated, id, episodes, nextEpisode, children }: Props) {
     const [status, setStatus] = useState<Status | null>(null);
     const [score, setScore] = useState<number>(0);
     const [numEpisodes, setNumEpisodes] = useState<number>(0);
@@ -53,21 +53,21 @@ export function AnimeStatusProvider({ animeStatus, token, id, episodes, nextEpis
     }, [animeStatus, episodes, nextEpisode]);
 
     const sync = async (newStatus: Status, newScore: number, newEpisodes: number) => {
-        if (!token) return;
+        if (!isAuthenticated) return;
         setLoading(true);
         setStatus(newStatus);
         let ne = newEpisodes;
         if (newStatus === "completed" && total > 0) ne = total;
-        await modifyAnimeToList(token, id, newStatus, newScore, ne);
+        await modifyAnimeToList(id, newStatus, newScore, ne);
         setNumEpisodes(ne);
         if (total > 0) setWatched(Array.from({ length: total }, (_, i) => i < ne));
         setLoading(false);
     };
 
     const handleAdd = async () => {
-        if (!token) return;
+        if (!isAuthenticated) return;
         setLoading(true);
-        const res = await addAnimeToList(token, id);
+        const res = await addAnimeToList(id);
         if (res) {
             setStatus(res.status);
             setScore(res.score);

@@ -14,6 +14,7 @@ export const getTopSeasonAnime = async (): Promise<AnimeTopSeason | null> => {
             },
         });
 
+        if (response.status === 204) return null;
         if (!response.ok) {
             throw new Error(`Error status: ${response.status}`);
         }

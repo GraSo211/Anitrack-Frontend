@@ -123,7 +123,7 @@ export default async function page() {
                         <AiringAnimeDay
                             animes={animes}
                             userAnimeList={userAnimeList}
-                            token={token ?? undefined}
+                            isAuthenticated={Boolean(token)}
                         />
                     </Suspense>
                 )}

@@ -11,7 +11,7 @@ interface Props {
     title: string;
     id: number;
     episode: number;
-    token?: string;
+    isAuthenticated?: boolean;
     idMal?: number | null;
     inList?: boolean;
     episodesWatched?: number | null;
@@ -25,7 +25,7 @@ export default function AnimeLi({
     title,
     id,
     episode,
-    token,
+    isAuthenticated,
     idMal,
     inList = false,
     episodesWatched,
@@ -59,7 +59,7 @@ export default function AnimeLi({
             </Link>
             {nextEpisode && (
                 <MarkPreviousEpisodeButton
-                    token={token}
+                    isAuthenticated={isAuthenticated}
                     idMal={idMal}
                     inList={inList}
                     episodesWatched={episodesWatched}

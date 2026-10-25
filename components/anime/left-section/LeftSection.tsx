@@ -41,7 +41,6 @@ interface Props {
             relatedTitle: string;
             relatedImage: string;
         }[];
-        empty: boolean;
     };
 }
 
@@ -122,7 +121,7 @@ export default function LeftSection({ coverImage, title, studio, source, episode
                 )}
             </div>
                         {/* Related anime */}
-            {relations && !relations.empty && relations.items.length > 0 && (
+            {relations && relations.items.length > 0 && (
                 <section className="flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold text-text-primary mb-4">Animes relacionados</h2>
 

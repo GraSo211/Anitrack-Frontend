@@ -18,11 +18,11 @@ import {
 export default function AnimeWeek({
     animes,
     userAnimeList,
-    token,
+    isAuthenticated,
 }: {
     animes: AnimeReleasing[] | undefined;
     userAnimeList?: AnimeList | null;
-    token?: string;
+    isAuthenticated?: boolean;
 }) {
     const [mode, setMode] = useState<CalendarFilterMode>("all");
 
@@ -119,7 +119,7 @@ export default function AnimeWeek({
                                                 anime.title.english ||
                                                 "Título Desconocido"
                                             }
-                                            token={token}
+                                            isAuthenticated={isAuthenticated}
                                             idMal={anime.idMal}
                                             inList={!!item}
                                             episodesWatched={

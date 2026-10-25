@@ -141,7 +141,7 @@ describe("AnimeWeek", () => {
             <AnimeWeek
                 animes={animes}
                 userAnimeList={makeUserList([100])}
-                token="token"
+                isAuthenticated
             />,
         );
 
@@ -153,7 +153,6 @@ describe("AnimeWeek", () => {
 
         await waitFor(() =>
             expect(mockedModify).toHaveBeenCalledWith(
-                "token",
                 100,
                 "watching",
                 0,

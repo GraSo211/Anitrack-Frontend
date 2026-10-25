@@ -41,7 +41,7 @@ export default function AnimeCard({
     anime.coverImage?.extraLarge ||
     anime.coverImage?.large ||
     anime.coverImage?.medium ||
-    "/coverImagePlaceholder.jpg";
+    "/coverImagePlaceholder.png";
 
   const title = anime.title.romaji || anime.title.english || "Sin título";
 

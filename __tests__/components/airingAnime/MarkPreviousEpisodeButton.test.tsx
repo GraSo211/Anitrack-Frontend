@@ -44,7 +44,7 @@ describe("MarkPreviousEpisodeButton", () => {
     it("renders nothing when there is no previous episode", () => {
         render(
             <MarkPreviousEpisodeButton
-                token="token"
+                isAuthenticated
                 idMal={100}
                 inList={false}
                 status="watching"
@@ -59,7 +59,7 @@ describe("MarkPreviousEpisodeButton", () => {
     it("renders nothing when idMal is missing", () => {
         render(
             <MarkPreviousEpisodeButton
-                token="token"
+                isAuthenticated
                 idMal={null}
                 inList={false}
                 status="watching"
@@ -74,7 +74,7 @@ describe("MarkPreviousEpisodeButton", () => {
     it("marks the previous episode for an anime already in the list", async () => {
         render(
             <MarkPreviousEpisodeButton
-                token="token"
+                isAuthenticated
                 idMal={100}
                 inList
                 episodesWatched={3}
@@ -92,7 +92,6 @@ describe("MarkPreviousEpisodeButton", () => {
 
         await waitFor(() =>
             expect(mockedModify).toHaveBeenCalledWith(
-                "token",
                 100,
                 "watching",
                 7,
@@ -110,7 +109,7 @@ describe("MarkPreviousEpisodeButton", () => {
     it("adds to the list first when the anime is not followed", async () => {
         render(
             <MarkPreviousEpisodeButton
-                token="token"
+                isAuthenticated
                 idMal={200}
                 inList={false}
                 status="watching"
@@ -126,15 +125,15 @@ describe("MarkPreviousEpisodeButton", () => {
         );
 
         await waitFor(() =>
-            expect(mockedAdd).toHaveBeenCalledWith("token", 200),
+            expect(mockedAdd).toHaveBeenCalledWith(200),
         );
-        expect(mockedModify).toHaveBeenCalledWith("token", 200, "watching", 0, 5);
+        expect(mockedModify).toHaveBeenCalledWith(200, "watching", 0, 5);
     });
 
     it("is disabled when already up to date", () => {
         render(
             <MarkPreviousEpisodeButton
-                token="token"
+                isAuthenticated
                 idMal={100}
                 inList
                 episodesWatched={5}

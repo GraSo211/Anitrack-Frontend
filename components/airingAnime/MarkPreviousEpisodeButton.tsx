@@ -6,7 +6,7 @@ import { addAnimeToList } from "@/actions/anime-list/addAnimeToList";
 import { modifyAnimeToList } from "@/actions/anime-list/modifyAnimeToList";
 
 interface Props {
-    token?: string;
+    isAuthenticated?: boolean;
     idMal?: number | null;
     inList: boolean;
     episodesWatched?: number | null;
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function MarkPreviousEpisodeButton({
-    token,
+    isAuthenticated,
     idMal,
     inList,
     episodesWatched,
@@ -32,21 +32,20 @@ export default function MarkPreviousEpisodeButton({
         inList ? (episodesWatched ?? 0) : null,
     );
 
-    if (!token || !idMal || target < 1) return null;
+    if (!isAuthenticated || !idMal || target < 1) return null;
 
     const upToDate = watchedUpTo != null && watchedUpTo >= target;
 
     const handleMark = async () => {
-        if (marking || upToDate || !token || !idMal) return;
+        if (marking || upToDate || !isAuthenticated || !idMal) return;
         setMarking(true);
         try {
             if (!inList) {
-                const added = await addAnimeToList(token, idMal);
+                const added = await addAnimeToList(idMal);
                 if (!added) throw new Error("add failed");
             }
             const newNum = Math.max(watchedUpTo ?? 0, target);
             const res = await modifyAnimeToList(
-                token,
                 idMal,
                 inList ? status : "watching",
                 inList ? score : 0,

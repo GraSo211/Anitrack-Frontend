@@ -13,6 +13,14 @@ interface Props {
   tags: Tag[] | null;
 }
 
+const statusLabels: Record<string, string> = {
+  watching: "Viendo",
+  completed: "Completado",
+  on_hold: "En espera",
+  dropped: "Abandonado",
+  plan_to_watch: "Planeado",
+};
+
 export default function AnimeListWithFilters({ animeList, genres, tags }: Props) {
   const [genreSelected, setGenre] = useState<string[]>([]);
   const [tagSelected, setTag] = useState<string[]>([]);
@@ -35,8 +43,8 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
         return false;
       }
 
-      if (yearSelected && item.seasonYear !== null) {
-        if (item.seasonYear.toString() !== yearSelected) return false;
+      if (yearSelected && item.seasonYear?.toString() !== yearSelected) {
+        return false;
       }
 
       if (statusSelected && item.animeStatus !== statusSelected) {
@@ -92,7 +100,7 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
                 </div>
 
                 <div className="text-xs text-text-muted">
-                  {anime.status}
+                  {statusLabels[anime.status] ?? anime.status}
                 </div>
               </div>
             </Link>

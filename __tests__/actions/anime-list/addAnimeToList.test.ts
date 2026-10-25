@@ -1,5 +1,6 @@
 import { addAnimeToList } from '@/actions/anime-list/addAnimeToList';
 import { AnimeStatus } from '@/types/anime/Anime';
+import { cookies } from 'next/headers';
 
 const mockAnimeStatus: AnimeStatus = {
   status: 'watching',
@@ -12,6 +13,7 @@ describe('addAnimeToList', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     global.fetch = jest.fn();
+    (cookies as jest.Mock).mockResolvedValue({ get: () => ({ value: 'test-token' }) });
   });
 
   it('should add anime to list successfully', async () => {
@@ -20,7 +22,7 @@ describe('addAnimeToList', () => {
       json: async () => mockAnimeStatus,
     });
 
-    const result = await addAnimeToList('test-token', 1);
+    const result = await addAnimeToList(1);
 
     expect(result).toEqual(mockAnimeStatus);
     expect(global.fetch).toHaveBeenCalledWith(
@@ -41,7 +43,7 @@ describe('addAnimeToList', () => {
       status: 401,
     });
 
-    const result = await addAnimeToList('invalid-token', 1);
+    const result = await addAnimeToList(1);
 
     expect(result).toBeNull();
   });
@@ -49,7 +51,7 @@ describe('addAnimeToList', () => {
   it('should return null on network error', async () => {
     (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
 
-    const result = await addAnimeToList('test-token', 1);
+    const result = await addAnimeToList(1);
 
     expect(result).toBeNull();
   });
@@ -58,7 +60,7 @@ describe('addAnimeToList', () => {
     const originalUrl = process.env.BACKEND_URL;
     process.env.BACKEND_URL = '';
 
-    const result = await addAnimeToList('test-token', 1);
+    const result = await addAnimeToList(1);
 
     expect(result).toBeNull();
 

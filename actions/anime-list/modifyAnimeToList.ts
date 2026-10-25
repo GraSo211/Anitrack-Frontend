@@ -1,13 +1,19 @@
 "use server";
 
 import { AnimeStatus } from "@/types/anime/Anime";
+import { cookies } from "next/headers";
 import { SiCoolermaster } from "react-icons/si";
 
-export const modifyAnimeToList = async (token:string, id: number, status:string|null,score:number, numEpisodes:number) => {
+export const modifyAnimeToList = async (id: number, status: string, score: number, numEpisodes: number) => {
     if (!process.env.BACKEND_URL) {
         console.error("BACKEND_URL no está definida");
         return null;
     }
+
+    if (!id) return null;
+
+    const token = (await cookies()).get("access_token")?.value;
+    if (!token) return null;
 
     const body={
         "status":status,
