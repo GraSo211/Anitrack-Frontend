@@ -17,7 +17,7 @@ const EyeIcon = ({ watched }: { watched: boolean }) => (
         strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-text-secondary"
+        className={`transition-colors ${watched ? "text-accent-primary" : "text-text-secondary"}`}
         aria-hidden="true"
     >
         {watched ? (
@@ -37,7 +37,7 @@ const EyeIcon = ({ watched }: { watched: boolean }) => (
 
 export default function Episodes({ episodeNumber, watched, onToggle }: Props) {
     return (
-        <li className={`border-b w-full flex p-1 gap-2 items-center justify-between border-border-default ${watched ? "opacity-60" : ""}`}>
+        <li className={`border-b w-full flex p-1 gap-2 items-center justify-between border-border-default transition-opacity duration-fast ${watched ? "opacity-60" : ""}`}>
             <button
                 onClick={onToggle}
                 className="flex-1 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded px-1"
@@ -51,7 +51,7 @@ export default function Episodes({ episodeNumber, watched, onToggle }: Props) {
             <button
                 onClick={onToggle}
                 aria-label={watched ? `Marcar capítulo ${episodeNumber} como no visto` : `Marcar capítulo ${episodeNumber} como visto`}
-                className="hover:scale-x-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded p-1"
+                className="hover:scale-x-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded p-1 transition-transform duration-fast"
             >
                 <EyeIcon watched={watched} />
             </button>

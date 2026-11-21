@@ -3,7 +3,7 @@
 Quick orientation for agents working in this repo. Skip generic Next.js / TypeScript guidance — this file is only the stuff that's hard to infer from filenames.
 
 ## Stack
-- **Next.js 16.1.6** App Router + React 19, TypeScript, Tailwind v4
+- **Next.js 16.4.6** App Router + React 19.3, TypeScript, Tailwind v4
 - **State**: Zustand stores in `stores/` (user, sidebar, theme)
 - **Data fetching**: server actions in `actions/` (every file starts with `"use server"`)
 - **Forms**: react-hook-form; **UI icons**: react-icons
@@ -14,14 +14,15 @@ Quick orientation for agents working in this repo. Skip generic Next.js / TypeSc
 ## Commands
 | Task | Command |
 |---|---|
-| Install | `pnpm install` (lockfile present; also `package-lock.json` exists — project switched mid-flight, prefer pnpm) |
+| Install | `pnpm install` (pnpm is the only lockfile) |
 | Dev server | `pnpm dev` (Turbopack) |
 | Build | `pnpm build` |
 | Typecheck | `npx tsc --noEmit` |
-| **Lint** | `npx eslint .` — **`npm run lint` is broken in Next 16** (the deprecated `next lint` script errors out with "no such directory: lint") |
+| **Lint** | `npx eslint .` (or `pnpm lint`) — flat config in `eslint.config.mjs` |
 | Test all | `pnpm test` |
 | Test one file | `npx jest <path-to.test.ts>` |
 | Test pattern | `npx jest <regex>` |
+| Screenshot | `pnpm screenshot <url> [out.png]` — flags: `--selector=#id`, `--screen`, `--width=`, `--height=`, `--scheme=light\|dark`, `--full`, `--scale=2`, `--hide=<sel1,sel2>`, `--wait=ms`. Default: `http://localhost:3000`, dark, 1440x900, guarda en `/tmp/opencode/screenshots/`. Primera vez: `npx playwright install chromium`. |
 
 Recommended pre-commit order: `npx tsc --noEmit && npx eslint . && npx jest`.
 
@@ -57,7 +58,7 @@ __tests__/             mirrors source tree
 ## Styling
 - Tailwind v4 (PostCSS plugin `@tailwindcss/postcss`). No `tailwind.config.*` — theme is defined in `app/globals.css` via CSS variables and the `@theme` directive. Tokens: `bg-bg-secondary`, `text-text-primary`, `border-border-default`, `accent-primary`, etc.
 - Font: Montserrat, applied globally in `app/layout.tsx`.
-- Use `next/image` with `fill` + `sizes` for remote covers. `next.config.ts` whitelists `s4.anilist.co`, `cdn.myanimelist.net`, `i.ytimg.com`. New image hosts require editing that file.
+- Use `next/image` with `fill` + `sizes` for remote covers. The optimizer is disabled (`images.unoptimized: true`); keep the component for layout, lazy loading and preload. `next.config.ts` whitelists `s4.anilist.co`, `cdn.myanimelist.net`, `i.ytimg.com`. New image hosts require editing that file.
 - Fallback cover: `/coverImagePlaceholder.png` (not `.jpg` — the README and some comments are wrong; trust the actual imports).
 
 ## Calendar / airing schedule feature
@@ -89,3 +90,13 @@ Both server components fetch `getReleasingAnimes()` + (if `access_token` exists)
 - Commit messages: short, lowercase, often no scope/prefix (e.g. `aesthetic changes`, `refactor: update import paths for anime and user types`). Don't invent Conventional Commits.
 - No pre-commit hooks, no Husky, no lint-staged.
 - Push needs SSH; the `origin` remote was switched to `git@github.com:GraSo211/Anitrack-Frontend.git`. HTTPS push prompts fail in this environment.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

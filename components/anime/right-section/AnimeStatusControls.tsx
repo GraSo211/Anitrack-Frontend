@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useAnimeStatus } from "./AnimeStatusContext";
 import { Status } from "@/types/anime/Anime";
 import { FaStar } from "react-icons/fa";
@@ -17,6 +18,21 @@ const selectBase =
 
 export default function AnimeStatusControls() {
     const { status, score, numEpisodes, loading, total, handleAdd, sync } = useAnimeStatus();
+    const [episodeDraft, setEpisodeDraft] = useState(String(numEpisodes));
+
+    useEffect(() => {
+        setEpisodeDraft(String(numEpisodes));
+    }, [numEpisodes]);
+
+    const commitEpisodes = () => {
+        const parsed = parseInt(episodeDraft, 10);
+        let clamped = Number.isNaN(parsed) ? 0 : parsed;
+        clamped = Math.max(clamped, 0);
+        if (total > 0) clamped = Math.min(clamped, total);
+
+        setEpisodeDraft(String(clamped));
+        if (status && clamped !== numEpisodes) sync(status, score, clamped);
+    };
 
     if (!status) {
         return (
@@ -71,21 +87,21 @@ export default function AnimeStatusControls() {
 
             <div className="flex items-center gap-2 bg-bg-tertiary border border-border-default px-3 py-1.5 rounded-lg">
                 <span className="text-sm text-text-secondary">Episodios Vistos</span>
-                <select
-                    value={numEpisodes}
-                    onChange={(e) => {
-                        const newEpisodes = Number(e.target.value);
-                        sync(status, score, newEpisodes);
+                <input
+                    type="number"
+                    value={episodeDraft}
+                    onChange={(e) => setEpisodeDraft(e.target.value)}
+                    onBlur={commitEpisodes}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") commitEpisodes();
                     }}
+                    min={0}
+                    max={total > 0 ? total : undefined}
+                    step={1}
+                    inputMode="numeric"
                     aria-label="Episodios vistos"
-                    className={selectBase}
-                >
-                    {[...Array(total + 1)].map((_, i) => (
-                        <option key={i} value={i}>
-                            {i}
-                        </option>
-                    ))}
-                </select>
+                    className={`${selectBase} w-20`}
+                />
             </div>
         </div>
     );

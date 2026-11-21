@@ -20,9 +20,11 @@ describe('Hero Component', () => {
     const { container } = render(
     <Hero bannerImage={undefined} colorBg={colorBg} />);
 
-    // Should have a div with the background color
-    const coloredDiv = container.querySelector('[style*="background-color: rgb(255, 0, 0)"]');
+    // Should have an animated radial gradient using the fallback color
+    const coloredDiv = container.querySelector('[style*="radial-gradient"]');
     expect(coloredDiv).toBeInTheDocument();
+    const style = coloredDiv?.getAttribute("style") ?? "";
+    expect(style.includes("#ff0000") || style.includes("rgb(255, 0, 0)")).toBe(true);
   });
 
   it('should render nothing when neither banner nor color provided', () => {

@@ -1,14 +1,11 @@
 import React from "react";
 import { cookies } from "next/headers";
 
-import "./Scrollbar.css";
-
 import { getReleasingAnimes } from "@/actions/animes/getReleasingAnimes";
 import { getAnimeList } from "@/actions/anime-list/getAnimeList";
 
 import AnimeWeek from "./AnimeWeek";
 import { AnimeList, AnimeReleasing } from "@/types/anime/Anime";
-import AnimeWeekMobile from "./AnimeWeekMobile";
 import { airingDayKeyFromTimestamp } from "@/utils/airingDays";
 
 const convertTodayEmision = (animes: AnimeReleasing[]) =>
@@ -51,7 +48,7 @@ export default async function AiringAnimeTable() {
     const animes = convertTodayEmision(animesRaw);
 
     return (
-        <div className="w-full relative rounded-lg shadow-lg p-6 flex flex-col items-center">
+        <div className="w-full relative rounded-lg bg-bg-secondary border border-border-default shadow-lg p-6 flex flex-col items-center">
             <h2 className="text-heading-xl font-bold text-text-primary mb-1">
                 Animes{" "}
                 <span className="gradient-text">en emisión</span>
@@ -59,20 +56,11 @@ export default async function AiringAnimeTable() {
             <p className="mb-2 text-body-sm text-text-secondary">
                 Seguí los estrenos semanales de tus series favoritas
             </p>
-            <div className="hidden lg:flex">
-                <AnimeWeek
-                    animes={animes}
-                    userAnimeList={userAnimeList}
-                    isAuthenticated={Boolean(token)}
-                ></AnimeWeek>
-            </div>
-            <div className="flex w-full lg:hidden">
-                <AnimeWeekMobile
-                    animes={animes}
-                    userAnimeList={userAnimeList}
-                    isAuthenticated={Boolean(token)}
-                ></AnimeWeekMobile>
-            </div>
+            <AnimeWeek
+                animes={animes}
+                userAnimeList={userAnimeList}
+                isAuthenticated={Boolean(token)}
+            />
         </div>
     );
 }

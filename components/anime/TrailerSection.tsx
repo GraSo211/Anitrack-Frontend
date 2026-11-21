@@ -19,7 +19,7 @@ export default function TrailerSection({ trailer, title }: Props) {
 
     return (
         <section>
-            <Link href={url} target="_blank" aria-label={`Ver trailer de ${title || "anime"}`}>
+            <Link href={url} target="_blank" rel="noopener noreferrer" aria-label={`Ver trailer de ${title || "anime"}`}>
                 <div className="relative w-full max-w-120 aspect-video">
                     <Image
                         src={trailer.thumbnail}

@@ -15,14 +15,14 @@ export default function OpengraphImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0B0B10",
+          background: "#000000",
           gap: 24,
         }}
       >
-        <div style={{ display: "flex", fontSize: 128, fontWeight: 700, color: "#F5F5F7", letterSpacing: -2 }}>
+        <div style={{ display: "flex", fontSize: 128, fontWeight: 700, color: "#F8FAFC", letterSpacing: -2 }}>
           Anitrack
         </div>
-        <div style={{ display: "flex", fontSize: 44, color: "#A0A0B0" }}>
+        <div style={{ display: "flex", fontSize: 44, color: "#94A3B8" }}>
           Tu rastreador de anime
         </div>
       </div>

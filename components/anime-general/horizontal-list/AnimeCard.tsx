@@ -3,6 +3,7 @@
 import { AnimeCard as AnimeCardType } from "@/types/anime/Anime";
 import Link from "next/link";
 import Image from "next/image";
+import { ViewTransition } from "react";
 import { clsx } from "clsx";
 import { FiPlay } from "react-icons/fi";
 
@@ -16,6 +17,7 @@ interface AnimeCardProps {
   };
   /** Tamaño de la tarjeta */
   size?: "sm" | "md" | "lg";
+  viewTransitionName?: string;
 }
 
 /**
@@ -36,6 +38,7 @@ export default function AnimeCard({
   className,
   progress,
   size = "md",
+  viewTransitionName,
 }: AnimeCardProps) {
   const coverUrl =
     anime.coverImage?.extraLarge ||
@@ -64,7 +67,7 @@ export default function AnimeCard({
       className={clsx(
         "group relative flex flex-col",
         "rounded-xl overflow-hidden",
-        "bg-bg-secondary border border-border-default",
+        "bg-bg-secondary border border-border-default shadow-sm",
         "transition-all duration-normal ease-spring",
         "hover:border-accent-primary/40 hover:shadow-lg",
         "focus-within:border-accent-primary focus-within:shadow-glow",
@@ -76,21 +79,24 @@ export default function AnimeCard({
         href={`/anime/a-${anime.id}`}
         className={clsx(
           "block relative overflow-hidden",
-          "aspect-[2/3]"
+          "aspect-[2/3]",
+          "bg-bg-tertiary"
         )}
         aria-label={`Ver detalles de ${title}`}
       >
         {/* Poster Image */}
-        <Image
-          src={coverUrl}
-          alt={`Portada de ${title}`}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
-          className={clsx(
-            "object-cover transition-transform duration-slower ease-out",
-            "group-hover:scale-105"
-          )}
-        />
+        <ViewTransition name={viewTransitionName}>
+          <Image
+            src={coverUrl}
+            alt={`Portada de ${title}`}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+            className={clsx(
+              "object-cover transition-transform duration-slower ease-out",
+              "group-hover:scale-105"
+            )}
+          />
+        </ViewTransition>
 
         {/* Hover Overlay with Gradient */}
         <div
@@ -108,7 +114,7 @@ export default function AnimeCard({
             className={clsx(
               "inline-flex items-center gap-2",
               "px-4 py-2 rounded-full",
-              "bg-accent-primary text-white",
+              "bg-accent-primary text-text-light",
               "text-caption font-medium",
               "transform translate-y-2 opacity-0",
               "group-hover:translate-y-0 group-hover:opacity-100",

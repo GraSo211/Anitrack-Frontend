@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 function HeroSkeleton() {
     return (
-        <div className="w-full h-162.5 px-6 md:px-16 lg:px-28 flex items-center">
+        <div className="w-full min-h-[calc(100dvh-var(--header-height))] px-6 md:px-16 lg:px-28 flex items-center">
             <div className="flex flex-col gap-4 max-w-3xl w-full">
                 <Skeleton className="h-12 w-64" />
                 <Skeleton className="h-8 w-96" />
@@ -48,7 +48,7 @@ export default async function Home() {
                 </Suspense>
             </section>
 
-            <section className="flex justify-center w-full">
+            <section id="animes-en-emision" className="flex justify-center w-full">
                 <Suspense fallback={<SectionSkeleton lines={2} />}>
                     <AiringAnimeTable />
                 </Suspense>

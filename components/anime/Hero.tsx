@@ -21,13 +21,25 @@ export default function Hero({ bannerImage, title, colorBg }: Props) {
                         preload
                     />
 
-                    <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
+                    <div className="absolute inset-0 bg-linear-to-b from-overlay-dark/70 via-overlay-dark/40 to-overlay-dark/90" />
 
                     <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg-primary to-transparent" />
                 </>
             )}
             {!bannerImage && colorBg && (
-                <div className="absolute saturate-150 inset-0" style={{ backgroundColor: colorBg }} />
+                <>
+                    <div
+                        className="absolute -inset-[10%] animate-breathe pointer-events-none"
+                        style={{
+                            background: `radial-gradient(60% 70% at 30% 30%, ${colorBg}, transparent 70%)`,
+                        }}
+                        aria-hidden="true"
+                    />
+                    <div
+                        className="absolute inset-0 bg-linear-to-b from-bg-primary/70 via-bg-primary/85 to-bg-primary pointer-events-none"
+                        aria-hidden="true"
+                    />
+                </>
             )}
         </div>
     );

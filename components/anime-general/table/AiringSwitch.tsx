@@ -11,7 +11,11 @@ export default function AiringSwitch({ onChange }: { onChange?: (value: string) 
 
 
   return (
-    <div className="relative flex w-fit p-1 bg-bg-tertiary rounded-xl shadow-inner border border-border-default">
+    <div
+      role="group"
+      aria-label="Filtrar calendario"
+      className="relative flex w-fit p-1 bg-bg-tertiary rounded-xl shadow-inner border border-border-default"
+    >
       <div
         className={`
           absolute top-1 bottom-1 rounded-lg bg-accent-primary/20 transition-all duration-300 ease-out

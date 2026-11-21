@@ -121,6 +121,16 @@ export default function Search() {
 
   return (
     <div ref={wrapperRef} className="relative w-full">
+      <div role="status" aria-live="polite" className="sr-only">
+        {isLoading
+          ? "Buscando animes…"
+          : isOpen && animes
+            ? animes.length === 0
+              ? "Sin resultados"
+              : `${animes.length} resultados`
+            : ""}
+      </div>
+
       {/* Search Input */}
       <div
         className={clsx(
@@ -201,7 +211,8 @@ export default function Search() {
             "bg-bg-secondary border border-t-0 border-accent-primary",
             "rounded-b-xl rounded-t-none",
             "shadow-xl overflow-hidden z-50",
-            "max-h-[28rem] overflow-y-auto"
+            "max-h-[28rem] overflow-y-auto",
+            "animate-fade-in"
           )}
         >
           {animes.length > 0 ? (

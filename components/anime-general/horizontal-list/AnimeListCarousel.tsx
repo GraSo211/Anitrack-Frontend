@@ -63,6 +63,7 @@ export default function AnimeListCarousel({ animes }: Props) {
             </div>
             )}
             <Swiper
+                className="anime-carousel"
                 onSwiper={setSwiperInstance}
                 modules={[Autoplay, Navigation]}
                 slidesPerView={3}

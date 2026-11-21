@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import ConfigSelector from './ConfigSelector';
 import { ADMINSELECTOR } from '@/types/admin/AdminSelector';
 
-export default function () {
-    const [selector, useSelector] = useState<ADMINSELECTOR>("dashboard");
+export default function AdminLayout() {
+    const [selector, setSelector] = useState<ADMINSELECTOR>("dashboard");
     return (
         <div className=' h-full flex '>
             <section className='flex flex-col h-full border-border-default border-r mt-3  justify-start w-40 xl:w-60  '>
@@ -14,10 +14,10 @@ export default function () {
                 </span>
                 <div className='pl-3'>
                     <ul className='flex flex-col gap-2 mt-3'>
-                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer' ><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => useSelector("dashboard")}>Dashboard</button></li>
-                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer'><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => useSelector("hero")}>Hero Images</button></li>
-                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer'><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => useSelector("users")}>Usuarios</button></li>
-                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer'><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => useSelector("configuration")}>Configuracion</button></li>
+                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer' ><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => setSelector("dashboard")}>Dashboard</button></li>
+                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer'><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => setSelector("hero")}>Hero Images</button></li>
+                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer'><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => setSelector("users")}>Usuarios</button></li>
+                        <li className='text-sm text-text-secondary hover:text-text-primary cursor-pointer'><button className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded' onClick={() => setSelector("configuration")}>Configuracion</button></li>
                     </ul>
                 </div>
 

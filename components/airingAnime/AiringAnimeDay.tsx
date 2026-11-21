@@ -176,7 +176,7 @@ export default function AiringAnimeDay({
                                         border transition-all duration-200 shrink-0
                                         ${
                                             isActive
-                                                ? "bg-linear-to-b from-accent-primary to-accent-secondary text-text-inverse border-accent-primary shadow-glow"
+                                                ? "bg-linear-to-b from-accent-primary to-accent-secondary text-text-light border-accent-primary shadow-glow"
                                                 : "bg-bg-secondary text-text-secondary border-border-default hover:bg-bg-tertiary hover:text-text-primary"
                                         }
                                         ${
@@ -189,7 +189,7 @@ export default function AiringAnimeDay({
                                     <span
                                         className={`text-caption font-semibold leading-none uppercase ${
                                             isActive
-                                                ? "text-text-inverse"
+                                                ? "text-text-light"
                                                 : "text-text-tertiary"
                                         }`}
                                     >
@@ -198,7 +198,7 @@ export default function AiringAnimeDay({
                                     <span
                                         className={`text-lg font-bold leading-tight ${
                                             isActive
-                                                ? "text-text-inverse"
+                                                ? "text-text-light"
                                                 : "text-text-primary"
                                         }`}
                                     >
@@ -207,7 +207,7 @@ export default function AiringAnimeDay({
                                     <span
                                         className={`text-caption font-semibold leading-none mt-0.5 ${
                                             isActive
-                                                ? "text-text-inverse/80"
+                                                ? "text-text-light/80"
                                                 : count > 0
                                                   ? "text-accent-primary"
                                                   : "text-text-muted"
@@ -290,7 +290,7 @@ export default function AiringAnimeDay({
                                 )}
 
                                 {inList && (
-                                    <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-status-success/90 px-1.5 py-0.5 text-caption font-semibold text-white backdrop-blur-sm">
+                                    <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-status-success/90 px-1.5 py-0.5 text-caption font-semibold text-text-light backdrop-blur-sm">
                                         <FiCheck aria-hidden="true" />
                                         En tu lista
                                     </span>
@@ -360,7 +360,7 @@ export default function AiringAnimeDay({
                     </p>
                     <Link
                         href="/animes"
-                        className="inline-flex h-9 items-center justify-center px-4 text-caption font-medium rounded-md bg-accent-primary text-white hover:bg-accent-primary-hover transition-all"
+                        className="inline-flex h-9 items-center justify-center px-4 text-caption font-medium rounded-md bg-accent-primary text-text-light hover:bg-accent-primary-hover transition-all"
                     >
                         Explorar catálogo
                     </Link>

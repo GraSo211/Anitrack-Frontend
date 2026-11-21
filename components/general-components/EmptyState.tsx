@@ -20,7 +20,7 @@ export default function EmptyState({
     <div
       role="status"
       className={clsx(
-        "flex flex-col items-center justify-center gap-3 rounded-xl border border-border-subtle bg-bg-secondary px-6 py-12 text-center",
+        "flex flex-col items-center justify-center gap-3 rounded-xl border border-border-subtle bg-bg-secondary px-6 py-12 text-center animate-fade-in-up",
         className
       )}
     >

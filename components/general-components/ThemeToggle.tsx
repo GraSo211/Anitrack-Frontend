@@ -170,7 +170,7 @@ export default function ThemeToggle({
           "flex items-center gap-2",
           "px-4 py-2.5 rounded-lg",
           "text-body-sm font-medium",
-          "bg-accent-primary text-white",
+          "bg-accent-primary text-text-light",
           "hover:bg-accent-primary-hover",
           "shadow-md hover:shadow-glow",
           "transition-all duration-fast ease-out",

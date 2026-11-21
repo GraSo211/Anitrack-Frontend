@@ -51,16 +51,25 @@ const makeUserList = (ids: number[]): AnimeList => ({
     })),
 });
 
+const selectDay = (label: string) => {
+    fireEvent.click(screen.getByRole("tab", { name: new RegExp(label, "i") }));
+};
+
 describe("AnimeWeek", () => {
-    it("renders all animes grouped by day", () => {
+    it("only renders animes for the selected day", () => {
         const animes = [
             makeAnime(1, 100, "Naruto", "friday"),
             makeAnime(2, 200, "Bleach", "monday"),
         ];
         render(<AnimeWeek animes={animes} />);
 
+        selectDay("Viernes");
         expect(screen.getByText("Naruto")).toBeInTheDocument();
+        expect(screen.queryByText("Bleach")).not.toBeInTheDocument();
+
+        selectDay("Lunes");
         expect(screen.getByText("Bleach")).toBeInTheDocument();
+        expect(screen.queryByText("Naruto")).not.toBeInTheDocument();
     });
 
     it("hides the toggle when userAnimeList is null", () => {
@@ -80,7 +89,12 @@ describe("AnimeWeek", () => {
 
     it("shows the toggle when userAnimeList has entries", () => {
         const animes = [makeAnime(1, 100, "Naruto", "friday")];
-        render(<AnimeWeek animes={animes} userAnimeList={makeUserList([100])} />);
+        render(
+            <AnimeWeek
+                animes={animes}
+                userAnimeList={makeUserList([100])}
+            />,
+        );
 
         expect(screen.getByText("Todos los animes")).toBeInTheDocument();
         expect(screen.getByText("Animes que sigo")).toBeInTheDocument();
@@ -99,15 +113,18 @@ describe("AnimeWeek", () => {
             />,
         );
 
+        selectDay("Viernes");
+
         expect(screen.getByText("Naruto")).toBeInTheDocument();
         expect(screen.getByText("Bleach")).toBeInTheDocument();
-        expect(screen.getByText("One Piece")).toBeInTheDocument();
 
         fireEvent.click(screen.getByText("Animes que sigo"));
 
         expect(screen.getByText("Naruto")).toBeInTheDocument();
         expect(screen.queryByText("Bleach")).not.toBeInTheDocument();
-        expect(screen.getByText("One Piece")).toBeInTheDocument();
+        expect(
+            screen.getByRole("tab", { name: /viernes/i }),
+        ).toHaveAccessibleName(/1 estreno/i);
     });
 
     it("returns to the full list when 'all' is selected again", () => {
@@ -121,6 +138,8 @@ describe("AnimeWeek", () => {
                 userAnimeList={makeUserList([100])}
             />,
         );
+
+        selectDay("Viernes");
 
         fireEvent.click(screen.getByText("Animes que sigo"));
         expect(screen.queryByText("Bleach")).not.toBeInTheDocument();
@@ -145,6 +164,8 @@ describe("AnimeWeek", () => {
             />,
         );
 
+        selectDay("Viernes");
+
         fireEvent.click(
             screen.getByRole("button", {
                 name: "Marcar episodio 5 como visto",
@@ -159,5 +180,43 @@ describe("AnimeWeek", () => {
                 5,
             ),
         );
+    });
+
+    it("shows a designed empty state when the selected day has no releases", () => {
+        const animes = [makeAnime(1, 100, "Naruto", "friday")];
+        render(<AnimeWeek animes={animes} />);
+
+        selectDay("Lunes");
+
+        expect(screen.queryByText("Naruto")).not.toBeInTheDocument();
+        expect(
+            screen.getByText("No hay animes programados para este día"),
+        ).toBeInTheDocument();
+    });
+
+    it("shows the empty state message for mine mode when the day has no followed releases", () => {
+        const animes = [
+            makeAnime(1, 100, "Naruto", "friday"),
+            makeAnime(2, 200, "Bleach", "friday"),
+        ];
+        render(
+            <AnimeWeek
+                animes={animes}
+                userAnimeList={makeUserList([100])}
+            />,
+        );
+
+        selectDay("Viernes");
+        fireEvent.click(screen.getByText("Animes que sigo"));
+
+        expect(screen.getByText("Naruto")).toBeInTheDocument();
+
+        selectDay("Lunes");
+
+        expect(
+            screen.getByText(
+                "No tenés animes en emisión en tu lista para este día",
+            ),
+        ).toBeInTheDocument();
     });
 });

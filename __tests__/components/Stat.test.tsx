@@ -26,7 +26,7 @@ describe('Stat Component', () => {
     const { container } = render(<Stat label="Test" value={10} clickable />);
 
     // Check if the element has hover styles applied
-    expect(container.firstChild).toHaveClass('hover:bg-white/10');
+    expect(container.firstChild).toHaveClass('hover:bg-text-primary/10');
     expect(container.firstChild).toHaveClass('cursor-pointer');
   });
 

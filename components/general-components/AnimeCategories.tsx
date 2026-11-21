@@ -2,15 +2,14 @@ import React from "react";
 
 import { getSeasonTrendAnimes } from "@/actions/animes/categories/getSeasonTrendAnimes";
 import { getUpcomingAnimeReleases } from "@/actions/animes/categories/getUpcomingAnimeReleases";
-import { getMostValoratedAnimes } from "@/actions/animes/categories/getMostValoratedAnimes";
 import { getAnimesByGenre } from "@/actions/animes/categories/getAnimesByGenre";
 import { AnimeCard } from "@/types/anime/Anime";
-import AnimeList from "../anime-general/horizontal-list/AnimeList";
+import AnimeList from "@/components/anime-general/horizontal-list/AnimeList";
+import DiscoverSection from "@/components/anime-general/discover/DiscoverSection";
 
 export default async function AnimeCategories() {
     const seasonTrendAnimes: AnimeCard[] | null = await getSeasonTrendAnimes(10);
     const upcomingAnimes: AnimeCard[] | null = await getUpcomingAnimeReleases(10);
-    const mostValoratedAnimes: AnimeCard[] | null = await getMostValoratedAnimes(10);
     const actionAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Action");
     const romanceAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Romance");
     const comedyAnimes: AnimeCard[] | null = await getAnimesByGenre(10,"Comedy");
@@ -21,7 +20,7 @@ export default async function AnimeCategories() {
 
             {upcomingAnimes && <AnimeList category={upcomingAnimes} title="Estrenos más Esperados" />}
 
-            {mostValoratedAnimes && <AnimeList category={mostValoratedAnimes} title="Mejor Valorados de la Historia" />}
+            <DiscoverSection />
 
             {actionAnimes && <AnimeList category={actionAnimes} title="Acción" />}
 

@@ -111,7 +111,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
                   className={clsx(
                     "ml-2 px-4 py-2 rounded-lg",
                     "text-body-sm font-medium text-text-primary",
-                    "bg-accent-primary text-white",
+                    "bg-accent-primary text-text-light",
                     "hover:bg-accent-primary-hover",
                     "shadow-md hover:shadow-glow",
                     "transition-all duration-fast ease-out",

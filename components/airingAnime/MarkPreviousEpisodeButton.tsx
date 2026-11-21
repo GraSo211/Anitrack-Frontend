@@ -28,6 +28,7 @@ export default function MarkPreviousEpisodeButton({
 }: Props) {
     const target = nextEpisode - 1;
     const [marking, setMarking] = useState(false);
+    const [feedback, setFeedback] = useState<"success" | "error" | null>(null);
     const [watchedUpTo, setWatchedUpTo] = useState<number | null>(
         inList ? (episodesWatched ?? 0) : null,
     );
@@ -53,8 +54,10 @@ export default function MarkPreviousEpisodeButton({
             );
             if (!res) throw new Error("modify failed");
             setWatchedUpTo(newNum);
+            setFeedback("success");
         } catch (error) {
             console.error("Fallo al marcar episodio:", error);
+            setFeedback("error");
         } finally {
             setMarking(false);
         }
@@ -64,6 +67,7 @@ export default function MarkPreviousEpisodeButton({
         <button
             type="button"
             onClick={handleMark}
+            onAnimationEnd={() => setFeedback(null)}
             disabled={marking || upToDate}
             aria-label={
                 upToDate
@@ -72,9 +76,15 @@ export default function MarkPreviousEpisodeButton({
             }
             className={`reveal-on-hover inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-caption font-semibold backdrop-blur-sm transition-all ${
                 upToDate
-                    ? "bg-status-success/90 text-white cursor-default"
-                    : "bg-accent-primary/90 text-white hover:bg-accent-primary-hover cursor-pointer active:scale-95"
-            } ${marking ? "opacity-60" : ""} ${className ?? ""}`}
+                    ? "bg-status-success/90 text-text-light cursor-default"
+                    : "bg-accent-primary/90 text-text-light hover:bg-accent-primary-hover cursor-pointer active:scale-95"
+            } ${marking ? "opacity-60" : ""} ${
+                feedback === "success"
+                    ? "animate-pop"
+                    : feedback === "error"
+                      ? "animate-shake"
+                      : ""
+            } ${className ?? ""}`}
         >
             {marking ? (
                 <svg

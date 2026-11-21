@@ -58,7 +58,7 @@ export default function HeroCarousel({ images }: Props) {
 
     return (
         <section
-            className="relative w-full h-162.5 flex items-center px-6 md:px-16 lg:px-28 overflow-hidden"
+            className="relative w-full min-h-[calc(100dvh-var(--header-height))] py-16 md:py-0 flex items-center px-6 md:px-16 lg:px-28 overflow-hidden"
             aria-roledescription="carrusel"
             aria-label="Animes destacados"
             aria-live="polite"
@@ -88,7 +88,7 @@ export default function HeroCarousel({ images }: Props) {
                                     src={image}
                                     alt={`Hero Image ${index + 1}`}
                                     fill
-                                    priority={index === 0}
+                                    preload={index === 0}
                                     loading={index === 0 ? "eager" : "lazy"}
                                     className="object-cover object-center saturate-[1.3] brightness-[0.85]"
                                 />
@@ -109,6 +109,12 @@ export default function HeroCarousel({ images }: Props) {
             {/* Bottom fade into theme background */}
             <div
                 className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-linear-to-t from-bg-primary via-bg-primary/60 to-transparent"
+                aria-hidden="true"
+            />
+
+            {/* Aurora ambient layer */}
+            <div
+                className="absolute inset-0 z-[-5] hero-aurora pointer-events-none"
                 aria-hidden="true"
             />
 
@@ -133,11 +139,14 @@ export default function HeroCarousel({ images }: Props) {
             )}
 
             <div className="flex flex-col gap-4 max-w-3xl">
-                <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl 2xl:text-6xl text-text-primary">
+                <h1
+                    className="text-3xl font-extrabold tracking-tight md:text-5xl 2xl:text-6xl text-text-primary"
+                    aria-label="Anitrack, tu rastreador de anime"
+                >
                     ANITRACK
                 </h1>
 
-                <h2 className="text-xl font-semibold md:text-3xl text-text-primary">
+                <h2 className="text-lg font-semibold md:text-3xl text-text-primary">
                     MANTENTE AL DIA CON TUS SERIES FAVORITAS
                 </h2>
 

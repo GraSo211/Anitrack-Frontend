@@ -54,7 +54,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
           action={
             <Link
               href="/animes"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md text-body-sm font-medium bg-accent-primary text-white hover:bg-accent-primary-hover transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md text-body-sm font-medium bg-accent-primary text-text-light hover:bg-accent-primary-hover transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50"
             >
               Explorar animes
             </Link>

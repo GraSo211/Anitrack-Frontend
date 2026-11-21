@@ -9,6 +9,7 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 import { FiAlertTriangle, FiCalendar, FiInbox } from "react-icons/fi";
 import EmptyState from "@/components/general-components/EmptyState";
+import AnimatedNumber from "@/components/general-components/AnimatedNumber";
 import {
     airingDayKeyFromTimestamp,
     todayKey,
@@ -77,7 +78,7 @@ export default async function page() {
                                     Esta semana
                                 </dt>
                                 <dd className="text-heading-md font-bold text-text-primary leading-none mt-1">
-                                    {weekCount}
+                                    <AnimatedNumber value={weekCount} />
                                 </dd>
                             </div>
                             <div className="flex flex-col rounded-xl border border-border-default bg-bg-secondary/60 px-3.5 py-2 min-w-[72px]">
@@ -85,7 +86,7 @@ export default async function page() {
                                     Hoy
                                 </dt>
                                 <dd className="text-heading-md font-bold text-accent-primary leading-none mt-1">
-                                    {todayCount}
+                                    <AnimatedNumber value={todayCount} />
                                 </dd>
                             </div>
                             {userAnimeList ? (
@@ -94,7 +95,7 @@ export default async function page() {
                                         En tu lista
                                     </dt>
                                     <dd className="text-heading-md font-bold text-accent-secondary leading-none mt-1">
-                                        {userAnimeList.animeList.length}
+                                        <AnimatedNumber value={userAnimeList.animeList.length} />
                                     </dd>
                                 </div>
                             ) : null}
@@ -111,7 +112,7 @@ export default async function page() {
                         action={
                             <Link
                                 href="/animes"
-                                className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-white hover:bg-accent-primary-hover transition-all"
+                                className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-text-light hover:bg-accent-primary-hover transition-all"
                             >
                                 Explorar catálogo
                             </Link>
@@ -126,7 +127,7 @@ export default async function page() {
                         action={
                             <Link
                                 href="/animes"
-                                className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-white hover:bg-accent-primary-hover transition-all"
+                                className="inline-flex h-10 items-center justify-center px-4 text-body-sm font-medium rounded-md bg-accent-primary text-text-light hover:bg-accent-primary-hover transition-all"
                             >
                                 Explorar catálogo
                             </Link>

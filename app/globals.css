@@ -8,23 +8,23 @@
 :root {
   /* ----------------------------------------
      SURFACE COLORS (Dark Mode - Default)
-     Deep grays, never pure black
+     Deep navy blacks, coherent blue family
      ---------------------------------------- */
-  --bg-primary: #0B0B10;
-  --bg-secondary: #12121A;
-  --bg-tertiary: #1A1A25;
-  --bg-quaternary: #252532;
-  --bg-quinary: #303040;
+  --bg-primary: #000000;
+  --bg-secondary: #070E1A;
+  --bg-tertiary: #0C1829;
+  --bg-quaternary: #12233A;
+  --bg-quinary: #1A2F4D;
 
   /* ----------------------------------------
      TEXT COLORS (Dark Mode)
      WCAG AAA compliant ratios
      ---------------------------------------- */
   --text-primary: #F8FAFC;
-  --text-secondary: #A1A1AA;
-  --text-tertiary: #71717A;
-  --text-muted: #52525B;
-  --text-inverse: #0B0B10;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+  --text-muted: #475569;
+  --text-inverse: #000000;
 
   /* ----------------------------------------
      BORDER COLORS
@@ -32,52 +32,54 @@
      ---------------------------------------- */
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --border-focus: rgba(99, 102, 241, 0.5);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-focus: rgba(37, 99, 255, 0.5);
 
   /* ----------------------------------------
-     ACCENT COLORS (Indigo-Purple Spectrum)
-     Primary: Indigo 500
-     Secondary: Violet 500
-     Tertiary: Pink 500
+     ACCENT COLORS (Azure-Sky Spectrum)
+     Primary: Blue 500
+     Secondary: Sky 500
+     Tertiary: Cyan 500
      ---------------------------------------- */
-  --accent-primary: #6366F1;
-  --accent-primary-hover: #4F46E5;
-  --accent-primary-active: #4338CA;
-  --accent-primary-subtle: rgba(99, 102, 241, 0.15);
-  --accent-primary-glow: rgba(99, 102, 241, 0.4);
+  --accent-primary: #2563FF;
+  --accent-primary-hover: #3B72FF;
+  --accent-primary-active: #1D4ED8;
+  --accent-primary-subtle: rgba(37, 99, 255, 0.15);
+  --accent-primary-glow: rgba(37, 99, 255, 0.4);
 
-  --accent-secondary: #8B5CF6;
-  --accent-secondary-hover: #7C3AED;
-  --accent-secondary-subtle: rgba(139, 92, 246, 0.15);
+  --accent-secondary: #0EA5E9;
+  --accent-secondary-hover: #0284C7;
+  --accent-secondary-subtle: rgba(14, 165, 233, 0.15);
 
-  --accent-tertiary: #EC4899;
-  --accent-tertiary-hover: #DB2777;
-  --accent-tertiary-subtle: rgba(236, 72, 153, 0.15);
+  --accent-tertiary: #06B6D4;
+  --accent-tertiary-hover: #0891B2;
+  --accent-tertiary-subtle: rgba(6, 182, 212, 0.15);
 
   /* ----------------------------------------
      SEMANTIC COLORS (Status)
      ---------------------------------------- */
   --status-success: #22C55E;
   --status-success-subtle: rgba(34, 197, 94, 0.15);
+  --status-success-hover: #16A34A;
   --status-warning: #F59E0B;
   --status-warning-subtle: rgba(245, 158, 11, 0.15);
   --status-error: #EF4444;
   --status-error-subtle: rgba(239, 68, 68, 0.15);
+  --status-error-hover: #DC2626;
   --status-info: #3B82F6;
   --status-info-subtle: rgba(59, 130, 246, 0.15);
 
   /* ----------------------------------------
      ANIME STATUS COLORS
      ---------------------------------------- */
-  --anime-releasing: #6366F1;
-  --anime-releasing-subtle: rgba(99, 102, 241, 0.15);
+  --anime-releasing: #3B82F6;
+  --anime-releasing-subtle: rgba(59, 130, 246, 0.15);
   --anime-finished: #22C55E;
   --anime-finished-subtle: rgba(34, 197, 94, 0.15);
   --anime-upcoming: #F59E0B;
   --anime-upcoming-subtle: rgba(245, 158, 11, 0.15);
-  --anime-paused: #71717A;
-  --anime-paused-subtle: rgba(113, 113, 122, 0.15);
+  --anime-paused: #64748B;
+  --anime-paused-subtle: rgba(100, 116, 139, 0.15);
   --anime-cancelled: #EF4444;
   --anime-cancelled-subtle: rgba(239, 68, 68, 0.15);
 
@@ -85,12 +87,12 @@
      SHADOWS (Dark Mode)
      Soft, layered shadows
      ---------------------------------------- */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
-  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.55), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.65), 0 8px 10px -6px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 20px rgba(37, 99, 255, 0.4);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.35);
 
   /* ----------------------------------------
      SPACING CONSTANTS
@@ -129,6 +131,14 @@
      ---------------------------------------- */
   --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent-primary);
   --focus-ring-offset: 2px;
+
+  /* ----------------------------------------
+     MEDIA & OVERLAY TOKENS
+     Theme-agnostic helpers for image overlays
+     ---------------------------------------- */
+  --surface-light: #FDFBF6;
+  --overlay-dark: #000000;
+  --text-light: #F8FAFC;
 }
 
 /* ========================================
@@ -136,34 +146,71 @@
    ======================================== */
 
 [data-theme="light"] {
-  /* Surfaces - warmer grays for better contrast */
-  --bg-primary: #F8F9FA;
-  --bg-secondary: #FFFFFF;
-  --bg-tertiary: #ECEEF0;
-  --bg-quaternary: #E2E5E9;
-  --bg-quinary: #D5D9DE;
+  /* Surfaces - warm bone whites with clear hierarchy */
+  --bg-primary: #F2EEE6;
+  --bg-secondary: #FDFBF6;
+  --bg-tertiary: #EAE4DA;
+  --bg-quaternary: #DFD8CC;
+  --bg-quinary: #D1C9BB;
 
   /* Text - stronger contrast */
-  --text-primary: #0D1219;
-  --text-secondary: #374151;
-  --text-tertiary: #4B5563;
-  --text-muted: #6B7280;
+  --text-primary: #0B1220;
+  --text-secondary: #334155;
+  --text-tertiary: #475569;
+  --text-muted: #64748B;
   --text-inverse: #FFFFFF;
 
   /* Borders - more visible */
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-default: rgba(0, 0, 0, 0.15);
-  --border-strong: rgba(0, 0, 0, 0.25);
-  --border-focus: rgba(79, 70, 229, 0.6);
+  --border-subtle: rgba(28, 25, 20, 0.08);
+  --border-default: rgba(28, 25, 20, 0.18);
+  --border-strong: rgba(28, 25, 20, 0.25);
+  --border-focus: rgba(29, 78, 216, 0.6);
 
   /* Shadows - more defined for depth */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.18), 0 8px 10px -6px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 3px rgba(28, 25, 20, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(28, 25, 20, 0.12), 0 2px 4px -2px rgba(28, 25, 20, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(28, 25, 20, 0.16), 0 4px 6px -4px rgba(28, 25, 20, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(28, 25, 20, 0.2), 0 8px 10px -6px rgba(28, 25, 20, 0.12);
 
   /* Focus ring */
   --focus-ring: 0 0 0 2px var(--bg-secondary), 0 0 0 4px var(--accent-primary);
+
+  /* High-contrast accent & semantic colors for light backgrounds (WCAG AA) */
+  --accent-primary: #1D4ED8;
+  --accent-primary-hover: #3B72FF;
+  --accent-primary-active: #1E3A8A;
+  --accent-primary-subtle: rgba(29, 78, 216, 0.15);
+  --accent-primary-glow: rgba(29, 78, 216, 0.35);
+
+  --accent-secondary: #0284C7;
+  --accent-secondary-hover: #0369A1;
+  --accent-secondary-subtle: rgba(2, 132, 199, 0.15);
+
+  --accent-tertiary: #0891B2;
+  --accent-tertiary-hover: #0E7490;
+  --accent-tertiary-subtle: rgba(8, 145, 178, 0.15);
+
+  --status-success: #15803D;
+  --status-success-subtle: rgba(21, 128, 61, 0.15);
+  --status-success-hover: #166534;
+  --status-warning: #B45309;
+  --status-warning-subtle: rgba(180, 83, 9, 0.15);
+  --status-error: #B91C1C;
+  --status-error-subtle: rgba(185, 28, 28, 0.15);
+  --status-error-hover: #991B1B;
+  --status-info: #1D4ED8;
+  --status-info-subtle: rgba(29, 78, 216, 0.15);
+
+  --anime-releasing: #2563EB;
+  --anime-releasing-subtle: rgba(37, 99, 235, 0.15);
+  --anime-finished: #15803D;
+  --anime-finished-subtle: rgba(21, 128, 61, 0.15);
+  --anime-upcoming: #B45309;
+  --anime-upcoming-subtle: rgba(180, 83, 9, 0.15);
+  --anime-paused: #475569;
+  --anime-paused-subtle: rgba(71, 85, 105, 0.15);
+  --anime-cancelled: #B91C1C;
+  --anime-cancelled-subtle: rgba(185, 28, 28, 0.15);
 }
 
 /* ========================================
@@ -184,12 +231,17 @@
   --color-text-tertiary: var(--text-tertiary);
   --color-text-muted: var(--text-muted);
   --color-text-inverse: var(--text-inverse);
+  --color-text-light: var(--text-light);
 
   /* Border colors */
   --color-border-subtle: var(--border-subtle);
   --color-border-default: var(--border-default);
   --color-border-strong: var(--border-strong);
   --color-border-focus: var(--border-focus);
+
+  /* Media & overlay colors */
+  --color-surface-light: var(--surface-light);
+  --color-overlay-dark: var(--overlay-dark);
 
   /* Accent colors */
   --color-accent-primary: var(--accent-primary);
@@ -209,10 +261,12 @@
   /* Semantic colors */
   --color-status-success: var(--status-success);
   --color-status-success-subtle: var(--status-success-subtle);
+  --color-status-success-hover: var(--status-success-hover);
   --color-status-warning: var(--status-warning);
   --color-status-warning-subtle: var(--status-warning-subtle);
   --color-status-error: var(--status-error);
   --color-status-error-subtle: var(--status-error-subtle);
+  --color-status-error-hover: var(--status-error-hover);
   --color-status-info: var(--status-info);
   --color-status-info-subtle: var(--status-info-subtle);
 
@@ -505,13 +559,13 @@ body {
 
 /* Glass effect */
 .glass {
-  background: rgba(18, 18, 26, 0.7);
+  background: color-mix(in srgb, var(--bg-secondary) 72%, transparent);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 [data-theme="light"] .glass {
-  background: rgba(255, 255, 255, 0.8);
+  background: color-mix(in srgb, var(--bg-secondary) 82%, transparent);
 }
 
 /* Gradient text */
@@ -648,9 +702,118 @@ body {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+.animate-shimmer {
+  background-image: linear-gradient(90deg, transparent, var(--bg-quaternary), transparent);
+  background-size: 200% 100%;
+  animation: shimmer calc(var(--duration-slower) * 3) linear infinite;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+.animate-shake {
+  animation: shake 300ms var(--ease-default);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pop {
+  animation: pop 300ms var(--ease-spring);
+}
+
+@keyframes aurora {
+  0% {
+    transform: translate3d(-5%, -5%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(5%, 5%, 0) scale(1.15);
+  }
+}
+
+.hero-aurora {
+  background-image:
+    radial-gradient(circle at 20% 30%, var(--accent-primary-glow), transparent 60%),
+    radial-gradient(circle at 80% 70%, var(--accent-secondary-subtle), transparent 60%);
+  animation: aurora 14s var(--ease-default) infinite alternate;
+  opacity: 0.4;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 12s var(--ease-default) infinite;
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-group(*) {
+  animation-duration: 250ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
 /* ========================================
    SWIPER CAROUSEL OVERRIDES
    ======================================== */
+
+/* Anime list carousel: reserve the final slide width before Swiper hydrates.
+   Mirrors slidesPerView/spaceBetween in AnimeListCarousel.tsx. */
+.anime-carousel .swiper-slide {
+    width: calc((100% - 16px) / 3);
+}
+
+@media (min-width: 768px) {
+    .anime-carousel .swiper-slide {
+        width: calc((100% - 36px) / 4);
+    }
+}
+
+@media (min-width: 1280px) {
+    .anime-carousel .swiper-slide {
+        width: calc((100% - 48px) / 5);
+    }
+}
+
+@media (min-width: 1536px) {
+    .anime-carousel .swiper-slide {
+        width: calc((100% - 60px) / 6);
+    }
+}
 
 .swiper-button-next,
 .swiper-button-prev {

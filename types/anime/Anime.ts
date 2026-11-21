@@ -62,6 +62,11 @@ export type AnimeCard = {
     idMal?: number | null;
     title: { romaji?: string; english?: string };
     coverImage: { extraLarge?: string; large?: string; medium?: string; color?: string };
+    format?: string | null;
+    averageScore?: number | null;
+    genres?: string[] | null;
+    description?: string | null;
+    bannerImage?: string | null;
 };
 
 export type AnimeReleasing = {

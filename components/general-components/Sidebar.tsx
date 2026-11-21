@@ -242,7 +242,7 @@ export default function Sidebar({ isAuthenticated = false }: SidebarProps) {
                   className={clsx(
                     "flex items-center justify-center gap-2",
                     "px-4 py-3 rounded-lg",
-                    "text-body-sm font-medium text-white",
+                    "text-body-sm font-medium text-text-light",
                     "bg-accent-primary hover:bg-accent-primary-hover",
                     "shadow-md hover:shadow-glow",
                     "transition-all duration-fast ease-out",

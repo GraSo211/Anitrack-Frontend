@@ -14,9 +14,10 @@ export default function EpisodesPanel() {
                 <h2 className="text-2xl font-bold text-text-primary">Episodios</h2>
 
                 <button
+                    type="button"
+                    role="switch"
+                    aria-checked={consecutive}
                     onClick={toggleConsecutive}
-                    aria-pressed={consecutive}
-                    aria-label={consecutive ? "Modo consecutivo activo" : "Modo consecutivo inactivo"}
                     className="flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/50 rounded-full"
                 >
                     <span className={`w-10 h-5 rounded-full relative transition ${consecutive ? "bg-accent-primary" : "bg-bg-tertiary"}`}>

@@ -55,7 +55,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // Variant styles - siguendo el Design System
     const variantStyles = {
       primary: clsx(
-        "bg-accent-primary text-white",
+        "bg-accent-primary text-text-light",
         "hover:bg-accent-primary-hover",
         "shadow-md hover:shadow-glow",
         "focus-visible:ring-2 focus-visible:ring-accent-primary/50"
@@ -72,15 +72,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         "focus-visible:ring-2 focus-visible:ring-accent-primary/30"
       ),
       danger: clsx(
-        "bg-status-error text-white",
-        "hover:bg-red-600",
-        "shadow-md hover:shadow-lg hover:shadow-red-500/25",
+        "bg-status-error text-text-light",
+        "hover:bg-status-error-hover",
+        "shadow-md hover:shadow-lg hover:shadow-status-error/25",
         "focus-visible:ring-2 focus-visible:ring-status-error/50"
       ),
       success: clsx(
-        "bg-status-success text-white",
-        "hover:bg-green-600",
-        "shadow-md hover:shadow-lg hover:shadow-green-500/25",
+        "bg-status-success text-text-light",
+        "hover:bg-status-success-hover",
+        "shadow-md hover:shadow-lg hover:shadow-status-success/25",
         "focus-visible:ring-2 focus-visible:ring-status-success/50"
       ),
     };

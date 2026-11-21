@@ -6,7 +6,7 @@ export default function Skeleton({ className, ...props }: HTMLAttributes<HTMLDiv
   return (
     <div
       aria-hidden
-      className={clsx("animate-pulse rounded-md bg-bg-tertiary", className)}
+      className={clsx("animate-shimmer rounded-md bg-bg-tertiary", className)}
       {...props}
     />
   );

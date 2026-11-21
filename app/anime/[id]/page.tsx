@@ -5,6 +5,7 @@ import { getAnimeByAnyId } from "@/actions/anime/getAnimeByAnyId";
 import { getAnimeStatus } from "@/actions/anime-list/getAnimeStatus";
 import { connection } from "next/server";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 import Hero from "@/components/anime/Hero";
 import CoverImage from "@/components/anime/CoverImage";
 import AnimeHeader from "@/components/anime/AnimeHeader";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
     const anime = await getAnime(id);
 
     if (!anime) {
-        return { title: "Anime no encontrado", robots: { index: false, follow: false } };
+        notFound();
     }
 
     const title = anime.title?.romaji || anime.title?.english || "Anime";
@@ -58,11 +59,7 @@ export default async function page({ params }: Props) {
     const anime: Anime | null = await getAnime(id);
 
     if (!anime) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-bg-primary text-text-primary">
-                Error al cargar el anime
-            </div>
-        );
+        notFound();
     }
 
     await connection();
@@ -91,6 +88,7 @@ export default async function page({ params }: Props) {
                                     alt={title || "Desconocido"}
                                     className="w-72 lg:w-full"
                                     sizes="(max-width: 1024px) 300px, 320px"
+                                    viewTransitionName={`anime-cover-${anime.id}`}
                                 />
                             )}
                         </div>

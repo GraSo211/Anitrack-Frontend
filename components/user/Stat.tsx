@@ -12,7 +12,7 @@ export default function Stat({ label, value, clickable }: {
         "p-4 rounded-xl bg-bg-secondary border border-border-default",
         "flex flex-col items-center justify-center",
         "transition",
-        clickable && "hover:bg-white/10 hover:scale-105 cursor-pointer"
+        clickable && "hover:bg-text-primary/10 hover:scale-105 cursor-pointer"
       )}
     >
       <span className="text-2xl font-bold text-text-primary">{value}</span>
