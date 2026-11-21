@@ -219,7 +219,7 @@ export default function AnimeWeek({
                     role="tabpanel"
                     id="day-panel"
                     aria-labelledby="day-heading"
-                    className="flex-1 min-w-0"
+                    className="flex-1 min-w-0 @container"
                 >
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                         <div className="flex items-center gap-2.5">
@@ -253,57 +253,59 @@ export default function AnimeWeek({
                         className="animate-fade-in motion-reduce:animate-none"
                     >
                         {selectedDayAnimes.length > 0 ? (
-                            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-7 xl:grid-cols-10 gap-1.5 sm:gap-2">
-                                {selectedDayAnimes.map((anime, index) => {
-                                    const item =
-                                        anime.idMal != null
-                                            ? watchingMap.get(anime.idMal)
-                                            : undefined;
-                                    return (
-                                        <div
-                                            key={anime.id}
-                                            className="animate-fade-in-up motion-reduce:animate-none"
-                                            style={{
-                                                animationDelay: `${index * 40}ms`,
-                                            }}
-                                        >
-                                            <AnimeLi
-                                                id={anime.id}
-                                                episode={
-                                                    anime.nextAiringEpisode
-                                                        ?.episode ?? 0
-                                                }
-                                                coverImage={
-                                                    anime.coverImage
-                                                        .extraLarge ||
-                                                    anime.coverImage.large ||
-                                                    "/coverImagePlaceholder.png"
-                                                }
-                                                title={
-                                                    anime.title.romaji ||
-                                                    anime.title.english ||
-                                                    "Título Desconocido"
-                                                }
-                                                isAuthenticated={
-                                                    isAuthenticated
-                                                }
-                                                idMal={anime.idMal}
-                                                inList={!!item}
-                                                episodesWatched={
-                                                    item?.episodesWatched
-                                                }
-                                                status={
-                                                    item?.status ?? "watching"
-                                                }
-                                                score={item?.score ?? 0}
-                                                nextEpisode={
-                                                    anime.nextAiringEpisode
-                                                        ?.episode
-                                                }
-                                            />
-                                        </div>
-                                    );
-                                })}
+                            <div className="max-h-[calc(2*(100cqw_-_10px_-_(var(--cols)_-_1)*var(--gap))/var(--cols)*4/3_+_var(--gap))] overflow-y-auto overflow-x-hidden [scrollbar-gutter:stable] [--cols:3] [--gap:6px] sm:[--cols:5] sm:[--gap:8px] lg:[--cols:7] xl:[--cols:10]">
+                                <div className="grid grid-cols-[repeat(var(--cols),minmax(0,1fr))] gap-[var(--gap)]">
+                                    {selectedDayAnimes.map((anime, index) => {
+                                        const item =
+                                            anime.idMal != null
+                                                ? watchingMap.get(anime.idMal)
+                                                : undefined;
+                                        return (
+                                            <div
+                                                key={anime.id}
+                                                className="animate-fade-in-up motion-reduce:animate-none"
+                                                style={{
+                                                    animationDelay: `${index * 40}ms`,
+                                                }}
+                                            >
+                                                <AnimeLi
+                                                    id={anime.id}
+                                                    episode={
+                                                        anime.nextAiringEpisode
+                                                            ?.episode ?? 0
+                                                    }
+                                                    coverImage={
+                                                        anime.coverImage
+                                                            .extraLarge ||
+                                                        anime.coverImage.large ||
+                                                        "/coverImagePlaceholder.png"
+                                                    }
+                                                    title={
+                                                        anime.title.romaji ||
+                                                        anime.title.english ||
+                                                        "Título Desconocido"
+                                                    }
+                                                    isAuthenticated={
+                                                        isAuthenticated
+                                                    }
+                                                    idMal={anime.idMal}
+                                                    inList={!!item}
+                                                    episodesWatched={
+                                                        item?.episodesWatched
+                                                    }
+                                                    status={
+                                                        item?.status ?? "watching"
+                                                    }
+                                                    score={item?.score ?? 0}
+                                                    nextEpisode={
+                                                        anime.nextAiringEpisode
+                                                            ?.episode
+                                                    }
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center gap-3 py-14 text-center">
