@@ -102,7 +102,7 @@ export default function AnimeCard({
         <div
           className={clsx(
             "absolute inset-0",
-            "bg-gradient-to-t from-bg-primary/90 via-bg-primary/30 to-transparent",
+            "bg-gradient-to-t from-overlay-dark/90 via-overlay-dark/30 to-transparent",
             "opacity-0 group-hover:opacity-100",
             "transition-opacity duration-normal",
             "flex items-end justify-center pb-4"
@@ -131,7 +131,7 @@ export default function AnimeCard({
           <div
             className={clsx(
               "absolute bottom-0 left-0 right-0",
-              "h-1 bg-bg-primary/50 backdrop-blur-sm"
+              "h-1 bg-overlay-dark/50 backdrop-blur-sm"
             )}
           >
             <div

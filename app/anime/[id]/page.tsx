@@ -79,7 +79,7 @@ export default async function page({ params }: Props) {
             />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mt-48 lg:mt-56 flex flex-col lg:flex-row gap-4 lg:gap-8 bg-bg-secondary border border-border-default rounded-2xl shadow-2xl p-6">
+                <div className="anime-detail-card mt-48 lg:mt-56 flex flex-col lg:flex-row gap-4 lg:gap-8 bg-bg-secondary border border-border-default rounded-2xl shadow-2xl p-6">
                     <div className="contents lg:flex lg:flex-col lg:w-80 lg:shrink-0 gap-4">
                         <div className="order-1 lg:order-none flex justify-center lg:justify-start">
                             {anime.coverImage?.extraLarge && (

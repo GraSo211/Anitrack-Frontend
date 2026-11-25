@@ -21,9 +21,9 @@ export default function Hero({ bannerImage, title, colorBg }: Props) {
                         preload
                     />
 
-                    <div className="absolute inset-0 bg-linear-to-b from-overlay-dark/70 via-overlay-dark/40 to-overlay-dark/90" />
+                    <div className="anime-hero-overlay absolute inset-0 bg-linear-to-b from-overlay-dark/70 via-overlay-dark/40 to-overlay-dark/90" />
 
-                    <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg-primary to-transparent" />
+                    <div className="anime-hero-fade absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg-primary to-transparent" />
                 </>
             )}
             {!bannerImage && colorBg && (

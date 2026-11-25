@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-    return <div className="w-full flex justify-center items-center py-10">
-        <LoginForm></LoginForm>
-    </div>;
+    return (
+        <div className="min-h-[calc(100dvh-var(--header-height))] w-full flex items-center justify-center px-4 py-10">
+            <div className="w-full max-w-md rounded-2xl border border-border-default bg-bg-secondary p-8 shadow-xl">
+                <LoginForm />
+            </div>
+        </div>
+    );
 }

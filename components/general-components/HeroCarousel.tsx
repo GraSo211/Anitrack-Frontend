@@ -50,12 +50,14 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
         setIsPaused((prev) => !prev);
     };
 
+    useEffect(() => {
+        if (reducedMotion) swiperRef.current?.autoplay?.stop();
+    }, [reducedMotion]);
+
     const autoplayConfig =
         hasMultiple && !reducedMotion
             ? { delay: 5000, disableOnInteraction: false }
             : false;
-
-    const effect = reducedMotion ? undefined : "fade";
 
     return (
         <section
@@ -71,7 +73,9 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                             swiperRef.current = swiper;
                         }}
                         modules={[Autoplay, EffectFade, Pagination]}
-                        effect={effect}
+                        effect="fade"
+                        fadeEffect={{ crossFade: true }}
+                        speed={reducedMotion ? 0 : undefined}
                         slidesPerView={1}
                         loop={hasMultiple}
                         autoplay={autoplayConfig}
@@ -81,7 +85,7 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                         {images.map((image, index) => (
                             <SwiperSlide
                                 key={image}
-                                className="relative w-full h-full"
+                                className="relative w-full h-full transition-opacity"
                                 aria-label={`Diapositiva ${index + 1} de ${images.length}`}
                                 aria-roledescription="slide"
                             >
@@ -91,7 +95,7 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                                     fill
                                     preload={index === 0}
                                     loading={index === 0 ? "eager" : "lazy"}
-                                    className="object-cover object-center saturate-[1.3] brightness-[0.85]"
+                                    className="hero-image object-cover object-center saturate-[1.3] brightness-[0.85]"
                                 />
                             </SwiperSlide>
                         ))}
@@ -101,15 +105,19 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                 <div className="absolute inset-0 bg-linear-to-b from-bg-tertiary to-bg-primary -z-20" />
             )}
 
-            {/* Side overlay for text legibility */}
+            {/* Dark mode overlays (kept pixel-identical) */}
             <div
-                className="absolute inset-0 -z-10 bg-linear-to-r from-bg-primary/85 via-bg-primary/50 to-transparent"
+                className="hero-scrim-dark absolute inset-0 -z-10 bg-linear-to-r from-bg-primary/85 via-bg-primary/50 to-transparent"
+                aria-hidden="true"
+            />
+            <div
+                className="hero-scrim-dark absolute inset-x-0 bottom-0 h-40 -z-10 bg-linear-to-t from-bg-primary via-bg-primary/60 to-transparent"
                 aria-hidden="true"
             />
 
-            {/* Bottom fade into theme background */}
+            {/* Light mode overlay: controlled dark scrim that fades to the page bg */}
             <div
-                className="absolute inset-x-0 bottom-0 h-40 -z-10 bg-linear-to-t from-bg-primary via-bg-primary/60 to-transparent"
+                className="hero-scrim-light absolute inset-0 -z-10 pointer-events-none"
                 aria-hidden="true"
             />
 
@@ -139,7 +147,7 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                 </button>
             )}
 
-            <div className="flex flex-col gap-4 max-w-3xl">
+            <div className="hero-content flex flex-col gap-4 max-w-3xl">
                 <h1
                     className="text-3xl font-extrabold tracking-tight md:text-5xl 2xl:text-6xl text-text-primary"
                     aria-label="Anitrack, tu rastreador de anime"
@@ -155,11 +163,11 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                     Sigue tus series, descubre nuevos animes y mantente al día con las últimas tendencias en el mundo del anime.
                 </p>
 
-                <div className="flex gap-3 mt-6 2xl:gap-6">
+                <div className="flex flex-wrap gap-3 mt-6 2xl:gap-6">
                     <Link
                         href="/animes"
                         className={clsx(
-                            "text-sm px-4 py-3 rounded-xl transition-all shadow-lg",
+                            "hero-btn-primary text-sm px-4 py-3 rounded-xl transition-all shadow-lg",
                             "bg-bg-secondary/60 backdrop-blur-md border border-border-default text-text-primary",
                             "2xl:px-6 2xl:text-base",
                             "hover:bg-bg-tertiary/80 hover:border-border-strong"
@@ -171,7 +179,7 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                     <Link
                         href={isAuthenticated ? "/mi-lista" : "/iniciar-sesion"}
                         className={clsx(
-                            "text-sm px-4 py-3 rounded-xl transition-all shadow",
+                            "hero-btn-secondary text-sm px-4 py-3 rounded-xl transition-all shadow",
                             "bg-bg-primary/40 backdrop-blur-md border border-border-default/60 text-text-primary",
                             "2xl:px-6 2xl:text-base",
                             "hover:bg-bg-secondary/60 hover:border-border-default"

@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F2EEE6" },
+    { media: "(prefers-color-scheme: light)", color: "#F8F6F2" },
     { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
   width: "device-width",
@@ -69,6 +69,13 @@ export default async function RootLayout({
 
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var s=(JSON.parse(localStorage.getItem("theme-storage")||"{}").state||{}).theme;var t=s==="light"||s==="dark"?s:(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t}catch(e){}`,
+          }}
+        />
+      </head>
       <body
         className={`${montserrat.variable} ${montserrat.className} antialiased grid grid-rows-[auto_1fr_auto] min-h-dvh bg-bg text-text`}
       >

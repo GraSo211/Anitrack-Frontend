@@ -280,10 +280,10 @@ export default function AiringAnimeDay({
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
 
-                                <div className="absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/25 to-transparent" />
+                                <div className="airing-card-overlay absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/25 to-transparent" />
 
                                 {airing && (
-                                    <span className="absolute top-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-bg-primary/85 px-1.5 py-0.5 text-caption font-semibold text-text-primary backdrop-blur-sm">
+                                    <span className="airing-ep-badge absolute top-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-bg-primary/85 px-1.5 py-0.5 text-caption font-semibold text-text-primary backdrop-blur-sm">
                                         <CiClock2 aria-hidden="true" />
                                         EP {airing.episode}
                                     </span>
@@ -298,7 +298,7 @@ export default function AiringAnimeDay({
 
                                 <div className="absolute bottom-0 inset-x-0 z-10 p-2.5 flex flex-col gap-1.5">
                                     <h3
-                                        className="text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md"
+                                        className="airing-card-title text-body-sm font-semibold text-text-primary line-clamp-2 drop-shadow-md"
                                         title={title}
                                     >
                                         {title}
@@ -307,7 +307,7 @@ export default function AiringAnimeDay({
                                     {airing && (
                                         <div className="flex flex-wrap items-center gap-1.5">
                                             <span
-                                                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption font-semibold backdrop-blur-sm ${
+                                                className={`airing-countdown-pill inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption font-semibold backdrop-blur-sm ${
                                                     isSoon
                                                         ? "bg-accent-tertiary/25 text-accent-tertiary"
                                                         : "bg-accent-primary/25 text-accent-primary"
@@ -323,7 +323,7 @@ export default function AiringAnimeDay({
                                                     airing.timeUntilAiring,
                                                 )}
                                             </span>
-                                            <span className="inline-flex items-center gap-1 rounded-full bg-bg-primary/70 px-2 py-0.5 text-caption font-semibold text-text-secondary backdrop-blur-sm">
+                                            <span className="airing-time-pill inline-flex items-center gap-1 rounded-full bg-bg-primary/70 px-2 py-0.5 text-caption font-semibold text-text-secondary backdrop-blur-sm">
                                                 {formatHHMM(airing.airingAt)}
                                             </span>
                                         </div>

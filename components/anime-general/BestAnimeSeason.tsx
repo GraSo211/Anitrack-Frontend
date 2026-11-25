@@ -39,8 +39,8 @@ export default async function BestAnimeSeason() {
                     <h3 className="text-xl  lg:text-2xl font-bold drop-shadow-lg">{title}</h3>
 
                     <div className="flex gap-3 mt-2">
-                        <span className="px-3 py-1 text-sm bg-bg-quaternary/80 border border-border-default rounded-full flex items-center gap-1"><FaStar aria-hidden="true" /> {anime.averageScore ?? "—"}</span>
-                        <span className="px-3 py-1 text-sm bg-bg-tertiary/80 border border-border-default rounded-full flex items-center gap-1"><FaFireAlt aria-hidden="true" /> {anime.popularity?.toLocaleString() ?? "—"}</span>
+                        <span className="best-anime-chip-score px-3 py-1 text-sm bg-bg-quaternary/80 border border-border-default rounded-full flex items-center gap-1"><FaStar aria-hidden="true" /> {anime.averageScore ?? "—"}</span>
+                        <span className="best-anime-chip-popularity px-3 py-1 text-sm bg-bg-tertiary/80 border border-border-default rounded-full flex items-center gap-1"><FaFireAlt aria-hidden="true" /> {anime.popularity?.toLocaleString() ?? "—"}</span>
                     </div>
                 </div>
 

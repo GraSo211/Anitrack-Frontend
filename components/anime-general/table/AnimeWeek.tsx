@@ -195,7 +195,7 @@ export default function AnimeWeek({
                                     {isTodayDay && (
                                         <span
                                             className={`
-                                                hidden lg:inline-flex text-caption font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full
+                                                day-tab-hoy hidden lg:inline-flex text-caption font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full
                                                 ${
                                                     isActive
                                                         ? "bg-surface-light/20 text-text-light"

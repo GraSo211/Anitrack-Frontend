@@ -3,6 +3,7 @@ import { Genre } from '@/types/anime/Genre';
 import { Tag } from '@/types/anime/Tag';
 import React, { useState, useRef, useEffect, useId } from "react";
 import { FaTags } from "react-icons/fa";
+import { FiChevronDown } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { TbRating18Plus } from "react-icons/tb";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -105,6 +106,13 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
     (_, i) => (new Date().getFullYear() + 1) - i
   );
 
+  const hasActiveFilters =
+    genreSelected.length > 0 ||
+    tagSelected.length > 0 ||
+    !!yearSelected ||
+    !!seasonSelected ||
+    !!statusSelected;
+
   return (
 
     <div ref={filterRef} className="flex flex-col gap-3 rounded-xl p-6 mb-4">
@@ -118,24 +126,27 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
             id={genreTriggerId}
             aria-expanded={openFilter === 'genres'}
             aria-controls={genreListId}
-            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center justify-between text-text-primary select-none flex gap-1 pr-2 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
             onClick={() => toggleFilter('genres')}
           >
-            {!genreSelected[0] &&
-              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
-            }
+            <span className='flex items-center gap-1'>
+              {!genreSelected[0] &&
+                <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
+              }
 
-            {genreSelected[0] &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
-                {genreSelected[0]}
-              </span>
-            }
+              {genreSelected[0] &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
+                  {genreSelected[0]}
+                </span>
+              }
 
-            {genreSelected.length > 1 &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold px-1'>
-                +{genreSelected.length - 1}
-              </span>
-            }
+              {genreSelected.length > 1 &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold px-1'>
+                  +{genreSelected.length - 1}
+                </span>
+              }
+            </span>
+            <FiChevronDown className="w-4 h-4 text-text-tertiary shrink-0" aria-hidden="true" />
           </button>
 
           {openFilter === 'genres' && (
@@ -182,24 +193,27 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
             id={tagTriggerId}
             aria-expanded={openFilter === 'tags'}
             aria-controls={tagListId}
-            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center justify-between text-text-primary select-none flex gap-1 pr-2 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
             onClick={() => toggleFilter('tags')}
           >
-            {!tagSelected[0] &&
-              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
-            }
+            <span className='flex items-center gap-1'>
+              {!tagSelected[0] &&
+                <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
+              }
 
-            {tagSelected[0] &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
-                {tagSelected[0]}
-              </span>
-            }
+              {tagSelected[0] &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
+                  {tagSelected[0]}
+                </span>
+              }
 
-            {tagSelected.length > 1 &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold px-1'>
-                +{tagSelected.length - 1}
-              </span>
-            }
+              {tagSelected.length > 1 &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold px-1'>
+                  +{tagSelected.length - 1}
+                </span>
+              }
+            </span>
+            <FiChevronDown className="w-4 h-4 text-text-tertiary shrink-0" aria-hidden="true" />
           </button>
 
           {openFilter === 'tags' && (
@@ -275,18 +289,21 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
             id={yearTriggerId}
             aria-expanded={openFilter === 'year'}
             aria-controls={yearListId}
-            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center justify-between text-text-primary select-none flex gap-1 pr-2 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
             onClick={() => toggleFilter('year')}
           >
-            {!yearSelected &&
-              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
-            }
+            <span className='flex items-center gap-1'>
+              {!yearSelected &&
+                <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
+              }
 
-            {yearSelected &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
-                {yearSelected}
-              </span>
-            }
+              {yearSelected &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
+                  {yearSelected}
+                </span>
+              }
+            </span>
+            <FiChevronDown className="w-4 h-4 text-text-tertiary shrink-0" aria-hidden="true" />
           </button>
 
           {openFilter === 'year' && (
@@ -322,18 +339,21 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
             id={seasonTriggerId}
             aria-expanded={openFilter === 'season'}
             aria-controls={seasonListId}
-            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center justify-between text-text-primary select-none flex gap-1 pr-2 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
             onClick={() => toggleFilter('season')}
           >
-            {!seasonSelected &&
-              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
-            }
+            <span className='flex items-center gap-1'>
+              {!seasonSelected &&
+                <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
+              }
 
-            {seasonSelected &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
-                {seasonSelected}
-              </span>
-            }
+              {seasonSelected &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
+                  {seasonSelected}
+                </span>
+              }
+            </span>
+            <FiChevronDown className="w-4 h-4 text-text-tertiary shrink-0" aria-hidden="true" />
           </button>
 
           {openFilter === 'season' && (
@@ -369,18 +389,21 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
             id={statusTriggerId}
             aria-expanded={openFilter === 'status'}
             aria-controls={statusListId}
-            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center text-text-primary select-none flex gap-1 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
+            className='cursor-pointer w-full bg-bg-tertiary border border-border-default py-1.5 rounded-md items-center justify-between text-text-primary select-none flex gap-1 pr-2 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary'
             onClick={() => toggleFilter('status')}
           >
-            {!statusSelected &&
-              <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
-            }
+            <span className='flex items-center gap-1'>
+              {!statusSelected &&
+                <span className='text-text-tertiary text-sm font-semibold pl-2'>Cualquiera</span>
+              }
 
-            {statusSelected &&
-              <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
-                {statusSelected}
-              </span>
-            }
+              {statusSelected &&
+                <span className='rounded-md bg-bg-quaternary text-sm font-semibold ml-2 px-1'>
+                  {statusSelected}
+                </span>
+              }
+            </span>
+            <FiChevronDown className="w-4 h-4 text-text-tertiary shrink-0" aria-hidden="true" />
           </button>
 
           {openFilter === 'status' && (
@@ -413,7 +436,7 @@ export default function Filters({ genres, tags, genreSelected, tagSelected, year
       {/* Selected Filters */}
 
       <div className='flex gap-2 items-center w-fit flex-wrap'>
-        <FaTags className="text-text-secondary" aria-hidden="true" />
+        {hasActiveFilters && <FaTags className="text-text-secondary" aria-hidden="true" />}
         {genreSelected.filter((v): v is string => !!v).map((f, index) => (
           <button
             type="button"

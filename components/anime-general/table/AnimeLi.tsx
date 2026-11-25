@@ -42,7 +42,7 @@ export default function AnimeLi({
                 className="relative flex flex-col w-full h-full justify-end items-start"
             >
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-overlay-dark/30 to-overlay-dark/90 z-20" />
-                <span className="absolute top-1 left-1 z-20 inline-flex items-center gap-0.5 rounded-md bg-bg-primary/85 px-0.5 py-0.5 text-[10px] sm:text-[11px] lg:text-caption font-semibold text-text-primary backdrop-blur-sm">
+                <span className="anime-li-ep-badge absolute top-1 left-1 z-20 inline-flex items-center gap-0.5 rounded-md bg-bg-primary/85 px-0.5 py-0.5 text-[10px] sm:text-[11px] lg:text-caption font-semibold text-text-primary backdrop-blur-sm">
                     <CiClock2 aria-hidden="true" className="w-3 h-3" />
                     EP {episode}
                 </span>
