@@ -34,7 +34,7 @@ export default function AnimeLi({
     nextEpisode,
 }: Props) {
     return (
-        <div className="group relative flex flex-col items-center bg-bg-secondary text-text-primary text-pretty min-h-28 aspect-[3/4] overflow-hidden rounded-lg border border-border-default card-hover">
+        <div className="group relative flex flex-col items-center bg-bg-secondary text-text-primary text-pretty aspect-[2/3] overflow-hidden rounded-lg border border-border-default card-hover">
             <Link
                 href={`/anime/a-${id}`}
                 aria-label={title}

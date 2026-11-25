@@ -25,7 +25,7 @@ export default function Loading() {
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
                         {Array.from({ length: 10 }).map((_, i) => (
-                            <Skeleton key={i} className="aspect-[3/4] w-full rounded-xl" />
+                            <Skeleton key={i} className="aspect-[2/3] w-full rounded-xl" />
                         ))}
                     </div>
                 </div>

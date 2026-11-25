@@ -253,7 +253,7 @@ export default function AnimeWeek({
                         className="animate-fade-in motion-reduce:animate-none"
                     >
                         {selectedDayAnimes.length > 0 ? (
-                            <div className="max-h-[calc(2*(100cqw_-_10px_-_(var(--cols)_-_1)*var(--gap))/var(--cols)*4/3_+_var(--gap))] overflow-y-auto overflow-x-hidden [scrollbar-gutter:stable] [--cols:3] [--gap:6px] sm:[--cols:5] sm:[--gap:8px] lg:[--cols:7] xl:[--cols:10]">
+                            <div className="max-h-[calc(2*(100cqw_-_10px_-_(var(--cols)_-_1)*var(--gap))/var(--cols)*3/2_+_var(--gap))] overflow-y-auto overflow-x-hidden [scrollbar-gutter:stable] [--cols:3] [--gap:6px] sm:[--cols:4] sm:[--gap:8px] md:[--cols:5] xl:[--cols:7] 2xl:[--cols:8]">
                                 <div className="grid grid-cols-[repeat(var(--cols),minmax(0,1fr))] gap-[var(--gap)]">
                                     {selectedDayAnimes.map((anime, index) => {
                                         const item =
