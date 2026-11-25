@@ -794,7 +794,13 @@ body {
 /* Anime list carousel: reserve the final slide width before Swiper hydrates.
    Mirrors slidesPerView/spaceBetween in AnimeListCarousel.tsx. */
 .anime-carousel .swiper-slide {
-    width: calc((100% - 16px) / 3);
+    width: calc((100% - 12px) / 2);
+}
+
+@media (min-width: 520px) {
+    .anime-carousel .swiper-slide {
+        width: calc((100% - 16px) / 3);
+    }
 }
 
 @media (min-width: 768px) {
@@ -815,31 +821,121 @@ body {
     }
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-    color: var(--text-primary) !important;
-    background: var(--bg-secondary) !important;
-    backdrop-filter: blur(8px);
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 50% !important;
-    box-shadow: var(--shadow-lg);
-    transition: all 0.2s ease;
-    border: 1px solid var(--border-default);
+.anime-carousel {
+    position: relative;
 }
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
+
+.anime-carousel::before,
+.anime-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 64px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.anime-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-primary), transparent);
+}
+
+.anime-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-primary), transparent);
+}
+
+.anime-carousel .swiper-button-next,
+.anime-carousel .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    width: 44px !important;
+    height: 44px !important;
+    margin-top: -22px;
+    color: var(--text-primary) !important;
+    background: color-mix(in srgb, var(--bg-secondary) 72%, transparent) !important;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--radius-pill) !important;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    transition: transform var(--duration-fast) var(--ease-spring),
+                background-color var(--duration-fast) var(--ease-default),
+                border-color var(--duration-fast) var(--ease-default),
+                color var(--duration-fast) var(--ease-default),
+                box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.anime-carousel .swiper-button-prev {
+    left: 8px;
+}
+
+.anime-carousel .swiper-button-next {
+    right: 8px;
+}
+
+.anime-carousel .swiper-button-next .swiper-navigation-icon,
+.anime-carousel .swiper-button-prev .swiper-navigation-icon {
+    width: 10px;
+    height: 18px;
+}
+
+.anime-carousel .swiper-button-next:hover,
+.anime-carousel .swiper-button-prev:hover {
+    transform: scale(1.06);
+    color: var(--text-light) !important;
     background: var(--accent-primary) !important;
+    border-color: var(--accent-primary) !important;
     box-shadow: var(--shadow-glow);
 }
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    font-size: 16px !important;
-    font-weight: 700;
+
+.anime-carousel .swiper-button-next:active,
+.anime-carousel .swiper-button-prev:active {
+    transform: scale(0.96);
+    background: var(--accent-primary-active) !important;
+    border-color: var(--accent-primary-active) !important;
 }
-.swiper-button-disabled {
-    opacity: 0.3 !important;
-    cursor: default;
+
+.anime-carousel .swiper-button-next:focus-visible,
+.anime-carousel .swiper-button-prev:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.anime-carousel .swiper-button-disabled {
+    opacity: 0.35 !important;
+    pointer-events: none;
+    transform: none;
+    color: var(--text-muted) !important;
+    background: color-mix(in srgb, var(--bg-secondary) 48%, transparent) !important;
+    border-color: var(--border-subtle) !important;
+    box-shadow: none;
+}
+
+[data-theme="light"] .anime-carousel .swiper-button-next,
+[data-theme="light"] .anime-carousel .swiper-button-prev {
+    background: color-mix(in srgb, var(--bg-secondary) 86%, transparent) !important;
+}
+
+[data-theme="light"] .anime-carousel .swiper-button-disabled {
+    background: color-mix(in srgb, var(--bg-secondary) 64%, transparent) !important;
+}
+
+@media (max-width: 767px) {
+    .anime-carousel .swiper-button-next,
+    .anime-carousel .swiper-button-prev {
+        display: none !important;
+    }
+
+    .anime-carousel::before,
+    .anime-carousel::after {
+        display: none;
+    }
 }
 
 /* Pagination bullets sutiles (hero) */

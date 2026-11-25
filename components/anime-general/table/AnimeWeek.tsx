@@ -105,12 +105,12 @@ export default function AnimeWeek({
                 </div>
             )}
 
-            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 min-w-0">
                 <div
                     role="tablist"
                     aria-label="Días de emisión"
                     onKeyDown={handleKeyDown}
-                    className="flex flex-row lg:flex-col gap-2 lg:w-56 lg:shrink-0 lg:sticky lg:top-24 lg:self-start overflow-x-auto lg:overflow-visible pb-1 lg:pb-0"
+                    className="flex flex-row lg:flex-col gap-2 lg:w-56 lg:shrink-0 lg:sticky lg:top-24 lg:self-start overflow-x-auto lg:overflow-visible pb-1 lg:pb-0 min-w-0"
                 >
                     {AIRING_DAYS.map((day, index) => {
                         const count = countByDay(day.key);

@@ -66,8 +66,8 @@ export default function AnimeListCarousel({ animes }: Props) {
                 className="anime-carousel"
                 onSwiper={setSwiperInstance}
                 modules={[Autoplay, Navigation]}
-                slidesPerView={3}
-                spaceBetween={8}
+                slidesPerView={2}
+                spaceBetween={12}
                 loop
                 autoplay={reducedMotion ? false : { pauseOnMouseEnter: true }}
                 navigation

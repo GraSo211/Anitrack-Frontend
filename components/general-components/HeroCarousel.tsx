@@ -15,9 +15,10 @@ import "swiper/css/pagination";
 
 interface Props {
     images: string[];
+    isAuthenticated?: boolean;
 }
 
-export default function HeroCarousel({ images }: Props) {
+export default function HeroCarousel({ images, isAuthenticated = false }: Props) {
     const hasMultiple = images.length > 1;
     const swiperRef = useRef<SwiperType | null>(null);
     const [isPaused, setIsPaused] = useState(false);
@@ -168,7 +169,7 @@ export default function HeroCarousel({ images }: Props) {
                     </Link>
 
                     <Link
-                        href="/iniciar-sesion"
+                        href={isAuthenticated ? "/mi-lista" : "/iniciar-sesion"}
                         className={clsx(
                             "text-sm px-4 py-3 rounded-xl transition-all shadow",
                             "bg-bg-primary/40 backdrop-blur-md border border-border-default/60 text-text-primary",
@@ -176,7 +177,7 @@ export default function HeroCarousel({ images }: Props) {
                             "hover:bg-bg-secondary/60 hover:border-border-default"
                         )}
                     >
-                        Iniciar Sesión
+                        {isAuthenticated ? "Mi Lista" : "Iniciar Sesión"}
                     </Link>
                 </div>
             </div>

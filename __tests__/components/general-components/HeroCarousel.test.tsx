@@ -42,6 +42,13 @@ describe('HeroCarousel Component', () => {
         expect(screen.getByText('Iniciar Sesión')).toBeInTheDocument();
     });
 
+    it('should replace login link with Mi Lista when authenticated', () => {
+        render(<HeroCarousel images={['https://res.cloudinary.com/test/hero-1.jpg']} isAuthenticated />);
+
+        expect(screen.getByText('Mi Lista')).toBeInTheDocument();
+        expect(screen.queryByText('Iniciar Sesión')).not.toBeInTheDocument();
+    });
+
     it('should render the images provided', () => {
         const images = [
             'https://res.cloudinary.com/test/hero-1.jpg',

@@ -80,7 +80,7 @@ export default async function RootLayout({
         <Header isAuthenticated={isAuthenticated} />
         <SideBar isAuthenticated={isAuthenticated} />
 
-        <main id="main-content" className="w-full  focus:outline-none " tabIndex={-1}>
+        <main id="main-content" className="w-full min-w-0 focus:outline-none" tabIndex={-1}>
           {children}
         </main>
 
