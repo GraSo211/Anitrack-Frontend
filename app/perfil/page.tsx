@@ -6,6 +6,7 @@ import { cache } from "react";
 import Link from "next/link";
 import { FiAlertCircle } from "react-icons/fi";
 import { getCurrentUser } from "@/actions/user/getCurrentUser";
+import { getAnimeListEnriched } from "@/actions/anime-list/getAnimeListEnriched";
 import ProfileView from "@/components/user/ProfileView";
 import EmptyState from "@/components/general-components/EmptyState";
 import { User } from "@/types/user/User";
@@ -43,7 +44,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   await connection();
 
-  const user = await getProfileUser();
+  const token = (await cookies()).get("access_token")?.value;
+
+  const [user, enriched] = await Promise.all([
+    getProfileUser(),
+    token ? getAnimeListEnriched(token) : Promise.resolve(null),
+  ]);
 
   if (!user) {
     return (
@@ -65,5 +71,5 @@ export default async function Page() {
     );
   }
 
-  return <ProfileView user={user} />;
+  return <ProfileView user={user} animeList={enriched?.animeList ?? null} />;
 }

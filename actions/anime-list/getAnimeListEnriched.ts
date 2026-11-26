@@ -8,6 +8,9 @@ export type EnrichedAnimeItem = AnimeItem & {
   season: string;
   seasonYear: number | null;
   animeStatus: string;
+  episodes?: number | null;
+  studio?: string | null;
+  averageScore?: number | null;
 };
 
 export type EnrichedAnimeList = {
@@ -62,6 +65,9 @@ async function enrichItems(items: AnimeItem[]): Promise<EnrichedAnimeItem[]> {
       season: detail?.season ?? "",
       seasonYear: detail?.seasonYear ?? null,
       animeStatus: detail?.status ?? "",
+      episodes: detail?.episodes ?? null,
+      studio: detail?.studio ?? null,
+      averageScore: detail?.averageScore ?? null,
     };
   });
 }
