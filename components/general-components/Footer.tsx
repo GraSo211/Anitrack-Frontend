@@ -2,40 +2,9 @@ import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import { SiAnilist, SiMyanimelist } from "react-icons/si";
 
-const GLYPHS = "V ^ < > | = + * ~ \\ / - _ . , ; : ! ? @ # $ % & ( ) [ ] { }";
-
-function GlyphBand() {
-    const line = (seed: number) => {
-        let result = "";
-        const chars = GLYPHS.split("").filter((c) => c !== " ");
-        const count = 320;
-        for (let i = 0; i < count; i++) {
-            const idx = (i * 7 + seed * 13) % chars.length;
-            result += chars[idx];
-            if (i % 6 === 5) result += " ";
-        }
-        return result;
-    };
-
-    return (
-        <div
-            aria-hidden="true"
-            className="w-full overflow-hidden bg-bg-secondary select-none"
-        >
-            <div className="max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-2 text-accent-primary/70 [[data-theme=light]_&]:text-accent-primary/50">
-                <p className="font-mono text-[10px] sm:text-xs leading-none whitespace-nowrap overflow-hidden truncate">{line(0)}</p>
-                <p className="font-mono text-[10px] sm:text-xs leading-none whitespace-nowrap overflow-hidden truncate">{line(1)}</p>
-                <p className="font-mono text-[10px] sm:text-xs leading-none whitespace-nowrap overflow-hidden truncate">{line(2)}</p>
-            </div>
-        </div>
-    );
-}
-
 export default function Footer() {
     return (
         <footer className="bg-bg-secondary min-w-0">
-            <GlyphBand />
-
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 lg:pt-20 pb-10 lg:pb-12">
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-16 lg:gap-12">
                     <p className="text-2xl sm:text-3xl lg:text-4xl font-medium text-text-primary leading-tight max-w-[38ch]">
