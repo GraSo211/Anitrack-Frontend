@@ -560,6 +560,22 @@ body {
   display: none;
 }
 
+/* Bottom fade into the page background (dark mode uses its own shadow depth) */
+.hero-scrim-bottom {
+  display: none;
+}
+
+[data-theme="dark"] .hero-scrim-bottom {
+  display: block;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--overlay-dark) 66%, transparent) 48%,
+    var(--bg-primary) 100%
+  );
+}
+
 .hero-scrim-light {
   display: none;
 }
