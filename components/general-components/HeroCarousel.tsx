@@ -111,7 +111,7 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                 aria-hidden="true"
             />
             <div
-                className="hero-scrim-dark absolute inset-x-0 bottom-0 h-40 -z-10 bg-linear-to-t from-bg-primary via-bg-primary/60 to-transparent"
+                className="hero-scrim-dark absolute inset-x-0 bottom-0 h-[40%] -z-10 bg-linear-to-t from-bg-primary via-bg-primary/70 to-transparent"
                 aria-hidden="true"
             />
 
@@ -123,7 +123,7 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
 
             {/* Aurora ambient layer */}
             <div
-                className="absolute inset-0 z-[-5] hero-aurora pointer-events-none"
+                className="absolute inset-0 hero-aurora pointer-events-none"
                 aria-hidden="true"
             />
 

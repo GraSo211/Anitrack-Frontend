@@ -577,6 +577,9 @@ body {
 
 [data-theme="light"] .hero-aurora {
   opacity: 0.25;
+  /* En claro el aurora va sobre los scrims; en oscuro queda debajo para que el
+     degradado inferior termine en negro limpio y no deje una línea azul. */
+  z-index: -5;
 }
 
 [data-theme="light"] .hero-image {
@@ -906,6 +909,7 @@ body {
   background-repeat: no-repeat;
   animation: aurora 14s var(--ease-default) infinite alternate;
   opacity: 0.4;
+  z-index: -15;
 }
 
 @keyframes breathe {
