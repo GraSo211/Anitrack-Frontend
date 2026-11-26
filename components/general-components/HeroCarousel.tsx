@@ -105,13 +105,13 @@ export default function HeroCarousel({ images, isAuthenticated = false }: Props)
                 <div className="absolute inset-0 bg-linear-to-b from-bg-tertiary to-bg-primary -z-20" />
             )}
 
-            {/* Dark mode overlays */}
+            {/* Dark mode overlays (kept pixel-identical) */}
             <div
                 className="hero-scrim-dark absolute inset-0 -z-10 bg-linear-to-r from-bg-primary/85 via-bg-primary/50 to-transparent"
                 aria-hidden="true"
             />
             <div
-                className="hero-scrim-bottom absolute inset-x-0 bottom-0 -z-10"
+                className="hero-scrim-dark absolute inset-x-0 bottom-0 h-40 -z-10 bg-linear-to-t from-bg-primary via-bg-primary/60 to-transparent"
                 aria-hidden="true"
             />
 
