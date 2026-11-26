@@ -560,22 +560,6 @@ body {
   display: none;
 }
 
-/* Bottom fade into the page background (dark mode uses its own shadow depth) */
-.hero-scrim-bottom {
-  display: none;
-}
-
-[data-theme="dark"] .hero-scrim-bottom {
-  display: block;
-  height: 50%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    color-mix(in srgb, var(--overlay-dark) 66%, transparent) 48%,
-    var(--bg-primary) 100%
-  );
-}
-
 .hero-scrim-light {
   display: none;
 }
@@ -905,17 +889,21 @@ body {
 
 @keyframes aurora {
   0% {
-    transform: translate3d(-5%, -5%, 0) scale(1);
+    background-position: 0% 0%;
   }
   100% {
-    transform: translate3d(5%, 5%, 0) scale(1.15);
+    background-position: 100% 100%;
   }
 }
 
+/* Animates its own background (not a transform) so the layer always covers the
+   hero; a transformed layer leaves its right/bottom edge visible in dark mode. */
 .hero-aurora {
   background-image:
     radial-gradient(circle at 20% 30%, var(--accent-primary-glow), transparent 60%),
     radial-gradient(circle at 80% 70%, var(--accent-secondary-subtle), transparent 60%);
+  background-size: 120% 120%;
+  background-repeat: no-repeat;
   animation: aurora 14s var(--ease-default) infinite alternate;
   opacity: 0.4;
 }
