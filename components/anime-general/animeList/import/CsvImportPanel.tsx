@@ -469,11 +469,14 @@ export default function CsvImportPanel({ isOpen, onClose }: CsvImportPanelProps)
               <div className="mb-4 rounded-lg border border-border-subtle bg-bg-tertiary/50 px-4 py-3">
                 <p className="text-body-sm text-text-secondary">
                   Primera columna: nombre del anime. Después, una calificación (1 a 10) por temporada, en orden de
-                  emisión. Las celdas vacías no se modifican en MAL. El encabezado es opcional.
+                  emisión. Las celdas vacías no se modifican en MAL. Usá <code>-</code> o <code>x</code> para marcar
+                  una temporada vista sin nota; si la fila no trae ninguna nota, se marca completado solo el anime
+                  que encuentre la búsqueda, sin calificación. El encabezado es opcional.
                 </p>
                 <pre className="mt-2 overflow-x-auto text-caption text-text-tertiary">
 {`nombre;calificacion_1;calificacion_2
-Boku no Hero Academia;8;9`}
+Boku no Hero Academia;8;-
+Frieren`}
                 </pre>
               </div>
               <div
@@ -880,7 +883,8 @@ function SeasonRow({ season, included, overwrite }: SeasonRowProps) {
             {actionLabels[season.action]}
           </span>
           <span className="text-caption text-text-secondary">
-            {season.episodes ? `${season.episodes} eps` : "? eps"} · {season.score}
+            {season.episodes ? `${season.episodes} eps` : "? eps"} ·{" "}
+            {season.score > 0 ? season.score : "Sin nota"}
           </span>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-3">
