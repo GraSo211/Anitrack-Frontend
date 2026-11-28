@@ -119,6 +119,29 @@ describe("CsvImportPanel preview step", () => {
     expect(screen.getByRole("button", { name: /Sincronizar 1 entradas/i })).toBeInTheDocument();
   });
 
+  it("muestra el motivo de las filas que no se pudieron cargar", async () => {
+    mockedCreateImportJob.mockResolvedValueOnce({
+      ...previewJob,
+      rows: [
+        ...previewJob.rows,
+        {
+          rowNumber: 3,
+          title: "Anime roto",
+          status: "INVALID",
+          message: "No se pudo cargar: MAL no encontró ese anime (404)",
+          candidates: [],
+          seasons: [],
+        },
+      ],
+      counts: { ...previewJob.counts, rows: 3 },
+    });
+
+    await uploadFile();
+
+    expect(screen.getByText("Con error (1)")).toBeInTheDocument();
+    expect(screen.getByText(/MAL no encontró ese anime \(404\)/)).toBeInTheDocument();
+  });
+
   it("el reporte lista los omitidos con imagen y motivo", async () => {
     const doneJob: ImportJobView = {
       ...previewJob,

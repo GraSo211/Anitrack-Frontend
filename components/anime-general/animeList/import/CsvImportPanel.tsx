@@ -368,6 +368,7 @@ export default function CsvImportPanel({ isOpen, onClose }: CsvImportPanelProps)
         readyRows: [],
         ambiguousRows: [],
         notFoundRows: [],
+        invalidRows: [],
         problemRows: [],
         selectedCount: 0,
         conflictCount: 0,
@@ -378,6 +379,7 @@ export default function CsvImportPanel({ isOpen, onClose }: CsvImportPanelProps)
     const readyRows: PreviewRow[] = [];
     const ambiguousRows: PreviewRow[] = [];
     const notFoundRows: PreviewRow[] = [];
+    const invalidRows: PreviewRow[] = [];
     const problemRows: PreviewRow[] = [];
 
     let selectedCount = 0;
@@ -386,6 +388,7 @@ export default function CsvImportPanel({ isOpen, onClose }: CsvImportPanelProps)
     (job.rows ?? []).forEach((row) => {
       if (row.status === "AMBIGUOUS") ambiguousRows.push(row);
       else if (row.status === "NOT_FOUND") notFoundRows.push(row);
+      else if (row.status === "INVALID") invalidRows.push(row);
       else if (row.status === "READY" || row.status === "PARTIAL") readyRows.push(row);
 
       if (row.seasons.some((s) => s.error)) problemRows.push(row);
@@ -403,6 +406,7 @@ export default function CsvImportPanel({ isOpen, onClose }: CsvImportPanelProps)
       readyRows,
       ambiguousRows,
       notFoundRows,
+      invalidRows,
       problemRows,
       selectedCount,
       conflictCount,
@@ -617,6 +621,22 @@ Frieren`}
                 </section>
               )}
 
+              {derived.invalidRows.length > 0 && (
+                <section className="mb-6">
+                  <h3 className="text-heading-sm font-semibold text-text-primary mb-3">
+                    Con error ({derived.invalidRows.length})
+                  </h3>
+                  <p className="text-body-sm text-text-secondary mb-3">
+                    Estas filas no se pudieron cargar y no se van a sincronizar.
+                  </p>
+                  <div className="border border-border-default rounded-lg overflow-hidden max-h-[40vh] overflow-y-auto">
+                    {derived.invalidRows.map((row) => (
+                      <ErrorRowCard key={row.rowNumber} row={row} />
+                    ))}
+                  </div>
+                </section>
+              )}
+
               <div className="flex flex-wrap gap-3 sticky bottom-0 bg-bg-secondary pt-2 pb-1">
                 <Button
                   onClick={handleStart}
@@ -712,6 +732,19 @@ Frieren`}
                 </section>
               )}
 
+              {derived.invalidRows.length > 0 && (
+                <section className="mt-6">
+                  <h4 className="text-body-md font-semibold text-text-primary mb-2">
+                    Con error ({derived.invalidRows.length})
+                  </h4>
+                  <div className="border border-border-default rounded-lg overflow-hidden max-h-[30vh] overflow-y-auto">
+                    {derived.invalidRows.map((row) => (
+                      <ErrorRowCard key={row.rowNumber} row={row} />
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {job.counts.failed > 0 && (
                 <section className="mt-6">
                   <h4 className="text-body-md font-semibold text-text-primary mb-2">Fallidos</h4>
@@ -802,6 +835,23 @@ Frieren`}
         </div>
       </div>
     </>
+  );
+}
+
+function ErrorRowCard({ row }: { row: PreviewRow }) {
+  return (
+    <div className="px-4 py-3 border-b border-border-subtle last:border-b-0 bg-bg-tertiary/50">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-body-sm font-medium text-text-primary truncate">{row.title}</p>
+          <p className="text-caption text-text-muted">Fila {row.rowNumber}</p>
+        </div>
+        <span className={clsx("shrink-0 text-caption px-2 py-0.5 rounded-full", statusClasses[row.status])}>
+          {statusLabels[row.status]}
+        </span>
+      </div>
+      {row.message && <p className="text-caption text-status-error mt-1">{row.message}</p>}
+    </div>
   );
 }
 
