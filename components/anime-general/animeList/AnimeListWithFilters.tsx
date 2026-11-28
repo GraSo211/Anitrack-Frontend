@@ -7,9 +7,11 @@ import type { EnrichedAnimeItem, EnrichedAnimeList } from '@/actions/anime-list/
 import Filters from '@/components/anime-general/filters/Filters';
 import EmptyState from '@/components/general-components/EmptyState';
 import Skeleton from '@/components/general-components/Skeleton';
+import Button from '@/components/general-components/Button';
+import CsvImportPanel from '@/components/anime-general/animeList/import/CsvImportPanel';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { FiInbox } from 'react-icons/fi';
+import { FiInbox, FiUpload } from 'react-icons/fi';
 
 interface Props {
   animeList: EnrichedAnimeList;
@@ -31,6 +33,7 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
   const [yearSelected, setYear] = useState<string>('');
   const [seasonSelected, setSeason] = useState<string>('');
   const [statusSelected, setStatus] = useState<string>('');
+  const [importOpen, setImportOpen] = useState(false);
 
   const filteredItems = useMemo(() => {
     const items = animeList.animeList;
@@ -64,9 +67,19 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
   return (
     <div className="min-h-screen px-6 py-12">
       <div className="max-w-7xl mx-auto w-full">
-        <h1 className="text-4xl font-bold text-center text-text-primary mb-2">
-          Mi Lista
-        </h1>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-2">
+          <h1 className="text-4xl font-bold text-center sm:text-left text-text-primary">
+            Mi Lista
+          </h1>
+          <Button
+            variant="secondary"
+            size="sm"
+            leftIcon={<FiUpload className="w-4 h-4" />}
+            onClick={() => setImportOpen(true)}
+          >
+            Importar CSV
+          </Button>
+        </div>
 
         <Filters
           genres={genres}
@@ -142,6 +155,7 @@ export default function AnimeListWithFilters({ animeList, genres, tags }: Props)
           </>
         )}
       </div>
+      <CsvImportPanel isOpen={importOpen} onClose={() => setImportOpen(false)} />
     </div>
   );
 }

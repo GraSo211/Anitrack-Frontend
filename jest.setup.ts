@@ -21,6 +21,8 @@ jest.mock('next/navigation', () => ({
     forEach: jest.fn(),
   }),
   usePathname: () => '',
+  redirect: jest.fn(),
+  unstable_rethrow: jest.fn(),
 }));
 
 // Mock de next/headers
